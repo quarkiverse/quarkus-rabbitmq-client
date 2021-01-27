@@ -12,7 +12,7 @@ RabbitMQ is a popular message broker. This Quarkus extension provides a client f
 <dependency>
     <groupId>io.quarkiverse.rabbitmqclient</groupId>
     <artifactId>quarkus-rabbitmq-client</artifactId>
-    <version>LATEST</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 

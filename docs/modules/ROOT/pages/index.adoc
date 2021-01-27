@@ -13,6 +13,7 @@ In your `pom.xml` file, add:
 <dependency>
     <groupId>io.quarkiverse</groupId>
     <artifactId>quarkus-rabbitmq-client</artifactId>
+    <version>0.1.0</version>
 </dependency>
 ----
 
