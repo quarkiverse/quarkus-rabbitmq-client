@@ -10,7 +10,7 @@
 
     <groupId>io.quarkiverse.rabbitmqclient</groupId>
     <artifactId>quarkus-rabbitmq-client-parent</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0-SNAPSHOT</version>
     <name>Quarkus RabbitMQ Client - Parent</name>
 
     <packaging>pom</packaging>
@@ -54,8 +54,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
-  <scm>
-    <tag>0.1.0</tag>
-  </scm>
 </project>
