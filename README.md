@@ -4,8 +4,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 This is a Quarkus extension for the [RabbitMQ](https://www.rabbitmq.com/) [Java Client](https://rabbitmq.com/api-guide.html).
 
-Main use of this extension is to be able to inject the client without worrying about the
-complexity related to handling dependencies in case of **native builds**.
+RabbitMQ is a popular message broker. This Quarkus extension provides a client for RabbitMQ which is configurable using the `application.properties`.
 
 ## Coordinates
 
@@ -13,9 +12,85 @@ complexity related to handling dependencies in case of **native builds**.
 <dependency>
     <groupId>io.quarkiverse.rabbitmqclient</groupId>
     <artifactId>quarkus-rabbitmq-client</artifactId>
-    <version>LATEST</version>
+    <version>0.1.0</version>
 </dependency>
 ```
+
+## Usage
+Assuming you have RabbitMQ running on localhost:5672 you should add the following properties to your `application.properties` and fill in the values for `<username>` and `<password>`.
+
+```properties
+quarkus.rabbitmqclient.virtual-host=/
+quarkus.rabbitmqclient.username=<username>
+quarkus.rabbitmqclient.password=<password>
+quarkus.rabbitmqclient.hostname=localhost
+quarkus.rabbitmqclient.port=5672
+```
+Once you have configured the properties, you can start using the RabbitMQ client.
+
+```java
+@ApplicationScoped
+public class MessageService {
+
+    private static final Logger log = LoggerFactory.getLogger(MessageService.class);
+
+    @Inject
+    RabbitMQClient rabbitMQClient;
+
+    private Channel channel;
+
+    public void onApplicationStart(@Observes StartupEvent event) {
+        // on application start prepare the queus and message listener
+        setupQueues();
+        setupReceiving();
+    }
+
+    private void setupQueues() {
+        try {
+            // create a connection
+            Connection connection = rabbitMQClient.connect();
+            // create a channel
+            channel = connection.createChannel();
+            // declare exchanges and queues
+            channel.exchangeDeclare("sample", BuiltinExchangeType.TOPIC, true);
+            channel.queueDeclare("sample.queue", true, false, false, null);
+            channel.queueBind("sample.queue", "test", "#");
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    private void setupReceiving() {
+        try {
+            // register a consumer for messages
+            channel.basicConsume("sample.queue", true, new DefaultConsumer(channel) {
+                @Override
+                public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+                    // just print the received message.
+                    log.info("Received: " + new String(body, StandardCharsets.UTF_8));
+                }
+            });
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    public void send(String message) {
+        try {
+            // send a message to the exchange
+            channel.basicPublish("test", "#", null, message.getBytes(StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+}
+```
+
+You do not need to worry about closing connections as the `RabbitMQClient` will close them for you on application shutdown.
+
+## License
+This extension is licensed under the Apache License 2.0.
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):

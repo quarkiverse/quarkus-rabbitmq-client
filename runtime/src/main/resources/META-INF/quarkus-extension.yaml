@@ -1,0 +1,9 @@
+---
+name: "RabbitMQ Client"
+metadata:
+  keywords:
+    - "rabbitmq-client"
+    - "rabbitmq"
+  categories:
+    - "messaging"
+  status: "experimental"
