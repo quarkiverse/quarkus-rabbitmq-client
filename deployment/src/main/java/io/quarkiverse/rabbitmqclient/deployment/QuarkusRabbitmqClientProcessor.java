@@ -22,11 +22,6 @@ class QuarkusRabbitmqClientProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    //    @BuildStep
-    //    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
-    //        indexDependency.produce(new IndexDependencyBuildItem("com.rabbitmq", "amqp-client"));
-    //    }
-
     @BuildStep
     HealthBuildItem addHealthCheck(RabbitMQClientBuildConfig buildTimeConfig) {
         return new HealthBuildItem("io.quarkiverse.rabbitmqclient.RabbitMQReadyCheck",
