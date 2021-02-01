@@ -8,6 +8,11 @@ import com.rabbitmq.client.ConnectionFactory;
 
 import io.quarkus.runtime.annotations.*;
 
+/**
+ * RabbitMQ client configuration.
+ *
+ * @author b.passon
+ */
 @ConfigRoot(name = "rabbitmqclient", phase = ConfigPhase.RUN_TIME)
 public class RabbitMQClientConfig {
 
@@ -18,7 +23,11 @@ public class RabbitMQClientConfig {
     public Optional<String> uri;
 
     /**
-     * Broker addresses for creating connections
+     * Broker addresses for creating connections.
+     * <p>
+     * When specified, {@code quarkus.rabbitmqclient.hostname} and
+     * {@code quarkus.rabbitmqclient.port} are ignored.
+     * </p>
      */
     @ConfigItem
     @ConfigDocMapKey("broker-name")

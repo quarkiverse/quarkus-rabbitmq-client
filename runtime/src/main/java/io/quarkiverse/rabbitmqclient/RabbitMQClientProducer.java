@@ -1,6 +1,7 @@
 package io.quarkiverse.rabbitmqclient;
 
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 
@@ -12,7 +13,7 @@ import io.quarkus.runtime.TlsConfig;
  *
  * @author b.passon
  */
-@Singleton
+@ApplicationScoped
 public class RabbitMQClientProducer {
 
     private RabbitMQClientImpl rabbitMQClient;
@@ -28,9 +29,7 @@ public class RabbitMQClientProducer {
     @Singleton
     @Produces
     public RabbitMQClient rabbitMQClient(RabbitMQClientConfig config, TlsConfig tlsConfig) {
-        if (rabbitMQClient == null) {
-            rabbitMQClient = new RabbitMQClientImpl(config, tlsConfig);
-        }
+        rabbitMQClient = new RabbitMQClientImpl(config, tlsConfig);
         return rabbitMQClient;
     }
 
@@ -39,6 +38,9 @@ public class RabbitMQClientProducer {
      */
     @PreDestroy
     public void destroy() {
-        rabbitMQClient.disconnect();
+        // check for null, the producer method might never have been called.
+        if (rabbitMQClient != null) {
+            rabbitMQClient.disconnect();
+        }
     }
 }

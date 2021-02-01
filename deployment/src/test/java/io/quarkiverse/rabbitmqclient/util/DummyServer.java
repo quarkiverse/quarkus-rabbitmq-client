@@ -1,4 +1,4 @@
-package io.quarkiverse.rabbitmqclient;
+package io.quarkiverse.rabbitmqclient.util;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -8,7 +8,7 @@ import java.util.Random;
 
 import javax.net.ServerSocketFactory;
 
-class DummyServer {
+public class DummyServer {
 
     public static final int PORT_RANGE_MIN = 1025;
     public static final int PORT_RANGE_MAX = 65535;
@@ -16,13 +16,27 @@ class DummyServer {
 
     private ServerSocket socket = null;
     private int port;
+    private boolean available;
 
     public int getPort() {
         return port;
     }
 
+    public String getHostname() {
+        return "localhost";
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public String toString() {
+        return "localhost:" + port;
+    }
+
     public void close() {
         try {
+            available = false;
             socket.close();
         } catch (IOException ioe) {
             throw new UncheckedIOException(ioe);
@@ -34,6 +48,7 @@ class DummyServer {
             DummyServer ds = new DummyServer();
             ds.port = findFreePort();
             ds.socket = ServerSocketFactory.getDefault().createServerSocket(ds.port, 50, InetAddress.getByName("localhost"));
+            ds.available = true;
             return ds;
         } catch (IOException ioe) {
             throw new UncheckedIOException(ioe);

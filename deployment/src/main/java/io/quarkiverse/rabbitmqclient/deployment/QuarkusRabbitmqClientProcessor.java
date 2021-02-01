@@ -6,9 +6,13 @@ import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.smallrye.health.deployment.spi.HealthBuildItem;
 
+/**
+ * RabbitMQ client processor.
+ *
+ * @author b.passon
+ */
 class QuarkusRabbitmqClientProcessor {
 
     private static final String FEATURE = "rabbitmq-client";
@@ -18,10 +22,10 @@ class QuarkusRabbitmqClientProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep
-    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
-        indexDependency.produce(new IndexDependencyBuildItem("com.rabbitmq", "amqp-client"));
-    }
+    //    @BuildStep
+    //    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
+    //        indexDependency.produce(new IndexDependencyBuildItem("com.rabbitmq", "amqp-client"));
+    //    }
 
     @BuildStep
     HealthBuildItem addHealthCheck(RabbitMQClientBuildConfig buildTimeConfig) {

@@ -1,9 +1,6 @@
 package io.quarkiverse.rabbitmqclient;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.rabbitmq.client.Address;
@@ -63,6 +60,10 @@ class RabbitMQHelper {
 
     /**
      * Resolves the available broker addresses based on the given configuration.
+     * <p>
+     * If multiple named brokers are supplied, the {@link RabbitMQClientConfig} {@code hostname}
+     * and {@code port} settings are ignored.
+     * </p>
      *
      * @param config the {@link RabbitMQClientConfig}.
      * @return a list of RabbitMQ broker addresses.

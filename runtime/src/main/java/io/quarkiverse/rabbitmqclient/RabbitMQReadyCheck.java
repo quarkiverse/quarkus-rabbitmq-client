@@ -1,12 +1,15 @@
 package io.quarkiverse.rabbitmqclient;
 
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
+import org.eclipse.microprofile.health.HealthCheckResponseBuilder;
 import org.eclipse.microprofile.health.Readiness;
 
 import com.rabbitmq.client.Address;
@@ -20,21 +23,33 @@ import com.rabbitmq.client.Address;
 @ApplicationScoped
 public class RabbitMQReadyCheck implements HealthCheck {
 
+    public static final String HEALTH_CHECK_NAME = "quarkus-rabbitmq-client";
     @Inject
     RabbitMQClientConfig config;
 
     @Override
     public HealthCheckResponse call() {
-        if (atLeastOneBrokerIsAlive()) {
-            return HealthCheckResponse.up("At least one RabbitMQ broker is available.");
-        }
-        return HealthCheckResponse.down("No RabbitMQ broker is available.");
+        return checkAllBrokers();
     }
 
-    private boolean atLeastOneBrokerIsAlive() {
-        return RabbitMQHelper.resolveBrokerAddresses(config)
-                .stream()
-                .anyMatch(this::isBrokerAvailable);
+    private HealthCheckResponse checkAllBrokers() {
+        Map<String, HealthCheckResponse.State> data = new HashMap<>();
+        RabbitMQHelper.resolveBrokerAddresses(config)
+                .forEach((a) -> {
+                    if (isBrokerAvailable(a)) {
+                        data.put(a.toString(), HealthCheckResponse.State.UP);
+                    } else {
+                        data.put(a.toString(), HealthCheckResponse.State.DOWN);
+                    }
+                });
+        HealthCheckResponseBuilder builder = HealthCheckResponse.builder();
+        builder.name(HEALTH_CHECK_NAME);
+        builder.state(data.values().stream().allMatch(s -> s == HealthCheckResponse.State.UP));
+        data.forEach((a, s) -> {
+            builder.withData(a, s.name());
+        });
+        return builder.build();
+
     }
 
     private boolean isBrokerAvailable(Address address) {
