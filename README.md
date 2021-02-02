@@ -1,7 +1,6 @@
 # Quarkiverse RabbitMQ Client
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-) [![version](https://img.shields.io/maven-central/v/io.quarkiverse.rabbitmqclient/quarkus-rabbitmq-client-parent)](https://repo1.maven.org/maven2/io/quarkiverse/rabbitmqclient/)
+
 This is a Quarkus extension for the [RabbitMQ](https://www.rabbitmq.com/) [Java Client](https://rabbitmq.com/api-guide.html).
 
 RabbitMQ is a popular message broker. This Quarkus extension provides a client for RabbitMQ which is configurable using the `application.properties`.
