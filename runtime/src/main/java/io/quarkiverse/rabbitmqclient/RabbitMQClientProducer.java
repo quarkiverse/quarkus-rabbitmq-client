@@ -5,6 +5,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 
+import org.eclipse.microprofile.context.ManagedExecutor;
+
 import io.quarkus.arc.DefaultBean;
 import io.quarkus.runtime.TlsConfig;
 
@@ -28,15 +30,19 @@ public class RabbitMQClientProducer {
     @DefaultBean
     @Singleton
     @Produces
-    public RabbitMQClient rabbitMQClient(RabbitMQClientConfig config, TlsConfig tlsConfig) {
-        rabbitMQClient = new RabbitMQClientImpl(config, tlsConfig);
+    public RabbitMQClient rabbitMQClient(RabbitMQClientConfig config, TlsConfig tlsConfig, ManagedExecutor managedExecutor) {
+        rabbitMQClient = new RabbitMQClientImpl(config, tlsConfig, managedExecutor);
         return rabbitMQClient;
     }
 
     /**
      * Destroys the {@link RabbitMQClient} and closes all connections.
+     *
+     * <p>
+     * Note: This is called by the Quarkus during shutdown through the ShutdownContext, it therefore does
+     * not need @PreDestroy
+     * </p>
      */
-    @PreDestroy
     public void destroy() {
         // check for null, the producer method might never have been called.
         if (rabbitMQClient != null) {
