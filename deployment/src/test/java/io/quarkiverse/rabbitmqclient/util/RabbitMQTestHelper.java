@@ -88,5 +88,4 @@ public class RabbitMQTestHelper {
                 .build();
         conn.createChannel().basicPublish(exchange, "#", properties, value.getBytes(StandardCharsets.UTF_8));
     }
-
 }

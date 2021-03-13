@@ -40,8 +40,8 @@ class QuarkusRabbitmqClientProcessor {
 
     @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
-    void registerBaseAndVendorMetrics(RabbitMQRecorder recorder, ShutdownContextBuildItem shutdown,
+    void registerShutdownTask(RabbitMQRecorder recorder, ShutdownContextBuildItem shutdown,
             BeanContainerBuildItem beanContainer) {
-        recorder.handleShutdown(shutdown, beanContainer.getValue());
+        recorder.registerShutdownTask(shutdown, beanContainer.getValue());
     }
 }

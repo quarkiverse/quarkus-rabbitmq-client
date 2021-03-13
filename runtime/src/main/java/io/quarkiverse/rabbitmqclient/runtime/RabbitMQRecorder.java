@@ -8,7 +8,7 @@ import io.quarkus.runtime.annotations.Recorder;
 @Recorder
 public class RabbitMQRecorder {
 
-    public void handleShutdown(ShutdownContext shutdownContext, BeanContainer beanContainer) {
+    public void registerShutdownTask(ShutdownContext shutdownContext, BeanContainer beanContainer) {
         RabbitMQClientProducer producer = beanContainer.instance(RabbitMQClientProducer.class);
         shutdownContext.addShutdownTask(producer::destroy);
     }

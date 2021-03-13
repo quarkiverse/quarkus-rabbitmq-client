@@ -51,17 +51,14 @@ public class QuarkusRabbitMQConsumerTest extends RabbitMQConfigTest {
     }
 
     @Test
-    public void testRabbitMQSSLClientCert() throws Exception {
+    public void testRabbitMQConsumer() throws Exception {
         CountDownLatch cdl = new CountDownLatch(1);
-        boolean utActive = false;
         rabbitMQTestHelper.basicConsume("receive-test-queue", false, (tag, envelope, properties, body) -> {
             System.out.println(new String(body, StandardCharsets.UTF_8));
             cdl.countDown();
         });
 
         rabbitMQTestHelper.send("receive-test", "{'foo':'bar'}");
-        cdl.await(1, TimeUnit.SECONDS);
-
+        Assertions.assertTrue(cdl.await(1, TimeUnit.SECONDS));
     }
-
 }
