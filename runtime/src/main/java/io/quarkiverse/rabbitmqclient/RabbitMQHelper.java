@@ -1,6 +1,7 @@
 package io.quarkiverse.rabbitmqclient;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 
 import com.rabbitmq.client.Address;
@@ -28,21 +29,27 @@ class RabbitMQHelper {
      * @return a {@link Connection} connected to a configured RabbitMQ broker.
      * @throws RabbitMQClientException if a failure occurs.
      */
-    public static Connection newConnection(RabbitMQClientConfig config, TlsConfig tlsConfig, String name) {
+    public static Connection newConnection(RabbitMQClientConfig config, TlsConfig tlsConfig, ExecutorService executorService,
+            String name) {
         try {
-            ConnectionFactory cf = newConnectionFactory(config, tlsConfig);
+            ConnectionFactory cf = newConnectionFactory(config, tlsConfig, executorService);
             List<Address> addresses = config.addresses.isEmpty()
                     ? Collections.singletonList(new Address(config.hostname, config.port))
                     : convertAddresses(config.addresses);
 
-            return addresses == null ? cf.newConnection(name) : cf.newConnection(addresses, name);
+            return addresses == null ? cf.newConnection(name)
+                    : cf.newConnection(addresses, name);
         } catch (Exception e) {
             throw new RabbitMQClientException("Failed to connect to RabbitMQ broker", e);
         }
     }
 
-    private static ConnectionFactory newConnectionFactory(RabbitMQClientConfig config, TlsConfig tlsConfig) {
+    private static ConnectionFactory newConnectionFactory(RabbitMQClientConfig config, TlsConfig tlsConfig,
+            ExecutorService executorService) {
         ConnectionFactory cf = new ConnectionFactory();
+        cf.setTopologyRecoveryExecutor(executorService);
+        cf.setShutdownExecutor(executorService);
+        cf.setSharedExecutor(executorService);
         ConnectionFactoryConfigurator.load(cf, newProperties(config, tlsConfig), "");
 
         String uri = config.uri.orElse(null);

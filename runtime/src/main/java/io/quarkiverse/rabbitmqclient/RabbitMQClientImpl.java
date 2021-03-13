@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.eclipse.microprofile.context.ManagedExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,11 +25,13 @@ class RabbitMQClientImpl implements RabbitMQClient {
 
     private final RabbitMQClientConfig config;
     private final TlsConfig tlsConfig;
+    private final ManagedExecutor managedExecutor;
     private final Map<String, Connection> connections;
 
-    RabbitMQClientImpl(RabbitMQClientConfig config, TlsConfig tlsConfig) {
+    RabbitMQClientImpl(RabbitMQClientConfig config, TlsConfig tlsConfig, ManagedExecutor managedExecutor) {
         this.config = config;
         this.tlsConfig = tlsConfig;
+        this.managedExecutor = managedExecutor;
         this.connections = new HashMap<>();
     }
 
@@ -47,7 +50,7 @@ class RabbitMQClientImpl implements RabbitMQClient {
     public Connection connect(String name) {
         log.debug("Opening connection {} with a RabbitMQ broker. Configured brokers: {}", name,
                 RabbitMQHelper.resolveBrokerAddresses(config));
-        return this.connections.computeIfAbsent(name, n -> RabbitMQHelper.newConnection(config, tlsConfig, n));
+        return this.connections.computeIfAbsent(name, n -> RabbitMQHelper.newConnection(config, tlsConfig, managedExecutor, n));
     }
 
     /**
