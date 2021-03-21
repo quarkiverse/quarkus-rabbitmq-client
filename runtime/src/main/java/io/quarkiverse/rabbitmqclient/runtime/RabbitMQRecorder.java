@@ -1,15 +1,24 @@
 package io.quarkiverse.rabbitmqclient.runtime;
 
-import io.quarkiverse.rabbitmqclient.RabbitMQClientProducer;
-import io.quarkus.arc.runtime.BeanContainer;
+import java.util.function.Supplier;
+
+import io.quarkiverse.rabbitmqclient.RabbitMQClient;
+import io.quarkiverse.rabbitmqclient.RabbitMQClients;
+import io.quarkiverse.rabbitmqclient.RabbitMQClientsConfig;
+import io.quarkus.arc.Arc;
 import io.quarkus.runtime.ShutdownContext;
 import io.quarkus.runtime.annotations.Recorder;
 
 @Recorder
 public class RabbitMQRecorder {
 
-    public void registerShutdownTask(ShutdownContext shutdownContext, BeanContainer beanContainer) {
-        RabbitMQClientProducer producer = beanContainer.instance(RabbitMQClientProducer.class);
+    public void registerShutdownTask(ShutdownContext shutdownContext) {
+        RabbitMQClients producer = Arc.container().instance(RabbitMQClients.class).get();
         shutdownContext.addShutdownTask(producer::destroy);
+    }
+
+    public Supplier<RabbitMQClient> rabbitMQClientSupplier(String name, RabbitMQClientsConfig config) {
+        RabbitMQClients producer = Arc.container().instance(RabbitMQClients.class).get();
+        return () -> producer.getRabbitMQClient(name);
     }
 }
