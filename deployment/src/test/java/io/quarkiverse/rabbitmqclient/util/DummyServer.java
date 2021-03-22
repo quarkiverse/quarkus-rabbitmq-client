@@ -17,6 +17,7 @@ public class DummyServer {
     private ServerSocket socket = null;
     private int port;
     private boolean available;
+    private String client;
 
     public int getPort() {
         return port;
@@ -31,7 +32,7 @@ public class DummyServer {
     }
 
     public String toString() {
-        return "localhost:" + port;
+        return (client == null ? "" : client + "|") + "localhost:" + port;
     }
 
     public void close() {
@@ -43,12 +44,13 @@ public class DummyServer {
         }
     }
 
-    public static DummyServer newDummyServer() {
+    public static DummyServer newDummyServer(String client) {
         try {
             DummyServer ds = new DummyServer();
             ds.port = findFreePort();
             ds.socket = ServerSocketFactory.getDefault().createServerSocket(ds.port, 50, InetAddress.getByName("localhost"));
             ds.available = true;
+            ds.client = client;
             return ds;
         } catch (IOException ioe) {
             throw new UncheckedIOException(ioe);

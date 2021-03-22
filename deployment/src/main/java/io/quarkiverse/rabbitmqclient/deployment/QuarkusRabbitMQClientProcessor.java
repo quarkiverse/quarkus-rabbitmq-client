@@ -41,6 +41,8 @@ class QuarkusRabbitMQClientProcessor {
     public void registerBeans(BuildProducer<AdditionalBeanBuildItem> additionalBeanBuildItemProducer) {
         additionalBeanBuildItemProducer.produce(AdditionalBeanBuildItem.builder().addBeanClasses(RabbitMQClients.class)
                 .setUnremovable().setDefaultScope(DotNames.SINGLETON).build());
+        additionalBeanBuildItemProducer
+                .produce(AdditionalBeanBuildItem.builder().addBeanClass(NamedRabbitMQClient.class).build());
     }
 
     @BuildStep
@@ -66,16 +68,14 @@ class QuarkusRabbitMQClientProcessor {
                 .scope(Singleton.class)
                 .setRuntimeInit()
                 .unremovable()
-                // pass the runtime config into the recorder to ensure that the DataSource related beans
-                // are created after runtime configuration has been setup
-                .supplier(recorder.rabbitMQClientSupplier(name, rabbitMQClientsConfig));
+                .supplier(recorder.rabbitMQClientSupplier(name));
 
         if (name == null) {
             configurator.addQualifier(Default.class);
         } else {
             configurator.addQualifier().annotation(DotNames.NAMED).addValue("value", name).done();
+            configurator.addQualifier().annotation(NamedRabbitMQClient.class).addValue("value", name).done();
         }
-
         syntheticBeans.produce(configurator.done());
     }
 }

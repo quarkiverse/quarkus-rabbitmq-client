@@ -11,7 +11,7 @@ RabbitMQ is a popular message broker. This Quarkus extension provides a client f
 <dependency>
     <groupId>io.quarkiverse.rabbitmqclient</groupId>
     <artifactId>quarkus-rabbitmq-client</artifactId>
-    <version>0.1.1</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 
@@ -86,6 +86,30 @@ public class MessageService {
 ```
 
 You do not need to worry about closing connections as the `RabbitMQClient` will close them for you on application shutdown.
+
+### Multiple RabbitMQ Clients
+The extension supports having multiple RabbitMQ clients. You can add named RabbitMQ clients as follows.
+
+```properties
+quarkus.rabbitmqclient.<name>.virtual-host=/
+quarkus.rabbitmqclient.<name>.username=<username>
+quarkus.rabbitmqclient.<name>.password=<password>
+quarkus.rabbitmqclient.<name>.hostname=localhost
+quarkus.rabbitmqclient.<name>.port=5672
+```
+All configuration options that are available on de default non named RabbitMQ client are available. Injecting a named RabbitMQ client, e.g. foo, can be achieved as follows.
+
+```java
+@ApplicationScoped
+public class MessageService {
+    
+    @Inject
+    @NamedRabbitMQClient("foo")
+    RabbitMQClient fooClient;
+}
+```
+
+It is possible to use multiple RabbitMQ clients in the same class as long as they are all named, or in combination with the unnamed default client. 
 
 ## License
 This extension is licensed under the Apache License 2.0.

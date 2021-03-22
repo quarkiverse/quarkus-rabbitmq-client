@@ -4,7 +4,6 @@ import java.util.function.Supplier;
 
 import io.quarkiverse.rabbitmqclient.RabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClients;
-import io.quarkiverse.rabbitmqclient.RabbitMQClientsConfig;
 import io.quarkus.arc.Arc;
 import io.quarkus.runtime.ShutdownContext;
 import io.quarkus.runtime.annotations.Recorder;
@@ -17,7 +16,7 @@ public class RabbitMQRecorder {
         shutdownContext.addShutdownTask(producer::destroy);
     }
 
-    public Supplier<RabbitMQClient> rabbitMQClientSupplier(String name, RabbitMQClientsConfig config) {
+    public Supplier<RabbitMQClient> rabbitMQClientSupplier(String name) {
         RabbitMQClients producer = Arc.container().instance(RabbitMQClients.class).get();
         return () -> producer.getRabbitMQClient(name);
     }

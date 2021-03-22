@@ -1,6 +1,7 @@
 package io.quarkiverse.rabbitmqclient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,7 +32,7 @@ public class QuarkusRabbitmqReadyCheckTest {
                             "application.properties"));
 
     @Inject
-    RabbitMQClientConfig config;
+    RabbitMQClientsConfig config;
 
     @Readiness
     @Inject
@@ -50,16 +51,28 @@ public class QuarkusRabbitmqReadyCheckTest {
     }
 
     @Test
-    public void testHealthEndpointAllBrokersUp() {
+    public void testHealthEndpointDefaultClientAllBrokersUp() {
         setupDummyServers(config, 2, 0);
         HealthCheckResponse resp = readyCheck.call();
         Assertions.assertEquals(HealthCheckResponse.State.UP, resp.getState());
         assertNumberOfBrokersInState(resp, 2, HealthCheckResponse.State.UP);
+        assertNumberOfBrokersInState(resp, 0, HealthCheckResponse.State.DOWN);
         assertData(resp);
     }
 
     @Test
-    public void testHealthEndpointOneBrokerDown() {
+    public void testHealthEndpointMultipleClientsAllBrokersUp() {
+        setupDummyServers(config, 2, 0);
+        setupDummyServers(config, "other", 2, 0);
+        HealthCheckResponse resp = readyCheck.call();
+        Assertions.assertEquals(HealthCheckResponse.State.UP, resp.getState());
+        assertNumberOfBrokersInState(resp, 4, HealthCheckResponse.State.UP);
+        assertNumberOfBrokersInState(resp, 0, HealthCheckResponse.State.DOWN);
+        assertData(resp);
+    }
+
+    @Test
+    public void testHealthEndpointDefaultClientOneBrokerDown() {
         setupDummyServers(config, 3, 1);
         HealthCheckResponse resp = readyCheck.call();
         Assertions.assertEquals(HealthCheckResponse.State.DOWN, resp.getState());
@@ -69,7 +82,7 @@ public class QuarkusRabbitmqReadyCheckTest {
     }
 
     @Test
-    public void testHealthEndpointAllBrokersDown() {
+    public void testHealthEndpointDefaultClientAllBrokersDown() {
         setupDummyServers(config, 5, 5);
         HealthCheckResponse resp = readyCheck.call();
         Assertions.assertEquals(HealthCheckResponse.State.DOWN, resp.getState());
@@ -78,14 +91,36 @@ public class QuarkusRabbitmqReadyCheckTest {
         assertData(resp);
     }
 
-    private void setupDummyServers(RabbitMQClientConfig config, int number, int down) {
-        config.addresses.clear();
+    @Test
+    public void testHealthEndpointMultipleClientsAllBrokersDown() {
+        setupDummyServers(config, 5, 5);
+        setupDummyServers(config, "other", 3, 3);
+        HealthCheckResponse resp = readyCheck.call();
+        Assertions.assertEquals(HealthCheckResponse.State.DOWN, resp.getState());
+        assertNumberOfBrokersInState(resp, 0, HealthCheckResponse.State.UP);
+        assertNumberOfBrokersInState(resp, 8, HealthCheckResponse.State.DOWN);
+        assertData(resp);
+    }
+
+    private void setupDummyServers(RabbitMQClientsConfig config, int number, int down) {
+        setupDummyServers(config, null, number, down);
+    }
+
+    private void setupDummyServers(RabbitMQClientsConfig config, String name, int number, int down) {
+        RabbitMQClientConfig cfg = new RabbitMQClientConfig();
+        if (name == null) {
+            config.defaultClient = cfg;
+        } else {
+            config.namedClients.put(name, cfg);
+        }
+        cfg.addresses = new HashMap<>();
+        String hostName = "client-" + (name == null ? "" : name + "-") + "dummy-";
         for (int i = 0; i < number; i++) {
-            DummyServer ds = DummyServer.newDummyServer();
+            DummyServer ds = DummyServer.newDummyServer(name);
             RabbitMQClientConfig.Address address = new RabbitMQClientConfig.Address();
             address.hostname = ds.getHostname();
             address.port = ds.getPort();
-            config.addresses.put("dummy-" + i, address);
+            cfg.addresses.put(hostName + i, address);
             dummyServers.add(ds);
             if (i < down) {
                 ds.close();
