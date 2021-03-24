@@ -97,7 +97,7 @@ quarkus.rabbitmqclient.<name>.password=<password>
 quarkus.rabbitmqclient.<name>.hostname=localhost
 quarkus.rabbitmqclient.<name>.port=5672
 ```
-All configuration options that are available on de default non named RabbitMQ client are available. Injecting a named RabbitMQ client, e.g. foo, can be achieved as follows.
+All configuration options that are available on the default non named RabbitMQ client are available. Injecting a named RabbitMQ client, e.g. foo, can be achieved as follows.
 
 ```java
 @ApplicationScoped
