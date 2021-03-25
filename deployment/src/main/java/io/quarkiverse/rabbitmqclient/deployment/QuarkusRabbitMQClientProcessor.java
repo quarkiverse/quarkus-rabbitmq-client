@@ -1,12 +1,19 @@
 package io.quarkiverse.rabbitmqclient.deployment;
 
+import java.util.Collection;
+import java.util.List;
+
 import javax.enterprise.inject.Default;
 import javax.inject.Singleton;
 
+import org.jboss.jandex.AnnotationInstance;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
+
 import io.quarkiverse.rabbitmqclient.*;
-import io.quarkiverse.rabbitmqclient.RabbitMQClientsConfig;
 import io.quarkiverse.rabbitmqclient.runtime.RabbitMQRecorder;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
+import io.quarkus.arc.deployment.BeanArchiveIndexBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.arc.processor.DotNames;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -25,6 +32,8 @@ import io.quarkus.smallrye.health.deployment.spi.HealthBuildItem;
 class QuarkusRabbitMQClientProcessor {
 
     private static final String FEATURE = "rabbitmq-client";
+    private static final DotName NAMED_RABBITMQ_CLIENT_ANNOTATION = DotName
+            .createSimple(NamedRabbitMQClient.class.getName());
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -32,7 +41,7 @@ class QuarkusRabbitMQClientProcessor {
     }
 
     @BuildStep
-    HealthBuildItem addHealthCheck(RabbitMQClientBuildConfig buildTimeConfig) {
+    HealthBuildItem addHealthCheck(RabbitMQClientsBuildConfig buildTimeConfig) {
         return new HealthBuildItem("io.quarkiverse.rabbitmqclient.RabbitMQReadyCheck",
                 buildTimeConfig.healthEnabled);
     }
@@ -46,22 +55,32 @@ class QuarkusRabbitMQClientProcessor {
     }
 
     @BuildStep
+    public void mongoClientNames(BeanArchiveIndexBuildItem indexBuildItem,
+            BuildProducer<QuarkusRabbitMQClientNameBuildItem> mongoClientName) {
+        IndexView indexView = indexBuildItem.getIndex();
+        Collection<AnnotationInstance> mongoClientAnnotations = indexView.getAnnotations(NAMED_RABBITMQ_CLIENT_ANNOTATION);
+        for (AnnotationInstance annotation : mongoClientAnnotations) {
+            mongoClientName.produce(new QuarkusRabbitMQClientNameBuildItem(annotation.value().asString()));
+        }
+    }
+
+    @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
     void registerClients(RabbitMQRecorder recorder, ShutdownContextBuildItem shutdown,
-            RabbitMQClientsConfig rabbitMQClientsConfig,
+            List<QuarkusRabbitMQClientNameBuildItem> namedClients,
             BuildProducer<SyntheticBeanBuildItem> syntheticBeans) {
         recorder.registerShutdownTask(shutdown);
 
         // create default client
-        addRabbitMQClient(recorder, null, rabbitMQClientsConfig, syntheticBeans);
+        addRabbitMQClient(recorder, null, syntheticBeans);
 
         // create named clients
-        for (String name : rabbitMQClientsConfig.namedClients.keySet()) {
-            addRabbitMQClient(recorder, name, rabbitMQClientsConfig, syntheticBeans);
+        for (QuarkusRabbitMQClientNameBuildItem namedClient : namedClients) {
+            addRabbitMQClient(recorder, namedClient.getName(), syntheticBeans);
         }
     }
 
-    void addRabbitMQClient(RabbitMQRecorder recorder, String name, RabbitMQClientsConfig rabbitMQClientsConfig,
+    void addRabbitMQClient(RabbitMQRecorder recorder, String name,
             BuildProducer<SyntheticBeanBuildItem> syntheticBeans) {
         SyntheticBeanBuildItem.ExtendedBeanConfigurator configurator = SyntheticBeanBuildItem
                 .configure(RabbitMQClient.class)

@@ -4,7 +4,7 @@ import java.util.Map;
 
 import io.quarkus.runtime.annotations.*;
 
-@ConfigRoot(name = "rabbitmqclient", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigRoot(name = "rabbitmqclient", phase = ConfigPhase.RUN_TIME)
 public class RabbitMQClientsConfig {
 
     /**

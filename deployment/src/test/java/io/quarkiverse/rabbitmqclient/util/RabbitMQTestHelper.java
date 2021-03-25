@@ -6,10 +6,10 @@ import java.util.HashMap;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import com.rabbitmq.client.*;
 
+import io.quarkiverse.rabbitmqclient.NamedRabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClientsConfig;
 
@@ -34,7 +34,7 @@ public class RabbitMQTestHelper {
     RabbitMQClient rabbitMQClient;
 
     @Inject
-    @Named("other")
+    @NamedRabbitMQClient("other")
     RabbitMQClient otherRabbitMQClient;
 
     private Connection defaultConn;
@@ -44,7 +44,7 @@ public class RabbitMQTestHelper {
         testConfig.setupClientCertSsl(configs);
         testConfig.setupClientCertSsl("other", configs);
         defaultConn = rabbitMQClient.connect("test-connection");
-        otherConn = rabbitMQClient.connect("other-test-connection");
+        otherConn = otherRabbitMQClient.connect("other-test-connection");
     }
 
     public void declareExchange(String name) throws IOException {
