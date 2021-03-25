@@ -16,6 +16,9 @@ public class TestConfig {
     @ConfigItem
     public int amqpPort;
 
+    @ConfigItem
+    public String hostname;
+
     public void setupNonSll(RabbitMQClientsConfig config) {
         setupNonSllClient(config.defaultClient);
     }
@@ -29,7 +32,7 @@ public class TestConfig {
         config.virtualHost = "/";
         config.username = "guest";
         config.password = "guest";
-        config.hostname = "localhost";
+        config.hostname = hostname;
         config.tls.enabled = false;
     }
 
@@ -46,7 +49,7 @@ public class TestConfig {
         config.virtualHost = "/";
         config.username = "guest";
         config.password = "guest";
-        config.hostname = "localhost";
+        config.hostname = hostname;
         config.tls.enabled = true;
         config.tls.keyStoreFile = Optional.empty();
         config.tls.keyStorePassword = Optional.empty();

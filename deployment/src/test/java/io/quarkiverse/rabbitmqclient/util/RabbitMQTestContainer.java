@@ -13,6 +13,7 @@ public class RabbitMQTestContainer implements QuarkusTestResourceLifecycleManage
 
     private static final String AMQPS_PORT = "test.amqps-port";
     private static final String AMQP_PORT = "test.amqp-port";
+    private static final String HOSTNAME = "test.hostname";
 
     private final MountableFile keyFile = MountableFile.forClasspathResource("/testcontainer/rabbitmq/server/key.pem");
     private final MountableFile certFile = MountableFile.forClasspathResource("/testcontainer/rabbitmq/server/cert.pem");
@@ -22,7 +23,7 @@ public class RabbitMQTestContainer implements QuarkusTestResourceLifecycleManage
 
     @Override
     public Map<String, String> start() {
-        rabbitmq = new RabbitMQContainer(DockerImageName.parse("rabbitmq:3.8.11-management-alpine"))
+        rabbitmq = new RabbitMQContainer(DockerImageName.parse("rabbitmq:3.7.25-management-alpine"))
                 .withCopyFileToContainer(keyFile, "/etc/rabbitmq/rabbitmq_key.pem")
                 .withCopyFileToContainer(certFile, "/etc/rabbitmq/rabbitmq_cert.pem")
                 .withCopyFileToContainer(caFile, "/etc/rabbitmq/ca_cert.pem")
@@ -30,6 +31,7 @@ public class RabbitMQTestContainer implements QuarkusTestResourceLifecycleManage
 
         rabbitmq.start();
         Map<String, String> testConfig = new HashMap<>();
+        testConfig.put(HOSTNAME, rabbitmq.getHost());
         testConfig.put(AMQP_PORT, rabbitmq.getAmqpPort().toString());
         testConfig.put(AMQPS_PORT, rabbitmq.getAmqpsPort().toString());
         return testConfig;
