@@ -3,6 +3,7 @@ package io.quarkiverse.rabbitmqclient.util;
 import java.util.Optional;
 
 import io.quarkiverse.rabbitmqclient.RabbitMQClientConfig;
+import io.quarkiverse.rabbitmqclient.RabbitMQClientsConfig;
 import io.quarkus.arc.config.ConfigProperties;
 import io.quarkus.runtime.annotations.ConfigItem;
 
@@ -15,7 +16,15 @@ public class TestConfig {
     @ConfigItem
     public int amqpPort;
 
-    public void setupNonSll(RabbitMQClientConfig config) {
+    public void setupNonSll(RabbitMQClientsConfig config) {
+        setupNonSllClient(config.defaultClient);
+    }
+
+    public void setupNonSll(String name, RabbitMQClientsConfig config) {
+        setupNonSllClient(config.namedClients.get(name));
+    }
+
+    private void setupNonSllClient(RabbitMQClientConfig config) {
         config.port = amqpPort;
         config.virtualHost = "/";
         config.username = "guest";
@@ -24,7 +33,15 @@ public class TestConfig {
         config.tls.enabled = false;
     }
 
-    public void setupBasicSsl(RabbitMQClientConfig config) {
+    public void setupBasicSsl(RabbitMQClientsConfig config) {
+        setupBasicSslClient(config.defaultClient);
+    }
+
+    public void setupBasicSsl(String name, RabbitMQClientsConfig config) {
+        setupBasicSslClient(config.namedClients.get(name));
+    }
+
+    private void setupBasicSslClient(RabbitMQClientConfig config) {
         config.port = amqpsPort;
         config.virtualHost = "/";
         config.username = "guest";
@@ -38,7 +55,15 @@ public class TestConfig {
         config.tls.trustStorePassword = Optional.of("letmein");
     }
 
-    public void setupClientCertSsl(RabbitMQClientConfig config) {
+    public void setupClientCertSsl(RabbitMQClientsConfig config) {
+        setupClientCertSslClient(config.defaultClient);
+    }
+
+    public void setupClientCertSsl(String name, RabbitMQClientsConfig config) {
+        setupClientCertSslClient(config.namedClients.get(name));
+    }
+
+    private void setupClientCertSslClient(RabbitMQClientConfig config) {
         config.port = amqpsPort;
         config.virtualHost = "/";
         config.username = "guest";

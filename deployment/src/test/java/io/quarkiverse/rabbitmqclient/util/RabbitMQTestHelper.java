@@ -9,8 +9,9 @@ import javax.inject.Inject;
 
 import com.rabbitmq.client.*;
 
+import io.quarkiverse.rabbitmqclient.NamedRabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClient;
-import io.quarkiverse.rabbitmqclient.RabbitMQClientConfig;
+import io.quarkiverse.rabbitmqclient.RabbitMQClientsConfig;
 
 @ApplicationScoped
 public class RabbitMQTestHelper {
@@ -24,7 +25,7 @@ public class RabbitMQTestHelper {
     }
 
     @Inject
-    RabbitMQClientConfig config;
+    RabbitMQClientsConfig configs;
 
     @Inject
     TestConfig testConfig;
@@ -32,25 +33,96 @@ public class RabbitMQTestHelper {
     @Inject
     RabbitMQClient rabbitMQClient;
 
-    private Connection conn;
+    @Inject
+    @NamedRabbitMQClient("other")
+    RabbitMQClient otherRabbitMQClient;
+
+    private Connection defaultConn;
+    private Connection otherConn;
 
     public void connectClientServerSsl() {
-        testConfig.setupClientCertSsl(config);
-        conn = rabbitMQClient.connect("test-connection");
+        testConfig.setupClientCertSsl(configs);
+        testConfig.setupClientCertSsl("other", configs);
+        defaultConn = rabbitMQClient.connect("test-connection");
+        otherConn = otherRabbitMQClient.connect("other-test-connection");
     }
 
     public void declareExchange(String name) throws IOException {
-        conn.createChannel().exchangeDeclare(name, BuiltinExchangeType.TOPIC, true);
+        declareExchangeInternal(name, defaultConn.createChannel());
+    }
+
+    public void declareExchangeOther(String name) throws IOException {
+        declareExchangeInternal(name, otherConn.createChannel());
     }
 
     public void declareQueue(String queue, String exchange) throws IOException {
-        Channel channel = conn.createChannel();
+        declareQueueInternal(queue, exchange, defaultConn.createChannel());
+    }
+
+    public void declareQueueOther(String queue, String exchange) throws IOException {
+        declareQueueInternal(queue, exchange, otherConn.createChannel());
+    }
+
+    public void basicConsume(String queue, boolean autoAck, TestConsumer consumer) throws IOException {
+        consumeInternal(queue, autoAck, consumer, defaultConn.createChannel());
+    }
+
+    public void basicConsumeOther(String queue, boolean autoAck, TestConsumer consumer) throws IOException {
+        consumeInternal(queue, autoAck, consumer, otherConn.createChannel());
+    }
+
+    public void deleteQueue(String name) throws IOException {
+        deleteQueueInternal(name, defaultConn.createChannel());
+    }
+
+    public void deleteQueueOther(String name) throws IOException {
+        deleteQueueInternal(name, otherConn.createChannel());
+    }
+
+    public void deleteExchange(String name) throws IOException {
+        deleteExchangeInternal(name, defaultConn.createChannel());
+
+    }
+
+    public void deleteExchangeOther(String name) throws IOException {
+        deleteExchangeInternal(name, otherConn.createChannel());
+    }
+
+    public void send(String exchange, String value) throws IOException {
+        sendInternal(defaultConn, exchange, value);
+    }
+
+    public void sendOther(String exchange, String value) throws IOException {
+        sendInternal(otherConn, exchange, value);
+    }
+
+    private void declareExchangeInternal(String name, Channel channel) throws IOException {
+        channel.exchangeDeclare(name, BuiltinExchangeType.TOPIC, true);
+    }
+
+    private void deleteQueueInternal(String name, Channel channel) throws IOException {
+        channel.queueDelete(name);
+    }
+
+    private void deleteExchangeInternal(String name, Channel channel) throws IOException {
+        channel.exchangeDelete(name);
+    }
+
+    private void sendInternal(Connection conn, String exchange, String value) throws IOException {
+        AMQP.BasicProperties properties = new AMQP.BasicProperties.Builder()
+                .contentType("application/json")
+                .contentEncoding("UTF-8")
+                .headers(new HashMap<>())
+                .build();
+        otherConn.createChannel().basicPublish(exchange, "#", properties, value.getBytes(StandardCharsets.UTF_8));
+    }
+
+    private void declareQueueInternal(String queue, String exchange, Channel channel) throws IOException {
         channel.queueDeclare(queue, true, false, false, null);
         channel.queueBind(queue, exchange, "#");
     }
 
-    public void basicConsume(String queue, boolean autoAck, TestConsumer consumer) throws IOException {
-        Channel channel = conn.createChannel();
+    private void consumeInternal(String queue, boolean autoAck, TestConsumer consumer, Channel channel) throws IOException {
         channel.basicConsume(queue, autoAck, new DefaultConsumer(channel) {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
@@ -70,22 +142,5 @@ public class RabbitMQTestHelper {
                 }
             }
         });
-    }
-
-    public void deleteQueue(String name) throws IOException {
-        conn.createChannel().queueDelete(name);
-    }
-
-    public void deleteExchange(String name) throws IOException {
-        conn.createChannel().exchangeDelete(name);
-    }
-
-    public void send(String exchange, String value) throws IOException {
-        AMQP.BasicProperties properties = new AMQP.BasicProperties.Builder()
-                .contentType("application/json")
-                .contentEncoding("UTF-8")
-                .headers(new HashMap<>())
-                .build();
-        conn.createChannel().basicPublish(exchange, "#", properties, value.getBytes(StandardCharsets.UTF_8));
     }
 }

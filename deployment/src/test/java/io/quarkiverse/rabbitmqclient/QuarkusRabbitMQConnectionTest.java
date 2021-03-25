@@ -32,7 +32,7 @@ public class QuarkusRabbitMQConnectionTest extends RabbitMQConfigTest {
                             "rabbitmq/client/client.jks"));
 
     @Inject
-    RabbitMQClientConfig config;
+    RabbitMQClientsConfig configs;
 
     @Inject
     TestConfig testConfig;
@@ -40,25 +40,38 @@ public class QuarkusRabbitMQConnectionTest extends RabbitMQConfigTest {
     @Inject
     RabbitMQClient rabbitMQClient;
 
+    @Inject
+    @NamedRabbitMQClient("other")
+    RabbitMQClient otherRabbitMQClient;
+
     @Test
     public void testNonSSL() {
-        testConfig.setupNonSll(config);
+        testConfig.setupNonSll(configs);
+        testConfig.setupNonSll("other", configs);
         Connection conn = rabbitMQClient.connect("test-connection-non-ssl");
+        Connection other = otherRabbitMQClient.connect("test-other-connection-non-ssl");
         Assertions.assertNotNull(conn);
+        Assertions.assertNotNull(other);
     }
 
     @Test
     public void testRabbitMQSSLDefault() {
-        testConfig.setupBasicSsl(config);
+        testConfig.setupBasicSsl(configs);
+        testConfig.setupBasicSsl("other", configs);
         Connection conn = rabbitMQClient.connect("test-connection-ssl");
+        Connection other = otherRabbitMQClient.connect("test-other-connection-ssl");
         Assertions.assertNotNull(conn);
+        Assertions.assertNotNull(other);
     }
 
     @Test
     public void testRabbitMQSSLClientCert() {
-        testConfig.setupClientCertSsl(config);
+        testConfig.setupClientCertSsl(configs);
+        testConfig.setupClientCertSsl("other", configs);
         Connection conn = rabbitMQClient.connect("test-connection-ssl-client-cert");
+        Connection other = otherRabbitMQClient.connect("test-other-connection-ssl-client-cert");
         Assertions.assertNotNull(conn);
+        Assertions.assertNotNull(other);
     }
 
 }

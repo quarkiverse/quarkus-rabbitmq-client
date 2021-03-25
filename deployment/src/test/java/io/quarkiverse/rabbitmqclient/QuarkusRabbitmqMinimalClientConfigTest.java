@@ -21,13 +21,21 @@ public class QuarkusRabbitmqMinimalClientConfigTest extends RabbitMQConfigTest {
                             "application.properties"));
 
     @Inject
-    RabbitMQClientConfig config;
+    RabbitMQClientsConfig config;
 
     @Inject
     TlsConfig tlsConfig;
 
     @Test
     public void testConnectionFactoryProperties() {
+        assertRabbitMQConfig(config.defaultClient);
+
+        config.namedClients.forEach((n, c) -> {
+            assertRabbitMQConfig(c);
+        });
+    }
+
+    private void assertRabbitMQConfig(RabbitMQClientConfig config) {
         Properties properties = RabbitMQHelper.newProperties(config, tlsConfig);
         assertRabbitMQConfig(config, tlsConfig, properties);
     }

@@ -25,7 +25,7 @@ public class RabbitMQReadyCheck implements HealthCheck {
 
     public static final String HEALTH_CHECK_NAME = "quarkus-rabbitmq-client";
     @Inject
-    RabbitMQClientConfig config;
+    RabbitMQClientsConfig config;
 
     @Override
     public HealthCheckResponse call() {
@@ -34,14 +34,11 @@ public class RabbitMQReadyCheck implements HealthCheck {
 
     private HealthCheckResponse checkAllBrokers() {
         Map<String, HealthCheckResponse.State> data = new HashMap<>();
-        RabbitMQHelper.resolveBrokerAddresses(config)
-                .forEach((a) -> {
-                    if (isBrokerAvailable(a)) {
-                        data.put(a.toString(), HealthCheckResponse.State.UP);
-                    } else {
-                        data.put(a.toString(), HealthCheckResponse.State.DOWN);
-                    }
-                });
+        appendClientState(data, null, config.defaultClient);
+        config.namedClients.forEach((n, c) -> {
+            appendClientState(data, n, c);
+        });
+
         HealthCheckResponseBuilder builder = HealthCheckResponse.builder();
         builder.name(HEALTH_CHECK_NAME);
         builder.state(data.values().stream().allMatch(s -> s == HealthCheckResponse.State.UP));
@@ -49,7 +46,18 @@ public class RabbitMQReadyCheck implements HealthCheck {
             builder.withData(a, s.name());
         });
         return builder.build();
+    }
 
+    private void appendClientState(Map<String, HealthCheckResponse.State> data, String name, RabbitMQClientConfig config) {
+        RabbitMQHelper.resolveBrokerAddresses(config)
+                .forEach((a) -> {
+                    String prefix = name == null ? "" : name + "|";
+                    if (isBrokerAvailable(a)) {
+                        data.put(prefix + a.toString(), HealthCheckResponse.State.UP);
+                    } else {
+                        data.put(prefix + a.toString(), HealthCheckResponse.State.DOWN);
+                    }
+                });
     }
 
     private boolean isBrokerAvailable(Address address) {

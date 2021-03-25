@@ -13,7 +13,7 @@ import io.quarkus.runtime.annotations.*;
  *
  * @author b.passon
  */
-@ConfigRoot(name = "rabbitmqclient", phase = ConfigPhase.RUN_TIME)
+@ConfigGroup
 public class RabbitMQClientConfig {
 
     /**
