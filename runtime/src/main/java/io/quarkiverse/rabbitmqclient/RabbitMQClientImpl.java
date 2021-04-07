@@ -5,14 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.eclipse.microprofile.context.ManagedExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rabbitmq.client.AlreadyClosedException;
 import com.rabbitmq.client.Connection;
 
-import io.quarkus.runtime.TlsConfig;
+import io.quarkus.runtime.LaunchMode;
 
 /**
  * RabbitMQ client implementation for {@link RabbitMQClient}
@@ -22,17 +21,14 @@ import io.quarkus.runtime.TlsConfig;
 class RabbitMQClientImpl implements RabbitMQClient {
 
     private static final Logger log = LoggerFactory.getLogger(RabbitMQClientImpl.class);
+    private static final int DEFAULT_CONNECTION_CLOSE_TIME_OUT_DEV_MODE = 100;
 
-    private final RabbitMQClientConfig config;
-    private final TlsConfig tlsConfig;
-    private final ManagedExecutor managedExecutor;
     private final Map<String, Connection> connections;
+    private final RabbitMQClientParams params;
 
-    RabbitMQClientImpl(RabbitMQClientConfig config, TlsConfig tlsConfig, ManagedExecutor managedExecutor) {
-        this.config = config;
-        this.tlsConfig = tlsConfig;
-        this.managedExecutor = managedExecutor;
+    RabbitMQClientImpl(RabbitMQClientParams params) {
         this.connections = new HashMap<>();
+        this.params = params;
     }
 
     /**
@@ -49,8 +45,9 @@ class RabbitMQClientImpl implements RabbitMQClient {
     @Override
     public Connection connect(String name) {
         log.debug("Opening connection {} with a RabbitMQ broker. Configured brokers: {}", name,
-                RabbitMQHelper.resolveBrokerAddresses(config));
-        return this.connections.computeIfAbsent(name, n -> RabbitMQHelper.newConnection(config, tlsConfig, managedExecutor, n));
+                RabbitMQHelper.resolveBrokerAddresses(params.getConfig()));
+        return this.connections.computeIfAbsent(name,
+                n -> RabbitMQHelper.newConnection(params, n));
     }
 
     /**
@@ -63,7 +60,12 @@ class RabbitMQClientImpl implements RabbitMQClient {
                 log.debug("Closing connection {} with RabbitMQ broker.", name);
                 // This will close all channels related to this connection
                 if (connection != null) {
-                    connection.close();
+                    // Set a positive connection close timeout in dev mode due to thread deadlock, see
+                    // https://github.com/quarkiverse/quarkus-rabbitmq-client/issues/19
+                    if (params.getLaunchMode() == LaunchMode.DEVELOPMENT && params.getConfig().connectionCloseTimeout < 0) {
+                        connection.close(DEFAULT_CONNECTION_CLOSE_TIME_OUT_DEV_MODE);
+                    }
+                    connection.close(params.getConfig().connectionCloseTimeout);
                 }
                 log.debug("Closed connection {} with RabbitMQ broker.", name);
             } catch (AlreadyClosedException ex) {
@@ -72,6 +74,13 @@ class RabbitMQClientImpl implements RabbitMQClient {
                 log.debug("Failed to close connection {} with RabbitMQ broker, ignoring.", name);
             }
         });
+    }
 
+    /**
+     * Gets the name of the client.
+     */
+    @Override
+    public String getName() {
+        return params.getName();
     }
 }

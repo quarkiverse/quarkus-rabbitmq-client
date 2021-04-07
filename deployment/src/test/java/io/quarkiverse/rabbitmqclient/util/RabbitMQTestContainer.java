@@ -15,10 +15,10 @@ public class RabbitMQTestContainer implements QuarkusTestResourceLifecycleManage
     private static final String AMQP_PORT = "test.amqp-port";
     private static final String HOSTNAME = "test.hostname";
 
-    private final MountableFile keyFile = MountableFile.forClasspathResource("/testcontainer/rabbitmq/server/key.pem");
-    private final MountableFile certFile = MountableFile.forClasspathResource("/testcontainer/rabbitmq/server/cert.pem");
-    private final MountableFile caFile = MountableFile.forClasspathResource("/testcontainer/rabbitmq/ca/cacert.pem");
-    private final MountableFile configFile = MountableFile.forClasspathResource("/testcontainer/rabbitmq/rabbit.conf");
+    private final MountableFile keyFile = MountableFile.forClasspathResource("/rabbitmq/server/key.pem");
+    private final MountableFile certFile = MountableFile.forClasspathResource("/rabbitmq/server/cert.pem");
+    private final MountableFile caFile = MountableFile.forClasspathResource("/rabbitmq/ca/cacert.pem");
+    private final MountableFile configFile = MountableFile.forClasspathResource("/rabbitmq/rabbit.conf");
     private RabbitMQContainer rabbitmq;
 
     @Override

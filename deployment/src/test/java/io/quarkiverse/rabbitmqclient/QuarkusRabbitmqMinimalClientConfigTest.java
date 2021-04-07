@@ -36,7 +36,11 @@ public class QuarkusRabbitmqMinimalClientConfigTest extends RabbitMQConfigTest {
     }
 
     private void assertRabbitMQConfig(RabbitMQClientConfig config) {
-        Properties properties = RabbitMQHelper.newProperties(config, tlsConfig);
+        RabbitMQClientParams params = new RabbitMQClientParams();
+        params.setConfig(config);
+        params.setTlsConfig(tlsConfig);
+
+        Properties properties = RabbitMQHelper.newProperties(params);
         assertRabbitMQConfig(config, tlsConfig, properties);
     }
 }

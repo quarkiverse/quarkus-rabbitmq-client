@@ -71,6 +71,12 @@ public class RabbitMQClientConfig {
     public int connectionTimeout;
 
     /**
+     * Connection close timeout in milliseconds
+     */
+    @ConfigItem(defaultValue = "-1")
+    public int connectionCloseTimeout;
+
+    /**
      * Heartbeat interval in seconds
      */
     @ConfigItem(defaultValue = "" + ConnectionFactory.DEFAULT_HEARTBEAT)

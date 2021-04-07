@@ -24,11 +24,11 @@ public class QuarkusRabbitMQConnectionTest extends RabbitMQConfigTest {
                     .addClasses(TestConfig.class)
                     .addAsResource(
                             QuarkusRabbitMQConnectionTest.class
-                                    .getResource("/testcontainer/rabbitmq/rabbitmq-properties.properties"),
+                                    .getResource("/rabbitmq/rabbitmq-properties.properties"),
                             "application.properties")
-                    .addAsResource(QuarkusRabbitMQConnectionTest.class.getResource("/testcontainer/rabbitmq/ca/cacerts.jks"),
+                    .addAsResource(QuarkusRabbitMQConnectionTest.class.getResource("/rabbitmq/ca/cacerts.jks"),
                             "rabbitmq/ca/cacerts.jks")
-                    .addAsResource(QuarkusRabbitMQConnectionTest.class.getResource("/testcontainer/rabbitmq/client/client.jks"),
+                    .addAsResource(QuarkusRabbitMQConnectionTest.class.getResource("/rabbitmq/client/client.jks"),
                             "rabbitmq/client/client.jks"));
 
     @Inject
