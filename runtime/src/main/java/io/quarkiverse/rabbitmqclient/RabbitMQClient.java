@@ -32,4 +32,8 @@ public interface RabbitMQClient {
      */
     void disconnect();
 
+    /**
+     * Gets the name of the client.
+     */
+    String getName();
 }

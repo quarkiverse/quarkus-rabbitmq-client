@@ -5,8 +5,11 @@ import java.util.Map;
 
 import javax.inject.Singleton;
 
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.context.ManagedExecutor;
 
+import io.quarkus.runtime.LaunchMode;
 import io.quarkus.runtime.TlsConfig;
 
 /**
@@ -27,15 +30,20 @@ public class RabbitMQClients {
     private RabbitMQClientImpl defaultClient;
     private final Map<String, RabbitMQClientImpl> namedClients;
 
-    private final ManagedExecutor managedExecutor;
+    private final ManagedExecutor executorService;
     private final TlsConfig tlsConfig;
     private final RabbitMQClientsConfig rabbitMQClientsConfig;
+    private final LaunchMode launchMode;
+    private final Config config;
 
-    public RabbitMQClients(RabbitMQClientsConfig rabbitMQClientsConfig, TlsConfig tlsConfig, ManagedExecutor managedExecutor) {
+    public RabbitMQClients(RabbitMQClientsConfig rabbitMQClientsConfig, TlsConfig tlsConfig, ManagedExecutor executorService,
+            LaunchMode launchMode) {
         this.rabbitMQClientsConfig = rabbitMQClientsConfig;
         this.tlsConfig = tlsConfig;
-        this.managedExecutor = managedExecutor;
+        this.executorService = executorService;
         this.namedClients = new HashMap<>();
+        this.launchMode = launchMode;
+        this.config = ConfigProvider.getConfig();
     }
 
     /**
@@ -45,15 +53,26 @@ public class RabbitMQClients {
      * @return a configured {@link RabbitMQClient}.
      */
     public RabbitMQClient getRabbitMQClient(String name) {
+        RabbitMQClientParams params = params(name);
         if (name == null) {
             if (defaultClient == null) {
-                defaultClient = new RabbitMQClientImpl(rabbitMQClientsConfig.defaultClient, tlsConfig, managedExecutor);
+                defaultClient = new RabbitMQClientImpl(params);
             }
             return defaultClient;
         } else {
             return namedClients.computeIfAbsent(name,
-                    n -> new RabbitMQClientImpl(rabbitMQClientsConfig.namedClients.get(n), tlsConfig, managedExecutor));
+                    n -> new RabbitMQClientImpl(params));
         }
+    }
+
+    private RabbitMQClientParams params(String name) {
+        RabbitMQClientParams params = new RabbitMQClientParams();
+        params.setName(name);
+        params.setExecutorService(executorService);
+        params.setLaunchMode(launchMode);
+        params.setTlsConfig(tlsConfig);
+        params.setConfig(name == null ? rabbitMQClientsConfig.defaultClient : rabbitMQClientsConfig.namedClients.get(name));
+        return params;
     }
 
     /**

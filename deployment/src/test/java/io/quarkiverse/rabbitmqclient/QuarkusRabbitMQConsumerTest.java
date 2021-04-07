@@ -27,11 +27,11 @@ public class QuarkusRabbitMQConsumerTest extends RabbitMQConfigTest {
                     .addClasses(TestConfig.class, RabbitMQTestHelper.class)
                     .addAsResource(
                             QuarkusRabbitMQConsumerTest.class
-                                    .getResource("/testcontainer/rabbitmq/rabbitmq-properties.properties"),
+                                    .getResource("/rabbitmq/rabbitmq-properties.properties"),
                             "application.properties")
-                    .addAsResource(QuarkusRabbitMQConsumerTest.class.getResource("/testcontainer/rabbitmq/ca/cacerts.jks"),
+                    .addAsResource(QuarkusRabbitMQConsumerTest.class.getResource("/rabbitmq/ca/cacerts.jks"),
                             "rabbitmq/ca/cacerts.jks")
-                    .addAsResource(QuarkusRabbitMQConsumerTest.class.getResource("/testcontainer/rabbitmq/client/client.jks"),
+                    .addAsResource(QuarkusRabbitMQConsumerTest.class.getResource("/rabbitmq/client/client.jks"),
                             "rabbitmq/client/client.jks"));
 
     @Inject

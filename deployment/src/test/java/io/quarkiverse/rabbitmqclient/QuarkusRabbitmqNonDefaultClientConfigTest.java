@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -29,8 +30,13 @@ public class QuarkusRabbitmqNonDefaultClientConfigTest extends RabbitMQConfigTes
 
     @Test
     public void testConnectionFactoryProperties() {
-        Properties properties = RabbitMQHelper.newProperties(config.defaultClient, tlsConfig);
+        RabbitMQClientParams params = new RabbitMQClientParams();
+        params.setConfig(config.defaultClient);
+        params.setTlsConfig(tlsConfig);
+
+        Properties properties = RabbitMQHelper.newProperties(params);
         assertRabbitMQConfig(config.defaultClient, tlsConfig, properties);
+        Assertions.assertEquals(config.defaultClient.connectionCloseTimeout, 200);
     }
 
 }
