@@ -54,9 +54,9 @@ public class QuarkusRabbitmqReadyCheckTest {
     public void testHealthEndpointDefaultClientAllBrokersUp() {
         setupDummyServers(config, 2, 0);
         HealthCheckResponse resp = readyCheck.call();
-        Assertions.assertEquals(HealthCheckResponse.State.UP, resp.getState());
-        assertNumberOfBrokersInState(resp, 2, HealthCheckResponse.State.UP);
-        assertNumberOfBrokersInState(resp, 0, HealthCheckResponse.State.DOWN);
+        Assertions.assertEquals(HealthCheckResponse.Status.UP, resp.getStatus());
+        assertNumberOfBrokersInState(resp, 2, HealthCheckResponse.Status.UP);
+        assertNumberOfBrokersInState(resp, 0, HealthCheckResponse.Status.DOWN);
         assertData(resp);
     }
 
@@ -65,9 +65,9 @@ public class QuarkusRabbitmqReadyCheckTest {
         setupDummyServers(config, 2, 0);
         setupDummyServers(config, "other", 2, 0);
         HealthCheckResponse resp = readyCheck.call();
-        Assertions.assertEquals(HealthCheckResponse.State.UP, resp.getState());
-        assertNumberOfBrokersInState(resp, 4, HealthCheckResponse.State.UP);
-        assertNumberOfBrokersInState(resp, 0, HealthCheckResponse.State.DOWN);
+        Assertions.assertEquals(HealthCheckResponse.Status.UP, resp.getStatus());
+        assertNumberOfBrokersInState(resp, 4, HealthCheckResponse.Status.UP);
+        assertNumberOfBrokersInState(resp, 0, HealthCheckResponse.Status.DOWN);
         assertData(resp);
     }
 
@@ -75,9 +75,9 @@ public class QuarkusRabbitmqReadyCheckTest {
     public void testHealthEndpointDefaultClientOneBrokerDown() {
         setupDummyServers(config, 3, 1);
         HealthCheckResponse resp = readyCheck.call();
-        Assertions.assertEquals(HealthCheckResponse.State.DOWN, resp.getState());
-        assertNumberOfBrokersInState(resp, 2, HealthCheckResponse.State.UP);
-        assertNumberOfBrokersInState(resp, 1, HealthCheckResponse.State.DOWN);
+        Assertions.assertEquals(HealthCheckResponse.Status.DOWN, resp.getStatus());
+        assertNumberOfBrokersInState(resp, 2, HealthCheckResponse.Status.UP);
+        assertNumberOfBrokersInState(resp, 1, HealthCheckResponse.Status.DOWN);
         assertData(resp);
     }
 
@@ -85,9 +85,9 @@ public class QuarkusRabbitmqReadyCheckTest {
     public void testHealthEndpointDefaultClientAllBrokersDown() {
         setupDummyServers(config, 5, 5);
         HealthCheckResponse resp = readyCheck.call();
-        Assertions.assertEquals(HealthCheckResponse.State.DOWN, resp.getState());
-        assertNumberOfBrokersInState(resp, 0, HealthCheckResponse.State.UP);
-        assertNumberOfBrokersInState(resp, 5, HealthCheckResponse.State.DOWN);
+        Assertions.assertEquals(HealthCheckResponse.Status.DOWN, resp.getStatus());
+        assertNumberOfBrokersInState(resp, 0, HealthCheckResponse.Status.UP);
+        assertNumberOfBrokersInState(resp, 5, HealthCheckResponse.Status.DOWN);
         assertData(resp);
     }
 
@@ -96,9 +96,9 @@ public class QuarkusRabbitmqReadyCheckTest {
         setupDummyServers(config, 5, 5);
         setupDummyServers(config, "other", 3, 3);
         HealthCheckResponse resp = readyCheck.call();
-        Assertions.assertEquals(HealthCheckResponse.State.DOWN, resp.getState());
-        assertNumberOfBrokersInState(resp, 0, HealthCheckResponse.State.UP);
-        assertNumberOfBrokersInState(resp, 8, HealthCheckResponse.State.DOWN);
+        Assertions.assertEquals(HealthCheckResponse.Status.DOWN, resp.getStatus());
+        assertNumberOfBrokersInState(resp, 0, HealthCheckResponse.Status.UP);
+        assertNumberOfBrokersInState(resp, 8, HealthCheckResponse.Status.DOWN);
         assertData(resp);
     }
 
@@ -128,7 +128,7 @@ public class QuarkusRabbitmqReadyCheckTest {
         }
     }
 
-    private void assertNumberOfBrokersInState(HealthCheckResponse resp, int number, HealthCheckResponse.State state) {
+    private void assertNumberOfBrokersInState(HealthCheckResponse resp, int number, HealthCheckResponse.Status state) {
         Assertions.assertTrue(resp.getData().isPresent());
         Assertions.assertEquals(number, resp.getData().get().values().stream().filter(s -> s.equals(state.name())).count());
     }
@@ -140,7 +140,7 @@ public class QuarkusRabbitmqReadyCheckTest {
             Object obj = resp.getData().get().get(ds.toString());
             Assertions.assertNotNull(obj);
             Assertions.assertEquals(obj.toString(),
-                    ds.isAvailable() ? HealthCheckResponse.State.UP.name() : HealthCheckResponse.State.DOWN.name());
+                    ds.isAvailable() ? HealthCheckResponse.Status.UP.name() : HealthCheckResponse.Status.DOWN.name());
         });
     }
 }

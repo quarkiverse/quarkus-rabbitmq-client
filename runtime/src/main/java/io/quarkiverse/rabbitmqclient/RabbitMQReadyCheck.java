@@ -33,7 +33,7 @@ public class RabbitMQReadyCheck implements HealthCheck {
     }
 
     private HealthCheckResponse checkAllBrokers() {
-        Map<String, HealthCheckResponse.State> data = new HashMap<>();
+        Map<String, HealthCheckResponse.Status> data = new HashMap<>();
         appendClientState(data, null, config.defaultClient);
         config.namedClients.forEach((n, c) -> {
             appendClientState(data, n, c);
@@ -41,21 +41,21 @@ public class RabbitMQReadyCheck implements HealthCheck {
 
         HealthCheckResponseBuilder builder = HealthCheckResponse.builder();
         builder.name(HEALTH_CHECK_NAME);
-        builder.state(data.values().stream().allMatch(s -> s == HealthCheckResponse.State.UP));
+        builder.status(data.values().stream().allMatch(s -> s == HealthCheckResponse.Status.UP));
         data.forEach((a, s) -> {
             builder.withData(a, s.name());
         });
         return builder.build();
     }
 
-    private void appendClientState(Map<String, HealthCheckResponse.State> data, String name, RabbitMQClientConfig config) {
+    private void appendClientState(Map<String, HealthCheckResponse.Status> data, String name, RabbitMQClientConfig config) {
         RabbitMQHelper.resolveBrokerAddresses(config)
                 .forEach((a) -> {
                     String prefix = name == null ? "" : name + "|";
                     if (isBrokerAvailable(a)) {
-                        data.put(prefix + a.toString(), HealthCheckResponse.State.UP);
+                        data.put(prefix + a.toString(), HealthCheckResponse.Status.UP);
                     } else {
-                        data.put(prefix + a.toString(), HealthCheckResponse.State.DOWN);
+                        data.put(prefix + a.toString(), HealthCheckResponse.Status.DOWN);
                     }
                 });
     }
