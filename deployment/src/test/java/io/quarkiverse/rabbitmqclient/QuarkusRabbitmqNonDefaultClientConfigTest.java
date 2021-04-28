@@ -17,6 +17,7 @@ public class QuarkusRabbitmqNonDefaultClientConfigTest extends RabbitMQConfigTes
 
     @RegisterExtension
     static final QuarkusUnitTest unitTest = new QuarkusUnitTest() // Start unit test with your extension loaded
+            .setFlatClassPath(true)
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addAsResource(
                             QuarkusRabbitmqNonDefaultClientConfigTest.class.getResource("/non-default-properties.properties"),

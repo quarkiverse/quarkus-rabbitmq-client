@@ -26,6 +26,7 @@ public class QuarkusRabbitmqReadyCheckTest {
 
     @RegisterExtension
     static final QuarkusUnitTest unitTest = new QuarkusUnitTest() // Start unit test with your extension loaded
+            .setFlatClassPath(true)
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClasses(DummyServer.class)
                     .addAsResource(QuarkusRabbitmqReadyCheckTest.class.getResource("/empty-properties.properties"),

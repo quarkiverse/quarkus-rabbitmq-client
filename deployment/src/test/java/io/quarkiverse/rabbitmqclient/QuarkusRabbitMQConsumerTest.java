@@ -23,6 +23,7 @@ public class QuarkusRabbitMQConsumerTest extends RabbitMQConfigTest {
 
     @RegisterExtension
     static final QuarkusUnitTest unitTest = new QuarkusUnitTest() // Start unit test with your extension loaded
+            .setFlatClassPath(true)
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClasses(TestConfig.class, RabbitMQTestHelper.class)
                     .addAsResource(

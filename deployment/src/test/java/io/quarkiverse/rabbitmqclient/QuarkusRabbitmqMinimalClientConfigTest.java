@@ -16,6 +16,7 @@ public class QuarkusRabbitmqMinimalClientConfigTest extends RabbitMQConfigTest {
 
     @RegisterExtension
     static final QuarkusUnitTest unitTest = new QuarkusUnitTest() // Start unit test with your extension loaded
+            .setFlatClassPath(true)
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addAsResource(QuarkusRabbitmqMinimalClientConfigTest.class.getResource("/minimal-properties.properties"),
                             "application.properties"));
