@@ -1,9 +1,11 @@
 # Quarkiverse RabbitMQ Client
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-) [![version](https://img.shields.io/maven-central/v/io.quarkiverse.rabbitmqclient/quarkus-rabbitmq-client-parent)](https://repo1.maven.org/maven2/io/quarkiverse/rabbitmqclient/)
 
-This is a Quarkus extension for the [RabbitMQ](https://www.rabbitmq.com/) [Java Client](https://rabbitmq.com/api-guide.html).
+This is a Quarkus 2 extension for the [RabbitMQ](https://www.rabbitmq.com/) [Java Client](https://rabbitmq.com/api-guide.html).
 
 RabbitMQ is a popular message broker. This Quarkus extension provides a client for RabbitMQ which is configurable using the `application.properties`.
+
+_Note: Looking for the Quarkus 1.x extension, see the [1.x branch](https://github.com/quarkiverse/quarkus-rabbitmq-client/tree/1.x) for the details._
 
 ## Coordinates
 
@@ -11,10 +13,9 @@ RabbitMQ is a popular message broker. This Quarkus extension provides a client f
 <dependency>
     <groupId>io.quarkiverse.rabbitmqclient</groupId>
     <artifactId>quarkus-rabbitmq-client</artifactId>
-    <version>0.2.1</version>
+    <version>0.3.0.CR3</version>
 </dependency>
 ```
-
 ## Usage
 Assuming you have RabbitMQ running on localhost:5672 you should add the following properties to your `application.properties` and fill in the values for `<username>` and `<password>`.
 
