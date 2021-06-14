@@ -2,22 +2,24 @@ package io.quarkiverse.rabbitmqclient.util;
 
 import java.util.Optional;
 
+import javax.enterprise.context.ApplicationScoped;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import io.quarkiverse.rabbitmqclient.RabbitMQClientConfig;
 import io.quarkiverse.rabbitmqclient.RabbitMQClientsConfig;
-import io.quarkus.arc.config.ConfigProperties;
-import io.quarkus.runtime.annotations.ConfigItem;
 
-@ConfigProperties(prefix = "test")
+@ApplicationScoped
 public class TestConfig {
 
-    @ConfigItem
-    public int amqpsPort;
+    @ConfigProperty(name = "test.amqps-port")
+    int amqpsPort;
 
-    @ConfigItem
-    public int amqpPort;
+    @ConfigProperty(name = "test.amqp-port")
+    int amqpPort;
 
-    @ConfigItem
-    public String hostname;
+    @ConfigProperty(name = "test.hostname")
+    String hostname;
 
     public void setupNonSll(RabbitMQClientsConfig config) {
         setupNonSllClient(config.defaultClient);
