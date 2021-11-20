@@ -76,7 +76,7 @@ public class QuarkusRabbitmqReadyCheckTest {
     public void testHealthEndpointDefaultClientOneBrokerDown() {
         setupDummyServers(config, 3, 1);
         HealthCheckResponse resp = readyCheck.call();
-        Assertions.assertEquals(HealthCheckResponse.Status.DOWN, resp.getStatus());
+        Assertions.assertEquals(HealthCheckResponse.Status.UP, resp.getStatus());
         assertNumberOfBrokersInState(resp, 2, HealthCheckResponse.Status.UP);
         assertNumberOfBrokersInState(resp, 1, HealthCheckResponse.Status.DOWN);
         assertData(resp);
@@ -103,29 +103,54 @@ public class QuarkusRabbitmqReadyCheckTest {
         assertData(resp);
     }
 
+    @Test
+    public void testHealthEndpointWithoutDefaultClientUp() {
+        setupDummyServers(config, "other", 1, 0);
+        HealthCheckResponse resp = readyCheck.call();
+        Assertions.assertEquals(HealthCheckResponse.Status.UP, resp.getStatus());
+        assertNumberOfBrokersInState(resp, 1, HealthCheckResponse.Status.UP);
+    }
+
+    @Test
+    public void testHealthEndpointWithoutDefaultClientDown() {
+        setupDummyServers(config, "other", 1, 1);
+        HealthCheckResponse resp = readyCheck.call();
+        Assertions.assertEquals(HealthCheckResponse.Status.DOWN, resp.getStatus());
+        assertNumberOfBrokersInState(resp, 1, HealthCheckResponse.Status.DOWN);
+    }
+
+    @Test
+    public void testHealthEndpointWithoutDefaultClientMultipleAddressGivesDown() {
+        setupDummyServers(config, "other", 2, 1);
+        HealthCheckResponse resp = readyCheck.call();
+        Assertions.assertEquals(HealthCheckResponse.Status.UP, resp.getStatus());
+        assertNumberOfBrokersInState(resp, 1, HealthCheckResponse.Status.UP);
+        assertNumberOfBrokersInState(resp, 1, HealthCheckResponse.Status.DOWN);
+    }
+
     private void setupDummyServers(RabbitMQClientsConfig config, int number, int down) {
         setupDummyServers(config, null, number, down);
     }
 
     private void setupDummyServers(RabbitMQClientsConfig config, String name, int number, int down) {
         RabbitMQClientConfig cfg = new RabbitMQClientConfig();
+        Runnable closeCallback;
         if (name == null) {
             config.defaultClient = cfg;
+            closeCallback = () -> config.defaultClient = null;
         } else {
             config.namedClients.put(name, cfg);
+            closeCallback = () -> config.namedClients.remove(name);
         }
         cfg.addresses = new HashMap<>();
         String hostName = "client-" + (name == null ? "" : name + "-") + "dummy-";
         for (int i = 0; i < number; i++) {
-            DummyServer ds = DummyServer.newDummyServer(name);
+            DummyServer ds = DummyServer.newDummyServer(name, closeCallback, i < down);
             RabbitMQClientConfig.Address address = new RabbitMQClientConfig.Address();
             address.hostname = ds.getHostname();
             address.port = ds.getPort();
             cfg.addresses.put(hostName + i, address);
             dummyServers.add(ds);
-            if (i < down) {
-                ds.close();
-            }
         }
     }
 

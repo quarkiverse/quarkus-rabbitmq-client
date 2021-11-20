@@ -1,9 +1,15 @@
 package io.quarkiverse.rabbitmqclient;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
-import com.rabbitmq.client.*;
+import com.rabbitmq.client.Address;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.ConnectionFactoryConfigurator;
 
 /**
  * Helper class with RabbitMQClient utility methods.
@@ -67,7 +73,8 @@ class RabbitMQHelper {
      */
     public static List<Address> resolveBrokerAddresses(RabbitMQClientConfig config) {
         return config.addresses.isEmpty()
-                ? Collections.singletonList(new Address(config.hostname, config.port))
+                ? Collections.singletonList(new Address(config.hostname,
+                        ConnectionFactory.portOrDefault(config.port, config.tls != null && config.tls.enabled)))
                 : convertAddresses(config.addresses);
     }
 

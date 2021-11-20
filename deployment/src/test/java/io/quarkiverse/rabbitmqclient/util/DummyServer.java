@@ -18,6 +18,7 @@ public class DummyServer {
     private int port;
     private boolean available;
     private String client;
+    private Runnable closeCallback;
 
     public int getPort() {
         return port;
@@ -38,19 +39,26 @@ public class DummyServer {
     public void close() {
         try {
             available = false;
-            socket.close();
+            if (socket != null) {
+                socket.close();
+            }
+            closeCallback.run();
         } catch (IOException ioe) {
             throw new UncheckedIOException(ioe);
         }
     }
 
-    public static DummyServer newDummyServer(String client) {
+    public static DummyServer newDummyServer(String client, Runnable closeCallback, boolean failing) {
         try {
             DummyServer ds = new DummyServer();
             ds.port = findFreePort();
-            ds.socket = ServerSocketFactory.getDefault().createServerSocket(ds.port, 50, InetAddress.getByName("localhost"));
-            ds.available = true;
+            if (!failing) {
+                ds.socket = ServerSocketFactory.getDefault().createServerSocket(ds.port, 50,
+                        InetAddress.getByName("localhost"));
+            }
+            ds.available = !failing;
             ds.client = client;
+            ds.closeCallback = closeCallback;
             return ds;
         } catch (IOException ioe) {
             throw new UncheckedIOException(ioe);

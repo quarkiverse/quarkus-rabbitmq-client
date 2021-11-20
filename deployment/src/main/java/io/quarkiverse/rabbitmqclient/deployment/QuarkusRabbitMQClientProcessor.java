@@ -4,13 +4,17 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
-import io.quarkiverse.rabbitmqclient.*;
+import io.quarkiverse.rabbitmqclient.NamedRabbitMQClient;
+import io.quarkiverse.rabbitmqclient.RabbitMQClient;
+import io.quarkiverse.rabbitmqclient.RabbitMQClients;
+import io.quarkiverse.rabbitmqclient.RabbitMQClientsBuildConfig;
 import io.quarkiverse.rabbitmqclient.runtime.RabbitMQRecorder;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanArchiveIndexBuildItem;
@@ -34,6 +38,8 @@ class QuarkusRabbitMQClientProcessor {
     private static final String FEATURE = "rabbitmq-client";
     private static final DotName NAMED_RABBITMQ_CLIENT_ANNOTATION = DotName
             .createSimple(NamedRabbitMQClient.class.getName());
+    private static final DotName INJECT_ANNOTATION = DotName
+            .createSimple(Inject.class.getName());
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -55,19 +61,20 @@ class QuarkusRabbitMQClientProcessor {
     }
 
     @BuildStep
-    public void mongoClientNames(BeanArchiveIndexBuildItem indexBuildItem,
-            BuildProducer<QuarkusRabbitMQClientNameBuildItem> mongoClientName) {
+    public void namedClients(BeanArchiveIndexBuildItem indexBuildItem,
+            BuildProducer<QuarkusRabbitMQClientBuildItem> clientName) {
         IndexView indexView = indexBuildItem.getIndex();
-        Collection<AnnotationInstance> mongoClientAnnotations = indexView.getAnnotations(NAMED_RABBITMQ_CLIENT_ANNOTATION);
-        for (AnnotationInstance annotation : mongoClientAnnotations) {
-            mongoClientName.produce(new QuarkusRabbitMQClientNameBuildItem(annotation.value().asString()));
+
+        Collection<AnnotationInstance> clientAnnotations = indexView.getAnnotations(NAMED_RABBITMQ_CLIENT_ANNOTATION);
+        for (AnnotationInstance annotation : clientAnnotations) {
+            clientName.produce(new QuarkusRabbitMQClientBuildItem(annotation.value().asString()));
         }
     }
 
     @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
     void registerClients(RabbitMQRecorder recorder, ShutdownContextBuildItem shutdown,
-            List<QuarkusRabbitMQClientNameBuildItem> namedClients,
+            List<QuarkusRabbitMQClientBuildItem> namedClients,
             BuildProducer<SyntheticBeanBuildItem> syntheticBeans) {
         recorder.registerShutdownTask(shutdown);
 
@@ -75,7 +82,7 @@ class QuarkusRabbitMQClientProcessor {
         addRabbitMQClient(recorder, null, syntheticBeans);
 
         // create named clients
-        for (QuarkusRabbitMQClientNameBuildItem namedClient : namedClients) {
+        for (QuarkusRabbitMQClientBuildItem namedClient : namedClients) {
             addRabbitMQClient(recorder, namedClient.getName(), syntheticBeans);
         }
     }
