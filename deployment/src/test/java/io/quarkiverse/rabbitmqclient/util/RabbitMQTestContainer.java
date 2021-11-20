@@ -28,7 +28,6 @@ public class RabbitMQTestContainer implements QuarkusTestResourceLifecycleManage
                 .withCopyFileToContainer(certFile, "/etc/rabbitmq/rabbitmq_cert.pem")
                 .withCopyFileToContainer(caFile, "/etc/rabbitmq/ca_cert.pem")
                 .withRabbitMQConfig(configFile);
-
         rabbitmq.start();
         Map<String, String> testConfig = new HashMap<>();
         testConfig.put(HOSTNAME, rabbitmq.getHost());
