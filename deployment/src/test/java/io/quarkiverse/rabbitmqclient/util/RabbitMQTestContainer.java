@@ -24,10 +24,7 @@ public class RabbitMQTestContainer implements QuarkusTestResourceLifecycleManage
     @Override
     public Map<String, String> start() {
         rabbitmq = new RabbitMQContainer(DockerImageName.parse("rabbitmq:3.7.25-management-alpine"))
-                .withCopyFileToContainer(keyFile, "/etc/rabbitmq/rabbitmq_key.pem")
-                .withCopyFileToContainer(certFile, "/etc/rabbitmq/rabbitmq_cert.pem")
-                .withCopyFileToContainer(caFile, "/etc/rabbitmq/ca_cert.pem")
-                .withRabbitMQConfig(configFile);
+                .withSSL(keyFile, certFile, caFile, RabbitMQContainer.SslVerification.VERIFY_PEER, false);
         rabbitmq.start();
         Map<String, String> testConfig = new HashMap<>();
         testConfig.put(HOSTNAME, rabbitmq.getHost());
