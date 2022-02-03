@@ -16,4 +16,9 @@ public class RabbitMQClientsBuildConfig {
     @ConfigItem(defaultValue = "true")
     public boolean healthEnabled;
 
+    /**
+     * Enables metrics
+     */
+    @ConfigItem(defaultValue = "true")
+    public boolean metricsEnabled;
 }

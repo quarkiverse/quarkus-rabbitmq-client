@@ -18,7 +18,6 @@ public class RabbitMQTestContainer implements QuarkusTestResourceLifecycleManage
     private final MountableFile keyFile = MountableFile.forClasspathResource("/rabbitmq/server/key.pem");
     private final MountableFile certFile = MountableFile.forClasspathResource("/rabbitmq/server/cert.pem");
     private final MountableFile caFile = MountableFile.forClasspathResource("/rabbitmq/ca/cacert.pem");
-    private final MountableFile configFile = MountableFile.forClasspathResource("/rabbitmq/rabbit.conf");
     private RabbitMQContainer rabbitmq;
 
     @Override

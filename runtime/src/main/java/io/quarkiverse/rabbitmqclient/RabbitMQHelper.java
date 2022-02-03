@@ -6,10 +6,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-import com.rabbitmq.client.Address;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.ConnectionFactoryConfigurator;
+import com.rabbitmq.client.*;
 
 /**
  * Helper class with RabbitMQClient utility methods.
@@ -28,10 +25,13 @@ class RabbitMQHelper {
      * @return a {@link Connection} connected to a configured RabbitMQ broker.
      * @throws RabbitMQClientException if a failure occurs.
      */
-    public static Connection newConnection(RabbitMQClientParams params, String name) {
+    public static Connection newConnection(RabbitMQClientParams params, String name, MetricsCollector mc) {
         try {
             RabbitMQClientConfig config = params.getConfig();
             ConnectionFactory cf = newConnectionFactory(params);
+            if (mc != null) {
+                cf.setMetricsCollector(mc);
+            }
             List<Address> addresses = config.addresses.isEmpty()
                     ? Collections.singletonList(new Address(config.hostname, config.port))
                     : convertAddresses(config.addresses);

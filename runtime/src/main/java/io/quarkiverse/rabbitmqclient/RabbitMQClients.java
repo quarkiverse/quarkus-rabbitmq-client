@@ -9,6 +9,8 @@ import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.context.ManagedExecutor;
 
+import com.rabbitmq.client.MetricsCollector;
+
 import io.quarkus.runtime.LaunchMode;
 import io.quarkus.runtime.TlsConfig;
 
@@ -53,15 +55,26 @@ public class RabbitMQClients {
      * @return a configured {@link RabbitMQClient}.
      */
     public RabbitMQClient getRabbitMQClient(String name) {
+        return getRabbitMQClient(name, null);
+    }
+
+    /**
+     * Creates a singleton {@link RabbitMQClient}.
+     *
+     * @param name the name of the rabbit mq client, if null the default is assumed.
+     * @param mc a metrics collector to use.
+     * @return a configured {@link RabbitMQClient}.
+     */
+    public RabbitMQClient getRabbitMQClient(String name, MetricsCollector mc) {
         RabbitMQClientParams params = params(name);
         if (name == null) {
             if (defaultClient == null) {
-                defaultClient = new RabbitMQClientImpl(params);
+                defaultClient = new RabbitMQClientImpl(params, mc);
             }
             return defaultClient;
         } else {
             return namedClients.computeIfAbsent(name,
-                    n -> new RabbitMQClientImpl(params));
+                    n -> new RabbitMQClientImpl(params, mc));
         }
     }
 

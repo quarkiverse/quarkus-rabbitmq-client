@@ -2,6 +2,8 @@ package io.quarkiverse.rabbitmqclient.deployment;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
@@ -26,6 +28,8 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
+import io.quarkus.deployment.metrics.MetricsCapabilityBuildItem;
+import io.quarkus.runtime.metrics.MetricsFactory;
 import io.quarkus.smallrye.health.deployment.spi.HealthBuildItem;
 
 /**
@@ -74,27 +78,39 @@ class QuarkusRabbitMQClientProcessor {
     @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
     void registerClients(RabbitMQRecorder recorder, ShutdownContextBuildItem shutdown,
-            List<QuarkusRabbitMQClientBuildItem> namedClients,
-            BuildProducer<SyntheticBeanBuildItem> syntheticBeans) {
+            List<QuarkusRabbitMQClientBuildItem> namedClients, RabbitMQClientsBuildConfig buildTimeConfig,
+            BuildProducer<SyntheticBeanBuildItem> syntheticBeans, Optional<MetricsCapabilityBuildItem> metricsCapability) {
         recorder.registerShutdownTask(shutdown);
 
         // create default client
-        addRabbitMQClient(recorder, null, syntheticBeans);
+        addRabbitMQClient(recorder, null, buildTimeConfig, metricsCapability, syntheticBeans);
 
         // create named clients
         for (QuarkusRabbitMQClientBuildItem namedClient : namedClients) {
-            addRabbitMQClient(recorder, namedClient.getName(), syntheticBeans);
+            addRabbitMQClient(recorder, namedClient.getName(), buildTimeConfig, metricsCapability, syntheticBeans);
         }
     }
 
-    void addRabbitMQClient(RabbitMQRecorder recorder, String name,
+    void addRabbitMQClient(RabbitMQRecorder recorder, String name, RabbitMQClientsBuildConfig buildTimeConfig,
+            Optional<MetricsCapabilityBuildItem> metricsCapability,
             BuildProducer<SyntheticBeanBuildItem> syntheticBeans) {
+
+        Supplier<RabbitMQClient> rabbitMQClientSupplier = null;
+        if (buildTimeConfig.metricsEnabled && metricsCapability.isPresent()) {
+            if (metricsCapability.get().metricsSupported(MetricsFactory.MICROMETER)) {
+                rabbitMQClientSupplier = recorder.rabbitMQClientSupplierMicrometerMetrics(name);
+            }
+        }
+        if (rabbitMQClientSupplier == null) {
+            rabbitMQClientSupplier = recorder.rabbitMQClientSupplier(name);
+        }
+
         SyntheticBeanBuildItem.ExtendedBeanConfigurator configurator = SyntheticBeanBuildItem
                 .configure(RabbitMQClient.class)
                 .scope(Singleton.class)
                 .setRuntimeInit()
                 .unremovable()
-                .supplier(recorder.rabbitMQClientSupplier(name));
+                .supplier(rabbitMQClientSupplier);
 
         if (name == null) {
             configurator.addQualifier(Default.class);
