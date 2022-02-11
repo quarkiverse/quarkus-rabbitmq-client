@@ -19,7 +19,7 @@ import io.quarkus.test.QuarkusUnitTest;
 import io.quarkus.test.common.QuarkusTestResource;
 
 @QuarkusTestResource(RabbitMQTestContainer.class)
-public class QuarkusRabbitMQConsumerTest extends RabbitMQConfigTest {
+public class QuarkusRabbitMQConsumerTest {
 
     @RegisterExtension
     static final QuarkusUnitTest unitTest = new QuarkusUnitTest() // Start unit test with your extension loaded

@@ -2,11 +2,11 @@ package io.quarkiverse.rabbitmqclient.deployment;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
 import javax.enterprise.inject.Default;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.jboss.jandex.AnnotationInstance;
@@ -21,6 +21,7 @@ import io.quarkiverse.rabbitmqclient.runtime.RabbitMQRecorder;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanArchiveIndexBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
+import io.quarkus.arc.deployment.ValidationPhaseBuildItem;
 import io.quarkus.arc.processor.DotNames;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -42,8 +43,6 @@ class QuarkusRabbitMQClientProcessor {
     private static final String FEATURE = "rabbitmq-client";
     private static final DotName NAMED_RABBITMQ_CLIENT_ANNOTATION = DotName
             .createSimple(NamedRabbitMQClient.class.getName());
-    private static final DotName INJECT_ANNOTATION = DotName
-            .createSimple(Inject.class.getName());
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -76,6 +75,18 @@ class QuarkusRabbitMQClientProcessor {
     }
 
     @BuildStep
+    void validate(ValidationPhaseBuildItem validationPhase,
+            List<QuarkusRabbitMQClientBuildItem> namedClients,
+            BuildProducer<ValidationPhaseBuildItem.ValidationErrorBuildItem> errors) {
+        for (QuarkusRabbitMQClientBuildItem namedClient : namedClients) {
+            if (RabbitMQClients.DEFAULT_CLIENT_NAME.equalsIgnoreCase(namedClient.getName())) {
+                errors.produce(new ValidationPhaseBuildItem.ValidationErrorBuildItem(
+                        new IllegalArgumentException("RabbitMQ client name '" + namedClient.getName() + "'is not allowed.")));
+            }
+        }
+    }
+
+    @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
     void registerClients(RabbitMQRecorder recorder, ShutdownContextBuildItem shutdown,
             List<QuarkusRabbitMQClientBuildItem> namedClients, RabbitMQClientsBuildConfig buildTimeConfig,
@@ -83,7 +94,7 @@ class QuarkusRabbitMQClientProcessor {
         recorder.registerShutdownTask(shutdown);
 
         // create default client
-        addRabbitMQClient(recorder, null, buildTimeConfig, metricsCapability, syntheticBeans);
+        addRabbitMQClient(recorder, RabbitMQClients.DEFAULT_CLIENT_NAME, buildTimeConfig, metricsCapability, syntheticBeans);
 
         // create named clients
         for (QuarkusRabbitMQClientBuildItem namedClient : namedClients) {
@@ -98,7 +109,9 @@ class QuarkusRabbitMQClientProcessor {
         Supplier<RabbitMQClient> rabbitMQClientSupplier = null;
         if (buildTimeConfig.metricsEnabled && metricsCapability.isPresent()) {
             if (metricsCapability.get().metricsSupported(MetricsFactory.MICROMETER)) {
-                rabbitMQClientSupplier = recorder.rabbitMQClientSupplierMicrometerMetrics(name);
+                rabbitMQClientSupplier = recorder.rabbitMQClientSupplierMicrometerMetrics(name, Map.of("name", name));
+            } else if (metricsCapability.get().metricsSupported(MetricsFactory.MP_METRICS)) {
+                rabbitMQClientSupplier = recorder.rabbitMQClientSupplierMPMetrics(name, Map.of("name", name));
             }
         }
         if (rabbitMQClientSupplier == null) {
@@ -112,7 +125,7 @@ class QuarkusRabbitMQClientProcessor {
                 .unremovable()
                 .supplier(rabbitMQClientSupplier);
 
-        if (name == null) {
+        if (RabbitMQClients.DEFAULT_CLIENT_NAME.equals(name)) {
             configurator.addQualifier(Default.class);
         } else {
             configurator.addQualifier().annotation(DotNames.NAMED).addValue("value", name).done();

@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.inject.Singleton;
 
-import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.context.ManagedExecutor;
 
 import com.rabbitmq.client.MetricsCollector;
@@ -29,23 +27,21 @@ import io.quarkus.runtime.TlsConfig;
 @Singleton
 public class RabbitMQClients {
 
-    private RabbitMQClientImpl defaultClient;
-    private final Map<String, RabbitMQClientImpl> namedClients;
+    public static final String DEFAULT_CLIENT_NAME = "default";
+    private final Map<String, RabbitMQClientImpl> clients;
 
     private final ManagedExecutor executorService;
     private final TlsConfig tlsConfig;
     private final RabbitMQClientsConfig rabbitMQClientsConfig;
     private final LaunchMode launchMode;
-    private final Config config;
 
     public RabbitMQClients(RabbitMQClientsConfig rabbitMQClientsConfig, TlsConfig tlsConfig, ManagedExecutor executorService,
             LaunchMode launchMode) {
         this.rabbitMQClientsConfig = rabbitMQClientsConfig;
         this.tlsConfig = tlsConfig;
         this.executorService = executorService;
-        this.namedClients = new HashMap<>();
+        this.clients = new HashMap<>();
         this.launchMode = launchMode;
-        this.config = ConfigProvider.getConfig();
     }
 
     /**
@@ -67,15 +63,8 @@ public class RabbitMQClients {
      */
     public RabbitMQClient getRabbitMQClient(String name, MetricsCollector mc) {
         RabbitMQClientParams params = params(name);
-        if (name == null) {
-            if (defaultClient == null) {
-                defaultClient = new RabbitMQClientImpl(params, mc);
-            }
-            return defaultClient;
-        } else {
-            return namedClients.computeIfAbsent(name,
-                    n -> new RabbitMQClientImpl(params, mc));
-        }
+        return clients.computeIfAbsent(name,
+                n -> new RabbitMQClientImpl(params, mc));
     }
 
     private RabbitMQClientParams params(String name) {
@@ -84,7 +73,8 @@ public class RabbitMQClients {
         params.setExecutorService(executorService);
         params.setLaunchMode(launchMode);
         params.setTlsConfig(tlsConfig);
-        params.setConfig(name == null ? rabbitMQClientsConfig.defaultClient : rabbitMQClientsConfig.namedClients.get(name));
+        params.setConfig(DEFAULT_CLIENT_NAME.equals(name) ? rabbitMQClientsConfig.defaultClient
+                : rabbitMQClientsConfig.namedClients.get(name));
         return params;
     }
 
@@ -98,10 +88,7 @@ public class RabbitMQClients {
      */
     public void destroy() {
         // check for null, the producer method might never have been called.
-        if (defaultClient != null) {
-            defaultClient.disconnect();
-        }
-        namedClients.forEach((k, v) -> {
+        clients.forEach((k, v) -> {
             v.disconnect();
         });
     }
