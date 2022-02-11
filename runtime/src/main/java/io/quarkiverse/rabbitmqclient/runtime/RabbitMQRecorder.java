@@ -1,5 +1,6 @@
 package io.quarkiverse.rabbitmqclient.runtime;
 
+import java.util.Map;
 import java.util.function.Supplier;
 
 import io.quarkiverse.rabbitmqclient.RabbitMQClient;
@@ -19,5 +20,15 @@ public class RabbitMQRecorder {
     public Supplier<RabbitMQClient> rabbitMQClientSupplier(String name) {
         RabbitMQClients producer = Arc.container().instance(RabbitMQClients.class).get();
         return () -> producer.getRabbitMQClient(name);
+    }
+
+    public Supplier<RabbitMQClient> rabbitMQClientSupplierMicrometerMetrics(String name, Map<String, String> tags) {
+        RabbitMQClients producer = Arc.container().instance(RabbitMQClients.class).get();
+        return () -> producer.getRabbitMQClient(name, new QuarkusMicrometerMetricsCollector(tags));
+    }
+
+    public Supplier<RabbitMQClient> rabbitMQClientSupplierMPMetrics(String name, Map<String, String> tags) {
+        RabbitMQClients producer = Arc.container().instance(RabbitMQClients.class).get();
+        return () -> producer.getRabbitMQClient(name, new QuarkusMPMetricsCollector(tags));
     }
 }

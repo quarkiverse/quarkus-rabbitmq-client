@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.rabbitmq.client.AlreadyClosedException;
 import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.MetricsCollector;
 
 import io.quarkus.runtime.LaunchMode;
 
@@ -25,10 +26,12 @@ class RabbitMQClientImpl implements RabbitMQClient {
 
     private final Map<String, Connection> connections;
     private final RabbitMQClientParams params;
+    private final MetricsCollector metricsCollector;
 
-    RabbitMQClientImpl(RabbitMQClientParams params) {
+    RabbitMQClientImpl(RabbitMQClientParams params, MetricsCollector metricsCollector) {
         this.connections = new HashMap<>();
         this.params = params;
+        this.metricsCollector = metricsCollector;
     }
 
     /**
@@ -47,7 +50,7 @@ class RabbitMQClientImpl implements RabbitMQClient {
         log.debug("Opening connection {} with a RabbitMQ broker. Configured brokers: {}", name,
                 RabbitMQHelper.resolveBrokerAddresses(params.getConfig()));
         return this.connections.computeIfAbsent(name,
-                n -> RabbitMQHelper.newConnection(params, n));
+                n -> RabbitMQHelper.newConnection(params, n, metricsCollector));
     }
 
     /**

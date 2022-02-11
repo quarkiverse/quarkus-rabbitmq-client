@@ -114,7 +114,7 @@ public class RabbitMQTestHelper {
                 .contentEncoding("UTF-8")
                 .headers(new HashMap<>())
                 .build();
-        otherConn.createChannel().basicPublish(exchange, "#", properties, value.getBytes(StandardCharsets.UTF_8));
+        conn.createChannel().basicPublish(exchange, "#", properties, value.getBytes(StandardCharsets.UTF_8));
     }
 
     private void declareQueueInternal(String queue, String exchange, Channel channel) throws IOException {

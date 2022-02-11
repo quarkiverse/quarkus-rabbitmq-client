@@ -5,13 +5,17 @@
         <groupId>io.quarkiverse.rabbitmqclient</groupId>
         <artifactId>quarkus-rabbitmq-client-parent</artifactId>
         <version>0.5.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>quarkus-rabbitmq-client-deployment</artifactId>
     <name>Quarkus RabbitMQ Client - Deployment</name>
 
     <dependencies>
+        <dependency>
+            <groupId>io.quarkiverse.rabbitmqclient</groupId>
+            <artifactId>quarkus-rabbitmq-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-core-deployment</artifactId>
@@ -24,11 +28,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-context-propagation-deployment</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkiverse.rabbitmqclient</groupId>
-            <artifactId>quarkus-rabbitmq-client</artifactId>
-            <version>0.5.0-SNAPSHOT</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.micrometer</groupId>-->
+<!--            <artifactId>micrometer-core</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-health-spi</artifactId>
@@ -41,6 +44,11 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-health</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-micrometer</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
