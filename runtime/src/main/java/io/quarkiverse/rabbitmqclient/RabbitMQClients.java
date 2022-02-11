@@ -87,7 +87,6 @@ public class RabbitMQClients {
      * </p>
      */
     public void destroy() {
-        // check for null, the producer method might never have been called.
         clients.forEach((k, v) -> {
             v.disconnect();
         });
