@@ -16,7 +16,8 @@ import org.jboss.jandex.IndexView;
 import io.quarkiverse.rabbitmqclient.NamedRabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClients;
-import io.quarkiverse.rabbitmqclient.RabbitMQClientsBuildConfig;
+import io.quarkiverse.rabbitmqclient.runtime.RabbitMQClientBuildConfig;
+import io.quarkiverse.rabbitmqclient.runtime.RabbitMQClientsBuildConfig;
 import io.quarkiverse.rabbitmqclient.runtime.RabbitMQRecorder;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanArchiveIndexBuildItem;
@@ -56,7 +57,7 @@ class QuarkusRabbitMQClientProcessor {
     }
 
     @BuildStep
-    public void registerBeans(BuildProducer<AdditionalBeanBuildItem> additionalBeanBuildItemProducer) {
+    public void registerAdditionalBeans(BuildProducer<AdditionalBeanBuildItem> additionalBeanBuildItemProducer) {
         additionalBeanBuildItemProducer.produce(AdditionalBeanBuildItem.builder().addBeanClasses(RabbitMQClients.class)
                 .setUnremovable().setDefaultScope(DotNames.SINGLETON).build());
         additionalBeanBuildItemProducer
@@ -64,39 +65,43 @@ class QuarkusRabbitMQClientProcessor {
     }
 
     @BuildStep
-    public void namedClients(BeanArchiveIndexBuildItem indexBuildItem,
-            BuildProducer<QuarkusRabbitMQClientBuildItem> clientName) {
-        IndexView indexView = indexBuildItem.getIndex();
+    public void defineClients(BuildProducer<QuarkusRabbitMQClientBuildItem> clientName, RabbitMQClientsBuildConfig clients,
+            BeanArchiveIndexBuildItem indexBuildItem) {
+        if (clients.defaultClient.enabled) {
+            clientName.produce(new QuarkusRabbitMQClientBuildItem(RabbitMQClients.DEFAULT_CLIENT_NAME));
+        }
 
+        IndexView indexView = indexBuildItem.getIndex();
         Collection<AnnotationInstance> clientAnnotations = indexView.getAnnotations(NAMED_RABBITMQ_CLIENT_ANNOTATION);
         for (AnnotationInstance annotation : clientAnnotations) {
-            clientName.produce(new QuarkusRabbitMQClientBuildItem(annotation.value().asString()));
-        }
-    }
-
-    @BuildStep
-    void validate(ValidationPhaseBuildItem validationPhase,
-            List<QuarkusRabbitMQClientBuildItem> namedClients,
-            BuildProducer<ValidationPhaseBuildItem.ValidationErrorBuildItem> errors) {
-        for (QuarkusRabbitMQClientBuildItem namedClient : namedClients) {
-            if (RabbitMQClients.DEFAULT_CLIENT_NAME.equalsIgnoreCase(namedClient.getName())) {
-                errors.produce(new ValidationPhaseBuildItem.ValidationErrorBuildItem(
-                        new IllegalArgumentException("RabbitMQ client name '" + namedClient.getName() + "'is not allowed.")));
+            RabbitMQClientBuildConfig cfg = clients.namedClients.get(annotation.value().asString());
+            if (cfg != null && cfg.enabled) {
+                clientName.produce(new QuarkusRabbitMQClientBuildItem(annotation.value().asString()));
+            } else if (cfg == null) {
+                clientName.produce(new QuarkusRabbitMQClientBuildItem(annotation.value().asString()));
             }
         }
     }
 
     @BuildStep
+    public void validateClients(ValidationPhaseBuildItem validationPhase,
+            BuildProducer<ValidationPhaseBuildItem.ValidationErrorBuildItem> errors,
+            List<QuarkusRabbitMQClientBuildItem> clients) {
+        if (clients.stream().filter(c -> RabbitMQClients.DEFAULT_CLIENT_NAME.equalsIgnoreCase(c.getName())).count() > 1) {
+            errors.produce(new ValidationPhaseBuildItem.ValidationErrorBuildItem(
+                    new IllegalArgumentException("RabbitMQ client name '" + RabbitMQClients.DEFAULT_CLIENT_NAME
+                            + "' is reserved for the default client.")));
+        }
+    }
+
+    @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
-    void registerClients(RabbitMQRecorder recorder, ShutdownContextBuildItem shutdown,
+    void createClients(RabbitMQRecorder recorder, ShutdownContextBuildItem shutdown,
             List<QuarkusRabbitMQClientBuildItem> namedClients, RabbitMQClientsBuildConfig buildTimeConfig,
             BuildProducer<SyntheticBeanBuildItem> syntheticBeans, Optional<MetricsCapabilityBuildItem> metricsCapability) {
         recorder.registerShutdownTask(shutdown);
 
-        // create default client
-        addRabbitMQClient(recorder, RabbitMQClients.DEFAULT_CLIENT_NAME, buildTimeConfig, metricsCapability, syntheticBeans);
-
-        // create named clients
+        // create clients
         for (QuarkusRabbitMQClientBuildItem namedClient : namedClients) {
             addRabbitMQClient(recorder, namedClient.getName(), buildTimeConfig, metricsCapability, syntheticBeans);
         }
