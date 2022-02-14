@@ -13,7 +13,7 @@ _Note: Looking for the Quarkus 1.x extension, see the [1.x branch](https://githu
 <dependency>
     <groupId>io.quarkiverse.rabbitmqclient</groupId>
     <artifactId>quarkus-rabbitmq-client</artifactId>
-    <version>0.4.2.Final</version>
+    <version>0.5.0.Final</version>
 </dependency>
 ```
 ## Usage
@@ -110,7 +110,17 @@ public class MessageService {
 }
 ```
 
-It is possible to use multiple RabbitMQ clients in the same class as long as they are all named, or in combination with the unnamed default client. 
+It is possible to use multiple RabbitMQ clients in the same class as long as they are all named, or in combination with the default client. The name `default` is reserved for the default client and if used will trigger a deployment exception. 
+
+### Disabling Clients
+It is possible to disable clients using the `quarkus.rabbitmqclient.<client-nane>.enabled=false` configuration property. To disable the default client, use `quarkus.rabbitmqclient.enabled=false`. 
+
+## Metrics
+Both Micrometer and SmallRye Metrics are supported and enabled by default if the `quarkus-micrometer` or `quarkus-smallrye-metrics` dependency is included in the project. If both are present micrometer will be used. 
+
+Metrics are gathered on a per-client basis and tagged with `name=<client-name>` of the client. The default clients is tagged with `name=default` and are all prefixed with `rabbitmq`.
+
+It is possible to opt-out of metrics by specifying `quarkus.rabbitmqclient.metrics.enabled=false`. This will disable all metrics gathering.
 
 ## License
 This extension is licensed under the Apache License 2.0.
