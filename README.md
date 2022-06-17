@@ -13,7 +13,7 @@ _Note: Looking for the Quarkus 1.x extension, see the [1.x branch](https://githu
 <dependency>
     <groupId>io.quarkiverse.rabbitmqclient</groupId>
     <artifactId>quarkus-rabbitmq-client</artifactId>
-    <version>0.5.0.Final</version>
+    <version>0.5.1.Final</version>
 </dependency>
 ```
 ## Usage
