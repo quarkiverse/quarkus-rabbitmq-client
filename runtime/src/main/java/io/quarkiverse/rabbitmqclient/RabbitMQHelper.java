@@ -46,7 +46,6 @@ class RabbitMQHelper {
     private static ConnectionFactory newConnectionFactory(RabbitMQClientParams params) {
         ConnectionFactory cf = new ConnectionFactory();
         cf.setSharedExecutor(params.getExecutorService());
-
         cf.setSaslConfig(params.getConfig().sasl.getSaslConfig());
 
         ConnectionFactoryConfigurator.load(cf, newProperties(params), "");

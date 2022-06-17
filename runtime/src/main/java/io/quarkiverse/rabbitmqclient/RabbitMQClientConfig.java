@@ -139,7 +139,7 @@ public class RabbitMQClientConfig {
     /**
      * SASL authentication mechanisms
      */
-    @ConfigItem(defaultValue = "PLAIN")
+    @ConfigItem(defaultValue = "plain")
     public SaslType sasl;
 
     /**
