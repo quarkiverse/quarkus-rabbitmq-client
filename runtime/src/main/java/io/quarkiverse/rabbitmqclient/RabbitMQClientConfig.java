@@ -137,6 +137,12 @@ public class RabbitMQClientConfig {
     public boolean topologyRecovery;
 
     /**
+     * SASL authentication mechanisms
+     */
+    @ConfigItem(defaultValue = "PLAIN")
+    public SaslType sasl;
+
+    /**
      * Tls configuration
      */
     @ConfigItem
