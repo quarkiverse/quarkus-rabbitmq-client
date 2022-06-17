@@ -9,6 +9,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    target-branch: "2.x"
+    target-branch: "master"
     ignore:
       - dependency-name: "org.apache.maven.plugins:maven-compiler-plugin"
