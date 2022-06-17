@@ -1,5 +1,5 @@
 # Quarkiverse RabbitMQ Client
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-) [![version](https://img.shields.io/maven-central/v/io.quarkiverse.rabbitmqclient/quarkus-rabbitmq-client-parent)](https://repo1.maven.org/maven2/io/quarkiverse/rabbitmqclient/)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-) [![version](https://img.shields.io/maven-central/v/io.quarkiverse.rabbitmqclient/quarkus-rabbitmq-client-parent)](https://repo1.maven.org/maven2/io/quarkiverse/rabbitmqclient/)
 
 This is a Quarkus 2 extension for the [RabbitMQ](https://www.rabbitmq.com/) [Java Client](https://rabbitmq.com/api-guide.html).
 
