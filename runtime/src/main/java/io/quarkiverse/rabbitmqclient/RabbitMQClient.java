@@ -11,7 +11,7 @@ public interface RabbitMQClient {
 
     /**
      * Opens a connection to the configured RabbitMQ broker.
-     * 
+     *
      * @return a new randomly named connection.
      */
     Connection connect();
