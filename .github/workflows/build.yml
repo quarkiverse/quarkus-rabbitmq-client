@@ -31,10 +31,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up JDK 11
-      uses: actions/setup-java@v1
+    - name: Set up GraalVm JDK 17
+      uses: graalvm/setup-graalvm@v1
       with:
-        java-version: 11
+        version: 'mandrel-latest'
+        java-version: '17'
 
     - name: Get Date
       id: get-date

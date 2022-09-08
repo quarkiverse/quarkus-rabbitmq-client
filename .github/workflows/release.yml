@@ -29,9 +29,11 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
-      - uses: actions/setup-java@v1.4.3
+      - name: Set up GraalVm JDK 17
+        uses: graalvm/setup-graalvm@v1
         with:
-          java-version: 11
+          version: 'mandrel-latest'
+          java-version: '17'
 
       - name: Cache local Maven repository
         uses: actions/cache@v2
