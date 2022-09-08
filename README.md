@@ -133,10 +133,13 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://github.com/bpasson"><img src="https://avatars.githubusercontent.com/u/6814512?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Bas Passon</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=bpasson" title="Code">💻</a> <a href="#maintenance-bpasson" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://github.com/MikkelVestergaard"><img src="https://avatars.githubusercontent.com/u/47531120?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mikkel Vestergaard</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=MikkelVestergaard" title="Code">💻</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/bpasson"><img src="https://avatars.githubusercontent.com/u/6814512?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Bas Passon</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=bpasson" title="Code">💻</a> <a href="#maintenance-bpasson" title="Maintenance">🚧</a></td>
+      <td align="center"><a href="https://github.com/MikkelVestergaard"><img src="https://avatars.githubusercontent.com/u/47531120?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mikkel Vestergaard</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=MikkelVestergaard" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/bwijsmuller"><img src="https://avatars.githubusercontent.com/u/806994?v=4?s=100" width="100px;" alt=""/><br /><sub><b>bwijsmuller</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=bwijsmuller" title="Code">💻</a> <a href="#maintenance-bwijsmuller" title="Maintenance">🚧</a></td>
+    </tr>
+  </tobdy>
 </table>
 
 <!-- markdownlint-restore -->
