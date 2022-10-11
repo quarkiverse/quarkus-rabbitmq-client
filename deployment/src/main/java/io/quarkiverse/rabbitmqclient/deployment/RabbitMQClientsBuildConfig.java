@@ -1,4 +1,4 @@
-package io.quarkiverse.rabbitmqclient.runtime;
+package io.quarkiverse.rabbitmqclient.deployment;
 
 import java.util.Map;
 
@@ -9,7 +9,7 @@ import io.quarkus.runtime.annotations.*;
  *
  * @author b.passon
  */
-@ConfigRoot(name = "rabbitmqclient", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigRoot(name = "rabbitmqclient", phase = ConfigPhase.BUILD_TIME)
 public class RabbitMQClientsBuildConfig {
 
     /**

@@ -27,7 +27,7 @@ import io.quarkus.runtime.TlsConfig;
 @Singleton
 public class RabbitMQClients {
 
-    public static final String DEFAULT_CLIENT_NAME = "default";
+    public static final String DEFAULT_CLIENT_NAME = "<default>";
     private final Map<String, RabbitMQClientImpl> clients;
 
     private final ManagedExecutor executorService;

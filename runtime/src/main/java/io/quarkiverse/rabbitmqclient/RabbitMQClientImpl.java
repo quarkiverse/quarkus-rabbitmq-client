@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.rabbitmq.client.AlreadyClosedException;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.MetricsCollector;
-
-import io.quarkus.runtime.LaunchMode;
+import com.rabbitmq.client.ShutdownListener;
 
 /**
  * RabbitMQ client implementation for {@link RabbitMQClient}
@@ -22,7 +23,6 @@ import io.quarkus.runtime.LaunchMode;
 class RabbitMQClientImpl implements RabbitMQClient {
 
     private static final Logger log = LoggerFactory.getLogger(RabbitMQClientImpl.class);
-    private static final int DEFAULT_CONNECTION_CLOSE_TIME_OUT_DEV_MODE = 100;
 
     private final Map<String, Connection> connections;
     private final RabbitMQClientParams params;
@@ -58,18 +58,18 @@ class RabbitMQClientImpl implements RabbitMQClient {
      */
     @Override
     public void disconnect() {
+
+        CountDownLatch cdl = new CountDownLatch(connections.size());
+        ShutdownListener l = cause -> {
+            cdl.countDown();
+        };
+
+        int closeTimeOut = params.getConfig().connectionCloseTimeout;
         connections.forEach((name, connection) -> {
             try {
+                connection.addShutdownListener(l);
                 log.debug("Closing connection {} with RabbitMQ broker.", name);
-                // This will close all channels related to this connection
-                if (connection != null) {
-                    // Set a positive connection close timeout in dev mode due to thread deadlock, see
-                    // https://github.com/quarkiverse/quarkus-rabbitmq-client/issues/19
-                    if (params.getLaunchMode() == LaunchMode.DEVELOPMENT && params.getConfig().connectionCloseTimeout < 0) {
-                        connection.close(DEFAULT_CONNECTION_CLOSE_TIME_OUT_DEV_MODE);
-                    }
-                    connection.close(params.getConfig().connectionCloseTimeout);
-                }
+                connection.close(params.getConfig().connectionCloseTimeout);
                 log.debug("Closed connection {} with RabbitMQ broker.", name);
             } catch (AlreadyClosedException ex) {
                 log.debug("Already closed connection {} with RabbitMQ broker.", name);
@@ -77,6 +77,17 @@ class RabbitMQClientImpl implements RabbitMQClient {
                 log.debug("Failed to close connection {} with RabbitMQ broker, ignoring.", name);
             }
         });
+        try {
+            if (closeTimeOut < 0) {
+                cdl.await();
+            } else {
+                if (!cdl.await((long) params.getConfig().connectionCloseTimeout * connections.size(), TimeUnit.MILLISECONDS)) {
+                    log.warn("Disconnecting RabbitMQ client connections timed out.");
+                }
+            }
+        } catch (InterruptedException ie) {
+            log.warn("Disconnecting RabbitMQ client was interrupted.", ie);
+        }
     }
 
     /**

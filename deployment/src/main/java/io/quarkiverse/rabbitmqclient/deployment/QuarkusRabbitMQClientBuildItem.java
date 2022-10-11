@@ -7,17 +7,19 @@ import io.quarkus.builder.item.MultiBuildItem;
 public final class QuarkusRabbitMQClientBuildItem extends MultiBuildItem {
 
     private final String name;
+    private final boolean metricsEnabled;
 
-    public QuarkusRabbitMQClientBuildItem() {
-        this.name = null;
-    }
-
-    public QuarkusRabbitMQClientBuildItem(String name) {
+    public QuarkusRabbitMQClientBuildItem(String name, boolean metricsEnabled) {
         this.name = name;
+        this.metricsEnabled = metricsEnabled;
     }
 
     public String getName() {
         return name;
+    }
+
+    public boolean isMetricsEnabled() {
+        return metricsEnabled;
     }
 
     @Override
@@ -27,11 +29,11 @@ public final class QuarkusRabbitMQClientBuildItem extends MultiBuildItem {
         if (!(o instanceof QuarkusRabbitMQClientBuildItem))
             return false;
         QuarkusRabbitMQClientBuildItem that = (QuarkusRabbitMQClientBuildItem) o;
-        return Objects.equals(getName(), that.getName());
+        return isMetricsEnabled() == that.isMetricsEnabled() && getName().equals(that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName());
+        return Objects.hash(getName(), isMetricsEnabled());
     }
 }

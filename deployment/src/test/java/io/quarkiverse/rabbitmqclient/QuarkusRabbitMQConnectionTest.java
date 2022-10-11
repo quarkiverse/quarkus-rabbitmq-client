@@ -4,8 +4,7 @@ import javax.inject.Inject;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import com.rabbitmq.client.Connection;
@@ -16,6 +15,7 @@ import io.quarkus.test.QuarkusUnitTest;
 import io.quarkus.test.common.QuarkusTestResource;
 
 @QuarkusTestResource(RabbitMQTestContainer.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class QuarkusRabbitMQConnectionTest {
 
     @RegisterExtension
@@ -46,6 +46,7 @@ public class QuarkusRabbitMQConnectionTest {
     RabbitMQClient otherRabbitMQClient;
 
     @Test
+    @Order(1)
     public void testNonSSL() {
         testConfig.setupNonSll(configs);
         testConfig.setupNonSll("other", configs);
@@ -56,6 +57,7 @@ public class QuarkusRabbitMQConnectionTest {
     }
 
     @Test
+    @Order(2)
     public void testRabbitMQSSLDefault() {
         testConfig.setupBasicSsl(configs);
         testConfig.setupBasicSsl("other", configs);
@@ -66,6 +68,7 @@ public class QuarkusRabbitMQConnectionTest {
     }
 
     @Test
+    @Order(3)
     public void testRabbitMQSSLClientCert() {
         testConfig.setupClientCertSsl(configs);
         testConfig.setupClientCertSsl("other", configs);

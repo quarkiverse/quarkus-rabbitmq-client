@@ -90,16 +90,16 @@ public class QuarkusRabbitMQMicrometerMetricsTest {
         Assertions.assertTrue(cdl1.await(5, TimeUnit.SECONDS));
         Assertions.assertTrue(cdl2.await(5, TimeUnit.SECONDS));
 
-        Assertions.assertEquals(1, registry.find("rabbitmq.consumed").tags("name", "default").counters().size());
+        Assertions.assertEquals(1, registry.find("rabbitmq.consumed").tags("name", "<default>").counters().size());
         Assertions.assertEquals(5.0,
-                registry.find("rabbitmq.consumed").tags("name", "default").counters().iterator().next().count());
+                registry.find("rabbitmq.consumed").tags("name", "<default>").counters().iterator().next().count());
         Assertions.assertEquals(1, registry.find("rabbitmq.consumed").tag("name", "other").counters().size());
         Assertions.assertEquals(5.0,
                 registry.find("rabbitmq.consumed").tag("name", "other").counters().iterator().next().count());
 
-        Assertions.assertEquals(1, registry.find("rabbitmq.connections").tags("name", "default").gauges().size());
+        Assertions.assertEquals(1, registry.find("rabbitmq.connections").tags("name", "<default>").gauges().size());
         Assertions.assertEquals(1.0,
-                registry.find("rabbitmq.connections").tags("name", "default").gauges().iterator().next().value());
+                registry.find("rabbitmq.connections").tags("name", "<default>").gauges().iterator().next().value());
         Assertions.assertEquals(1, registry.find("rabbitmq.connections").tag("name", "other").gauges().size());
         Assertions.assertEquals(1.0,
                 registry.find("rabbitmq.connections").tag("name", "other").gauges().iterator().next().value());

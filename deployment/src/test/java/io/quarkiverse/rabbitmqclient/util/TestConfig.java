@@ -35,7 +35,6 @@ public class TestConfig {
         config.username = "guest";
         config.password = "guest";
         config.hostname = hostname;
-        config.tls.enabled = false;
     }
 
     public void setupBasicSsl(RabbitMQClientsConfig config) {

@@ -1,4 +1,4 @@
-package io.quarkiverse.rabbitmqclient.runtime;
+package io.quarkiverse.rabbitmqclient.deployment;
 
 import io.quarkus.runtime.annotations.ConfigGroup;
 import io.quarkus.runtime.annotations.ConfigItem;

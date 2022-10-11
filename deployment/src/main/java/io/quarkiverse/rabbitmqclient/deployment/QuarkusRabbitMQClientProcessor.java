@@ -16,8 +16,6 @@ import org.jboss.jandex.IndexView;
 import io.quarkiverse.rabbitmqclient.NamedRabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClients;
-import io.quarkiverse.rabbitmqclient.runtime.RabbitMQClientBuildConfig;
-import io.quarkiverse.rabbitmqclient.runtime.RabbitMQClientsBuildConfig;
 import io.quarkiverse.rabbitmqclient.runtime.RabbitMQRecorder;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanArchiveIndexBuildItem;
@@ -68,7 +66,7 @@ class QuarkusRabbitMQClientProcessor {
     public void defineClients(BuildProducer<QuarkusRabbitMQClientBuildItem> clientName, RabbitMQClientsBuildConfig clients,
             BeanArchiveIndexBuildItem indexBuildItem) {
         if (clients.defaultClient.enabled) {
-            clientName.produce(new QuarkusRabbitMQClientBuildItem(RabbitMQClients.DEFAULT_CLIENT_NAME));
+            clientName.produce(new QuarkusRabbitMQClientBuildItem(RabbitMQClients.DEFAULT_CLIENT_NAME, clients.metricsEnabled));
         }
 
         IndexView indexView = indexBuildItem.getIndex();
@@ -76,9 +74,9 @@ class QuarkusRabbitMQClientProcessor {
         for (AnnotationInstance annotation : clientAnnotations) {
             RabbitMQClientBuildConfig cfg = clients.namedClients.get(annotation.value().asString());
             if (cfg != null && cfg.enabled) {
-                clientName.produce(new QuarkusRabbitMQClientBuildItem(annotation.value().asString()));
+                clientName.produce(new QuarkusRabbitMQClientBuildItem(annotation.value().asString(), clients.metricsEnabled));
             } else if (cfg == null) {
-                clientName.produce(new QuarkusRabbitMQClientBuildItem(annotation.value().asString()));
+                clientName.produce(new QuarkusRabbitMQClientBuildItem(annotation.value().asString(), clients.metricsEnabled));
             }
         }
     }
@@ -97,30 +95,32 @@ class QuarkusRabbitMQClientProcessor {
     @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
     void createClients(RabbitMQRecorder recorder, ShutdownContextBuildItem shutdown,
-            List<QuarkusRabbitMQClientBuildItem> namedClients, RabbitMQClientsBuildConfig buildTimeConfig,
+            List<QuarkusRabbitMQClientBuildItem> namedClients,
             BuildProducer<SyntheticBeanBuildItem> syntheticBeans, Optional<MetricsCapabilityBuildItem> metricsCapability) {
         recorder.registerShutdownTask(shutdown);
 
         // create clients
         for (QuarkusRabbitMQClientBuildItem namedClient : namedClients) {
-            addRabbitMQClient(recorder, namedClient.getName(), buildTimeConfig, metricsCapability, syntheticBeans);
+            addRabbitMQClient(recorder, namedClient, metricsCapability, syntheticBeans);
         }
     }
 
-    void addRabbitMQClient(RabbitMQRecorder recorder, String name, RabbitMQClientsBuildConfig buildTimeConfig,
+    void addRabbitMQClient(RabbitMQRecorder recorder, QuarkusRabbitMQClientBuildItem client,
             Optional<MetricsCapabilityBuildItem> metricsCapability,
             BuildProducer<SyntheticBeanBuildItem> syntheticBeans) {
 
         Supplier<RabbitMQClient> rabbitMQClientSupplier = null;
-        if (buildTimeConfig.metricsEnabled && metricsCapability.isPresent()) {
+        if (client.isMetricsEnabled() && metricsCapability.isPresent()) {
             if (metricsCapability.get().metricsSupported(MetricsFactory.MICROMETER)) {
-                rabbitMQClientSupplier = recorder.rabbitMQClientSupplierMicrometerMetrics(name, Map.of("name", name));
+                rabbitMQClientSupplier = recorder.rabbitMQClientSupplierMicrometerMetrics(client.getName(),
+                        Map.of("name", client.getName()));
             } else if (metricsCapability.get().metricsSupported(MetricsFactory.MP_METRICS)) {
-                rabbitMQClientSupplier = recorder.rabbitMQClientSupplierMPMetrics(name, Map.of("name", name));
+                rabbitMQClientSupplier = recorder.rabbitMQClientSupplierMPMetrics(client.getName(),
+                        Map.of("name", client.getName()));
             }
         }
         if (rabbitMQClientSupplier == null) {
-            rabbitMQClientSupplier = recorder.rabbitMQClientSupplier(name);
+            rabbitMQClientSupplier = recorder.rabbitMQClientSupplier(client.getName());
         }
 
         SyntheticBeanBuildItem.ExtendedBeanConfigurator configurator = SyntheticBeanBuildItem
@@ -130,11 +130,11 @@ class QuarkusRabbitMQClientProcessor {
                 .unremovable()
                 .supplier(rabbitMQClientSupplier);
 
-        if (RabbitMQClients.DEFAULT_CLIENT_NAME.equals(name)) {
+        if (RabbitMQClients.DEFAULT_CLIENT_NAME.equals(client.getName())) {
             configurator.addQualifier(Default.class);
         } else {
-            configurator.addQualifier().annotation(DotNames.NAMED).addValue("value", name).done();
-            configurator.addQualifier().annotation(NamedRabbitMQClient.class).addValue("value", name).done();
+            configurator.addQualifier().annotation(DotNames.NAMED).addValue("value", client.getName()).done();
+            configurator.addQualifier().annotation(NamedRabbitMQClient.class).addValue("value", client.getName()).done();
         }
         syntheticBeans.produce(configurator.done());
     }
