@@ -1,4 +1,4 @@
 name: Quarkus RabbitMQ Client Extension
 release:
-  current-version: 0.5.1.Final
-  next-version: 0.5.2-SNAPSHOT
+  current-version: 0.5.2
+  next-version: 0.5.3-SNAPSHOT
