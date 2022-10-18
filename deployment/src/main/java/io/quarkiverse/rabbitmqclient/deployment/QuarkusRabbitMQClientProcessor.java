@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;
-import javax.inject.Singleton;
 
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.DotName;
@@ -125,7 +125,7 @@ class QuarkusRabbitMQClientProcessor {
 
         SyntheticBeanBuildItem.ExtendedBeanConfigurator configurator = SyntheticBeanBuildItem
                 .configure(RabbitMQClient.class)
-                .scope(Singleton.class)
+                .scope(ApplicationScoped.class)
                 .setRuntimeInit()
                 .unremovable()
                 .supplier(rabbitMQClientSupplier);
