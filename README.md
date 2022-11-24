@@ -52,7 +52,7 @@ public class MessageService {
             // create a channel
             channel = connection.createChannel();
             // declare exchanges and queues
-            channel.exchangeDeclare("sample", BuiltinExchangeType.TOPIC, true);
+            channel.exchangeDeclare("test", BuiltinExchangeType.TOPIC, true);
             channel.queueDeclare("sample.queue", true, false, false, null);
             channel.queueBind("sample.queue", "test", "#");
         } catch (IOException e) {
