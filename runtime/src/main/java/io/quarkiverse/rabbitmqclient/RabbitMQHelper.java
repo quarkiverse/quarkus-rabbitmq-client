@@ -33,7 +33,7 @@ class RabbitMQHelper {
                 cf.setMetricsCollector(mc);
             }
             List<Address> addresses = config.addresses.isEmpty()
-                    ? Collections.singletonList(new Address(config.hostname, config.port))
+                    ? List.of(new Address(config.hostname, config.port))
                     : convertAddresses(config.addresses);
 
             return addresses == null ? cf.newConnection(name)
