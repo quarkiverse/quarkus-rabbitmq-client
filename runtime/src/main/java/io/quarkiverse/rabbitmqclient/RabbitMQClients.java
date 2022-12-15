@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.inject.Singleton;
 
 import org.eclipse.microprofile.context.ManagedExecutor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rabbitmq.client.MetricsCollector;
 
@@ -28,6 +30,8 @@ import io.quarkus.runtime.TlsConfig;
 public class RabbitMQClients {
 
     public static final String DEFAULT_CLIENT_NAME = "<default>";
+    private static final Logger log = LoggerFactory.getLogger(RabbitMQClients.class);
+
     private final Map<String, RabbitMQClientImpl> clients;
 
     private final ManagedExecutor executorService;
@@ -88,7 +92,11 @@ public class RabbitMQClients {
      */
     public void destroy() {
         clients.forEach((k, v) -> {
-            v.disconnect();
+            try {
+                v.disconnect();
+            } catch (Exception e) {
+                log.debug("failed to disconnect client " + k, e);
+            }
         });
     }
 }
