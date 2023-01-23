@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import io.quarkiverse.rabbitmqclient.RabbitMQClientConfig;
@@ -12,14 +13,26 @@ import io.quarkiverse.rabbitmqclient.RabbitMQClientsConfig;
 @ApplicationScoped
 public class TestConfig {
 
-    @ConfigProperty(name = "test.amqps-port")
-    int amqpsPort;
+//    @ConfigProperty(name = "test.amqps-port")
+//    int amqpsPort;
+//
+//    @ConfigProperty(name = "test.amqp-port")
+//    int amqpPort;
+//
+//    @ConfigProperty(name = "test.hostname")
+//    String hostname;
 
-    @ConfigProperty(name = "test.amqp-port")
-    int amqpPort;
+    int getAmqpsPort() {
+        return Integer.parseInt(ConfigProvider.getConfig().getConfigValue("test.amqps-port").getValue());
+    }
 
-    @ConfigProperty(name = "test.hostname")
-    String hostname;
+    int getAmqpPort() {
+        return Integer.parseInt(ConfigProvider.getConfig().getConfigValue("test.amqp-port").getValue());
+    }
+
+    String getHostname() {
+        return ConfigProvider.getConfig().getConfigValue("test.hostname").getValue();
+    }
 
     public void setupNonSll(RabbitMQClientsConfig config) {
         setupNonSllClient(config.defaultClient);
@@ -30,11 +43,11 @@ public class TestConfig {
     }
 
     private void setupNonSllClient(RabbitMQClientConfig config) {
-        config.port = amqpPort;
+        config.port = getAmqpPort();
         config.virtualHost = "/";
         config.username = "guest";
         config.password = "guest";
-        config.hostname = hostname;
+        config.hostname = getHostname();
     }
 
     public void setupBasicSsl(RabbitMQClientsConfig config) {
@@ -46,11 +59,11 @@ public class TestConfig {
     }
 
     private void setupBasicSslClient(RabbitMQClientConfig config) {
-        config.port = amqpsPort;
-        config.virtualHost = "/";
-        config.username = "guest";
-        config.password = "guest";
-        config.hostname = hostname;
+//        config.port = getAmqpsPort();
+//        config.virtualHost = "/";
+//        config.username = "guest";
+//        config.password = "guest";
+//        config.hostname = getHostname();
         config.tls.enabled = true;
         config.tls.keyStoreFile = Optional.empty();
         config.tls.keyStorePassword = Optional.empty();
@@ -68,11 +81,11 @@ public class TestConfig {
     }
 
     private void setupClientCertSslClient(RabbitMQClientConfig config) {
-        config.port = amqpsPort;
-        config.virtualHost = "/";
-        config.username = "guest";
-        config.password = "guest";
-        config.hostname = "localhost";
+//        config.port = getAmqpsPort();
+//        config.virtualHost = "/";
+//        config.username = "guest";
+//        config.password = "guest";
+//        config.hostname = "localhost";
         config.tls.enabled = true;
         config.tls.keyStoreFile = Optional.of("classpath:/rabbitmq/client/client.jks");
         config.tls.keyStoreType = "JKS";

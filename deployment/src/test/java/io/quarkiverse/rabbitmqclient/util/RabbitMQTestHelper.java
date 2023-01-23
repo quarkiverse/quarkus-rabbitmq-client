@@ -12,6 +12,7 @@ import com.rabbitmq.client.*;
 import io.quarkiverse.rabbitmqclient.NamedRabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClientsConfig;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 @ApplicationScoped
 public class RabbitMQTestHelper {

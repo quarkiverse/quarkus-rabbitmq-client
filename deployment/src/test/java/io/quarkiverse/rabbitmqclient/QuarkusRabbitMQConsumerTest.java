@@ -7,18 +7,20 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import io.quarkiverse.rabbitmqclient.util.RabbitMQContainerSSLTestProfile;
+import io.quarkus.test.junit.TestProfile;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
+import io.quarkiverse.rabbitmqclient.util.RabbitMQContainerTestProfile;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestHelper;
 import io.quarkiverse.rabbitmqclient.util.TestConfig;
 import io.quarkus.test.QuarkusUnitTest;
 import io.quarkus.test.common.QuarkusTestResource;
 
-@QuarkusTestResource(RabbitMQTestContainer.class)
+@TestProfile(RabbitMQContainerSSLTestProfile.class)
 public class QuarkusRabbitMQConsumerTest {
 
     @RegisterExtension

@@ -22,9 +22,9 @@ class RabbitMQClientDevServicesProcessor {
 
     private static final Logger log = Logger.getLogger("io.quarkiverse.rabbitmqclient.deployment");
 
-    private static final String RABBITMQ_URI = "quarkus.rabbitmq.uri";
-    private static final String RABBITMQ_USER_PROP = "quarkus.rabbitmq.authentication.username";
-    private static final String RABBITMQ_PASSWORD_PROP = "quarkus.rabbitmq.authentication.password";
+    private static final String RABBITMQ_URI = "quarkus.rabbitmqclient.hostname";
+    private static final String RABBITMQ_USER_PROP = "quarkus.rabbitmqclient.username";
+    private static final String RABBITMQ_PASSWORD_PROP = "quarkus.rabbitmqclient.password";
     private static final String FEATURE_RABBITMQ = "RABBITMQ";
 
     static volatile RunningDevService devService;
@@ -65,7 +65,7 @@ class RabbitMQClientDevServicesProcessor {
                 log.infof("Dev Services started a RabbitMQ container reachable at %s", rabbitMQContainer.getHttpUrl());
                 log.infof("The username for both endpoints is `%s`, authenticated by `%s`", "admin",
                         rabbitMQContainer.getAdminPassword());
-                log.infof("Connect via amqp", "admin",
+                log.infof("Connect via amqp using `%s`, authenticated by `%s`, on url `%s`", "admin",
                         rabbitMQContainer.getAdminPassword(), rabbitMQContainer.getAmqpUrl()
                 );
                 devService = new RunningDevService(FEATURE_RABBITMQ, rabbitMQContainer.getContainerId(),

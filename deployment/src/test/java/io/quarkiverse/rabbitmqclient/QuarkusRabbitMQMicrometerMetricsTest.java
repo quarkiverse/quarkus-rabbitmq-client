@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import io.quarkus.test.junit.TestProfile;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.*;
@@ -13,13 +14,13 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
-import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
+import io.quarkiverse.rabbitmqclient.util.RabbitMQContainerTestProfile;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestHelper;
 import io.quarkiverse.rabbitmqclient.util.TestConfig;
 import io.quarkus.test.QuarkusUnitTest;
 import io.quarkus.test.common.QuarkusTestResource;
 
-@QuarkusTestResource(RabbitMQTestContainer.class)
+@TestProfile(RabbitMQContainerTestProfile.class)
 public class QuarkusRabbitMQMicrometerMetricsTest {
 
     @RegisterExtension
@@ -56,7 +57,7 @@ public class QuarkusRabbitMQMicrometerMetricsTest {
 
     @BeforeEach
     public void setup() throws IOException {
-        rabbitMQTestHelper.connectClientServerSsl();
+//        rabbitMQTestHelper.connectClientServerSsl();
         rabbitMQTestHelper.declareExchange("receive-test");
         rabbitMQTestHelper.declareQueue("receive-test-queue-1", "receive-test");
         rabbitMQTestHelper.declareQueue("receive-test-queue-2", "receive-test");

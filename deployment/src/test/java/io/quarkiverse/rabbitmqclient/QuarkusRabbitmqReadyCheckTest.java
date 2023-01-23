@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.quarkus.test.junit.TestProfile;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Readiness;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -17,11 +18,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.quarkiverse.rabbitmqclient.util.DummyServer;
-import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
+import io.quarkiverse.rabbitmqclient.util.RabbitMQContainerTestProfile;
 import io.quarkus.test.QuarkusUnitTest;
 import io.quarkus.test.common.QuarkusTestResource;
 
-@QuarkusTestResource(RabbitMQTestContainer.class)
+@TestProfile(RabbitMQContainerTestProfile.class)
 public class QuarkusRabbitmqReadyCheckTest {
 
     @RegisterExtension
