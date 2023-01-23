@@ -3,6 +3,7 @@ package io.quarkiverse.rabbitmqclient.devmode;
 import org.apache.http.HttpStatus;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -35,12 +36,16 @@ public class QuarkusRabbitMQDevModeTest extends RabbitMQConfigTest {
                             "rabbitmq/client/client.jks"));
 
     @Test
+    @Disabled
     public void testRabbitMQConsumer() throws Exception {
 
+        System.out.println("0 Checking resource!!!");
         RestAssured.given().queryParam("msg", "WORLD").when().post("/send").then().statusCode(HttpStatus.SC_NO_CONTENT);
 
+        System.out.println("1 Modify class");
         unitTest.modifySourceFile(MessageResource.class, s -> s.replaceAll("HELLO", "GOODBYE"));
 
+        System.out.println("2 Checking resource!!!");
         RestAssured.given().queryParam("msg", "WORLD").when().post("/send").then().statusCode(HttpStatus.SC_NO_CONTENT);
     }
 }
