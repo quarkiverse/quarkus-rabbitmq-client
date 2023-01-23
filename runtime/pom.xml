@@ -60,6 +60,9 @@
                         <configuration>
                             <deployment>${project.groupId}:${project.artifactId}-deployment:${project.version}
                             </deployment>
+                            <capabilities>
+                                <provides>io.quarkus.rabbitmq.client</provides>
+                            </capabilities>
                         </configuration>
                     </execution>
                 </executions>
