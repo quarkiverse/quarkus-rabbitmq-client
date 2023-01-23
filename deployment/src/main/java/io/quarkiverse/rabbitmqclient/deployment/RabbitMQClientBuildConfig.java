@@ -16,4 +16,5 @@ public class RabbitMQClientBuildConfig {
      */
     @ConfigItem(defaultValue = "true")
     public boolean enabled;
+
 }

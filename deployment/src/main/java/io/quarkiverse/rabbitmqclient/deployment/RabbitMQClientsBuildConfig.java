@@ -38,4 +38,10 @@ public class RabbitMQClientsBuildConfig {
     @ConfigItem(name = "metrics.enabled", defaultValue = "true")
     public boolean metricsEnabled;
 
+    /**
+     * Dev services configuration.
+     */
+    @ConfigItem
+    public DevServicesBuildTimeConfig devservices;
+
 }
