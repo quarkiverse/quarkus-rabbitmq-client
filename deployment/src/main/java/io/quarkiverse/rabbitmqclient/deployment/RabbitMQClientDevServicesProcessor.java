@@ -22,8 +22,8 @@ class RabbitMQClientDevServicesProcessor {
 
     private static final Logger log = Logger.getLogger("io.quarkiverse.rabbitmqclient.deployment");
 
-    private static final String RABBITMQ_URI = "quarkus.rabbitmqclient.hostname";
-    private static final String RABBITMQ_USER_PROP = "quarkus.rabbitmqclient.username";
+    private static final String RABBITMQ_HOST = "quarkus.rabbitmqclient.hostname";
+    private static final String RABBITMQ_USERNAME_PROP = "quarkus.rabbitmqclient.username";
     private static final String RABBITMQ_PASSWORD_PROP = "quarkus.rabbitmqclient.password";
     private static final String FEATURE_RABBITMQ = "RABBITMQ";
 
@@ -60,7 +60,8 @@ class RabbitMQClientDevServicesProcessor {
 
             if (rabbitMQContainer != null) {
                 var config = Map.of(
-                        RABBITMQ_URI, rabbitMQContainer.getHttpUrl(),
+                        RABBITMQ_HOST, rabbitMQContainer.getHost(),
+                        RABBITMQ_USERNAME_PROP, rabbitMQContainer.getAdminPassword(),
                         RABBITMQ_PASSWORD_PROP, rabbitMQContainer.getAdminPassword());
                 log.infof("Dev Services started a RabbitMQ container reachable at %s", rabbitMQContainer.getHttpUrl());
                 log.infof("The username for both endpoints is `%s`, authenticated by `%s`", "admin",
@@ -68,8 +69,10 @@ class RabbitMQClientDevServicesProcessor {
                 log.infof("Connect via amqp using `%s`, authenticated by `%s`, on url `%s`", "admin",
                         rabbitMQContainer.getAdminPassword(), rabbitMQContainer.getAmqpUrl()
                 );
-                devService = new RunningDevService(FEATURE_RABBITMQ, rabbitMQContainer.getContainerId(),
-                        rabbitMQContainer::close, config);
+                devService = new RunningDevService(FEATURE_RABBITMQ,
+                        rabbitMQContainer.getContainerId(),
+                        rabbitMQContainer::close,
+                        config);
             }
         } catch (Throwable t) {
             compressor.closeAndDumpCaptured();
@@ -107,16 +110,29 @@ class RabbitMQClientDevServicesProcessor {
         }
 
         // Check if RabbitMQ URL or password is set to explicitly
-        if (ConfigUtils.isPropertyPresent(RABBITMQ_URI) || ConfigUtils.isPropertyPresent(RABBITMQ_USER_PROP)
+        if (ConfigUtils.isPropertyPresent(RABBITMQ_HOST) || ConfigUtils.isPropertyPresent(RABBITMQ_USERNAME_PROP)
                 || ConfigUtils.isPropertyPresent(RABBITMQ_PASSWORD_PROP)) {
             log.debug("Not starting Dev Services for RabbitMQ, as there is explicit configuration present.");
             return null;
         }
 
+//        MountableFile keyFile = MountableFile.forClasspathResource("/rabbitmq/server/key.pem");
+//        MountableFile certFile = MountableFile.forClasspathResource("/rabbitmq/server/cert.pem");
+//        MountableFile caFile = MountableFile.forClasspathResource("/rabbitmq/ca/cacert.pem");
+
         RabbitMQContainer container = new RabbitMQContainer(configuration.imageName);
+//            .withSSL(keyFile, certFile, caFile, RabbitMQContainer.SslVerification.VERIFY_PEER, false);
         configuration.additionalEnv.forEach(container::addEnv);
         timeout.ifPresent(container::withStartupTimeout);
         container.start();
+
+//        "quarkus.rabbitmqclient.virtual-host", "/vhost",
+//                "quarkus.rabbitmqclient.username", "guest",
+//                "quarkus.rabbitmqclient.password", "guest",
+//                "quarkus.rabbitmqclient.hostname", rabbitmq.getHost(),
+//                "quarkus.rabbitmqclient.port",
+
+
         return container;
     }
 

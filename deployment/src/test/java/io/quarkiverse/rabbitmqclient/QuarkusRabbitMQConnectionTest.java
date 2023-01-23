@@ -49,8 +49,8 @@ public class QuarkusRabbitMQConnectionTest {
     @Test
     @Order(1)
     public void testNonSSL() {
-        testConfig.setupNonSll(configs);
-        testConfig.setupNonSll("other", configs);
+//        testConfig.setupNonSll(configs);
+//        testConfig.setupNonSll("other", configs);
         Connection conn = rabbitMQClient.connect("test-connection-non-ssl");
         Connection other = otherRabbitMQClient.connect("test-other-connection-non-ssl");
         Assertions.assertNotNull(conn);
