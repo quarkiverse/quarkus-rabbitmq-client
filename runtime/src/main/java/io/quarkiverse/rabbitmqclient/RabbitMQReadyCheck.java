@@ -72,10 +72,8 @@ public class RabbitMQReadyCheck implements HealthCheck {
     }
 
     private boolean isBrokerAvailable(Address address) {
-        try {
-            try (Socket s = new Socket(address.getHost(), address.getPort())) {
-                return true;
-            }
+        try (Socket s = new Socket(address.getHost(), address.getPort())) {
+            return true;
         } catch (Exception e) {
             return false;
         }
