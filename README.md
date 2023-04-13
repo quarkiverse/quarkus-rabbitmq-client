@@ -4,7 +4,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END --> 
 [![version](https://img.shields.io/maven-central/v/io.quarkiverse.rabbitmqclient/quarkus-rabbitmq-client-parent?logo=apache-maven&style=flat-square)](https://repo1.maven.org/maven2/io/quarkiverse/rabbitmqclient/)
 
-Quarkus RabbitMQ client is an extension to connect to the [RabbitMQ](https://www.rabbitmq.com/) message broker. It enables the use of the [RabbitMQ client library]() in both JVM and native executables. It provides configuration properties
+Quarkus RabbitMQ client is an extension to connect to the [RabbitMQ](https://www.rabbitmq.com/) message broker. It enables the use of the [RabbitMQ client library]() in both JVM and native executables.
 
 ## Documentation
 
