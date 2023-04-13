@@ -1,6 +1,6 @@
 # Quarkiverse RabbitMQ Client
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END --> 
 [![version](https://img.shields.io/maven-central/v/io.quarkiverse.rabbitmqclient/quarkus-rabbitmq-client-parent?logo=apache-maven&style=flat-square)](https://repo1.maven.org/maven2/io/quarkiverse/rabbitmqclient/)
 
@@ -23,11 +23,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://github.com/bpasson"><img src="https://avatars.githubusercontent.com/u/6814512?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Bas Passon</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=bpasson" title="Code">💻</a> <a href="#maintenance-bpasson" title="Maintenance">🚧</a></td>
-      <td align="center"><a href="https://github.com/MikkelVestergaard"><img src="https://avatars.githubusercontent.com/u/47531120?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mikkel Vestergaard</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=MikkelVestergaard" title="Code">💻</a></td>
-      <td align="center"><a href="https://github.com/bwijsmuller"><img src="https://avatars.githubusercontent.com/u/806994?v=4?s=100" width="100px;" alt=""/><br /><sub><b>bwijsmuller</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=bwijsmuller" title="Code">💻</a> <a href="#maintenance-bwijsmuller" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/bpasson"><img src="https://avatars.githubusercontent.com/u/6814512?v=4?s=100" width="100px;" alt="Bas Passon"/><br /><sub><b>Bas Passon</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=bpasson" title="Code">💻</a> <a href="#maintenance-bpasson" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/MikkelVestergaard"><img src="https://avatars.githubusercontent.com/u/47531120?v=4?s=100" width="100px;" alt="Mikkel Vestergaard"/><br /><sub><b>Mikkel Vestergaard</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=MikkelVestergaard" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/bwijsmuller"><img src="https://avatars.githubusercontent.com/u/806994?v=4?s=100" width="100px;" alt="bwijsmuller"/><br /><sub><b>bwijsmuller</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=bwijsmuller" title="Code">💻</a> <a href="#maintenance-bwijsmuller" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://schlothauer.de"><img src="https://avatars.githubusercontent.com/u/38556808?v=4?s=100" width="100px;" alt="Stefan Gürtler"/><br /><sub><b>Stefan Gürtler</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=SpeedsterF2" title="Code">💻</a></td>
     </tr>
-  </tobdy>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->
