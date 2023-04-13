@@ -33,6 +33,15 @@
         "code",
         "maintenance"
       ]
+    },
+    {
+      "login": "SpeedsterF2",
+      "name": "Stefan Gürtler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/38556808?v=4",
+      "profile": "http://schlothauer.de",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -40,5 +49,6 @@
   "projectOwner": "quarkiverse",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "angular"
 }
