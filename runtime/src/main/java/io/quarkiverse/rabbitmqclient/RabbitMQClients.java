@@ -3,7 +3,7 @@ package io.quarkiverse.rabbitmqclient;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 import org.eclipse.microprofile.context.ManagedExecutor;
 
