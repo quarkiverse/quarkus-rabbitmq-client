@@ -379,6 +379,341 @@ endif::add-copy-button-to-env-var[]
 |
 
 
+h|[[quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses-broker-addresses-for-creating-connections]]link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses-broker-addresses-for-creating-connections[Broker addresses for creating connections]
+
+h|Type
+h|Default
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses.-broker-name-.hostname]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses.-broker-name-.hostname[quarkus.rabbitmqclient.addresses."broker-name".hostname]`
+
+[.description]
+--
+Hostname for connecting
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_ADDRESSES__BROKER_NAME__HOSTNAME+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_ADDRESSES__BROKER_NAME__HOSTNAME+++`
+endif::add-copy-button-to-env-var[]
+--|string 
+|required icon:exclamation-circle[title=Configuration property is required]
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses.-broker-name-.port]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses.-broker-name-.port[quarkus.rabbitmqclient.addresses."broker-name".port]`
+
+[.description]
+--
+Port number for connecting
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_ADDRESSES__BROKER_NAME__PORT+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_ADDRESSES__BROKER_NAME__PORT+++`
+endif::add-copy-button-to-env-var[]
+--|int 
+|`0`
+
+
+h|[[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls-tls-configuration]]link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls-tls-configuration[Tls configuration]
+
+h|Type
+h|Default
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.enabled]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.enabled[quarkus.rabbitmqclient.tls.enabled]`
+
+[.description]
+--
+Enables TLS
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_ENABLED+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_ENABLED+++`
+endif::add-copy-button-to-env-var[]
+--|boolean 
+|`false`
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.algorithm]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.algorithm[quarkus.rabbitmqclient.tls.algorithm]`
+
+[.description]
+--
+TLS Algorithm to use
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_ALGORITHM+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_ALGORITHM+++`
+endif::add-copy-button-to-env-var[]
+--|string 
+|`TLSv1.2`
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-file]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-file[quarkus.rabbitmqclient.tls.trust-store-file]`
+
+[.description]
+--
+Trust store file
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_FILE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_FILE+++`
+endif::add-copy-button-to-env-var[]
+--|string 
+|
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-type]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-type[quarkus.rabbitmqclient.tls.trust-store-type]`
+
+[.description]
+--
+Trust store type
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_TYPE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_TYPE+++`
+endif::add-copy-button-to-env-var[]
+--|string 
+|`JKS`
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-algorithm]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-algorithm[quarkus.rabbitmqclient.tls.trust-store-algorithm]`
+
+[.description]
+--
+Trust store algorithm
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_ALGORITHM+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_ALGORITHM+++`
+endif::add-copy-button-to-env-var[]
+--|string 
+|`SunX509`
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-password]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-password[quarkus.rabbitmqclient.tls.trust-store-password]`
+
+[.description]
+--
+Trust store password
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_PASSWORD+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_PASSWORD+++`
+endif::add-copy-button-to-env-var[]
+--|string 
+|
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-file]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-file[quarkus.rabbitmqclient.tls.key-store-file]`
+
+[.description]
+--
+Key store file
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_FILE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_FILE+++`
+endif::add-copy-button-to-env-var[]
+--|string 
+|
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-password]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-password[quarkus.rabbitmqclient.tls.key-store-password]`
+
+[.description]
+--
+Key store password
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_PASSWORD+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_PASSWORD+++`
+endif::add-copy-button-to-env-var[]
+--|string 
+|
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-type]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-type[quarkus.rabbitmqclient.tls.key-store-type]`
+
+[.description]
+--
+Key store type
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_TYPE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_TYPE+++`
+endif::add-copy-button-to-env-var[]
+--|string 
+|`PKCS12`
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-algorithm]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-algorithm[quarkus.rabbitmqclient.tls.key-store-algorithm]`
+
+[.description]
+--
+Key store algorithm
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_ALGORITHM+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_ALGORITHM+++`
+endif::add-copy-button-to-env-var[]
+--|string 
+|`SunX509`
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.validate-server-certificate]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.validate-server-certificate[quarkus.rabbitmqclient.tls.validate-server-certificate]`
+
+[.description]
+--
+Validate server certificate
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_VALIDATE_SERVER_CERTIFICATE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_VALIDATE_SERVER_CERTIFICATE+++`
+endif::add-copy-button-to-env-var[]
+--|boolean 
+|`true`
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.verify-hostname]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.verify-hostname[quarkus.rabbitmqclient.tls.verify-hostname]`
+
+[.description]
+--
+Verify hostname
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_VERIFY_HOSTNAME+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_VERIFY_HOSTNAME+++`
+endif::add-copy-button-to-env-var[]
+--|boolean 
+|`true`
+
+
+h|[[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio-non-blocking-io-configuration]]link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio-non-blocking-io-configuration[Non blocking IO configuration]
+
+h|Type
+h|Default
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.enabled]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.enabled[quarkus.rabbitmqclient.nio.enabled]`
+
+[.description]
+--
+Enables non blocking IO
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_NIO_ENABLED+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_ENABLED+++`
+endif::add-copy-button-to-env-var[]
+--|boolean 
+|`false`
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.read-byte-buffer-size]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.read-byte-buffer-size[quarkus.rabbitmqclient.nio.read-byte-buffer-size]`
+
+[.description]
+--
+Read buffer size in bytes
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_NIO_READ_BYTE_BUFFER_SIZE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_READ_BYTE_BUFFER_SIZE+++`
+endif::add-copy-button-to-env-var[]
+--|int 
+|`32768`
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-byte-buffer-size]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-byte-buffer-size[quarkus.rabbitmqclient.nio.write-byte-buffer-size]`
+
+[.description]
+--
+Write buffer size in bytes
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_NIO_WRITE_BYTE_BUFFER_SIZE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_WRITE_BYTE_BUFFER_SIZE+++`
+endif::add-copy-button-to-env-var[]
+--|int 
+|`32768`
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.threads]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.threads[quarkus.rabbitmqclient.nio.threads]`
+
+[.description]
+--
+Number of non blocking IO threads
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_NIO_THREADS+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_THREADS+++`
+endif::add-copy-button-to-env-var[]
+--|int 
+|`1`
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-enqueuing-timeout]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-enqueuing-timeout[quarkus.rabbitmqclient.nio.write-enqueuing-timeout]`
+
+[.description]
+--
+Write enqueuing timeout in milliseconds
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_NIO_WRITE_ENQUEUING_TIMEOUT+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_WRITE_ENQUEUING_TIMEOUT+++`
+endif::add-copy-button-to-env-var[]
+--|int 
+|`10000`
+
+
+a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-queue-capacity]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-queue-capacity[quarkus.rabbitmqclient.nio.write-queue-capacity]`
+
+[.description]
+--
+Write queue capacity.
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_NIO_WRITE_QUEUE_CAPACITY+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_WRITE_QUEUE_CAPACITY+++`
+endif::add-copy-button-to-env-var[]
+--|int 
+|`10000`
+
+
 h|[[quarkus-rabbitmqclient_quarkus.rabbitmqclient.named-clients-additional-named-clients]]link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.named-clients-additional-named-clients[Additional named clients]
 
 h|Type
@@ -1051,341 +1386,6 @@ Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT__CLIENT
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
 Environment variable: `+++QUARKUS_RABBITMQCLIENT__CLIENT_NAME__NIO_WRITE_QUEUE_CAPACITY+++`
-endif::add-copy-button-to-env-var[]
---|int 
-|`10000`
-
-
-h|[[quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses-broker-addresses-for-creating-connections]]link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses-broker-addresses-for-creating-connections[Broker addresses for creating connections]
-
-h|Type
-h|Default
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses.-broker-name-.hostname]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses.-broker-name-.hostname[quarkus.rabbitmqclient.addresses."broker-name".hostname]`
-
-[.description]
---
-Hostname for connecting
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_ADDRESSES__BROKER_NAME__HOSTNAME+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_ADDRESSES__BROKER_NAME__HOSTNAME+++`
-endif::add-copy-button-to-env-var[]
---|string 
-|required icon:exclamation-circle[title=Configuration property is required]
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses.-broker-name-.port]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses.-broker-name-.port[quarkus.rabbitmqclient.addresses."broker-name".port]`
-
-[.description]
---
-Port number for connecting
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_ADDRESSES__BROKER_NAME__PORT+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_ADDRESSES__BROKER_NAME__PORT+++`
-endif::add-copy-button-to-env-var[]
---|int 
-|`0`
-
-
-h|[[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls-tls-configuration]]link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls-tls-configuration[Tls configuration]
-
-h|Type
-h|Default
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.enabled]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.enabled[quarkus.rabbitmqclient.tls.enabled]`
-
-[.description]
---
-Enables TLS
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_ENABLED+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_ENABLED+++`
-endif::add-copy-button-to-env-var[]
---|boolean 
-|`false`
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.algorithm]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.algorithm[quarkus.rabbitmqclient.tls.algorithm]`
-
-[.description]
---
-TLS Algorithm to use
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_ALGORITHM+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_ALGORITHM+++`
-endif::add-copy-button-to-env-var[]
---|string 
-|`TLSv1.2`
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-file]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-file[quarkus.rabbitmqclient.tls.trust-store-file]`
-
-[.description]
---
-Trust store file
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_FILE+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_FILE+++`
-endif::add-copy-button-to-env-var[]
---|string 
-|
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-type]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-type[quarkus.rabbitmqclient.tls.trust-store-type]`
-
-[.description]
---
-Trust store type
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_TYPE+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_TYPE+++`
-endif::add-copy-button-to-env-var[]
---|string 
-|`JKS`
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-algorithm]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-algorithm[quarkus.rabbitmqclient.tls.trust-store-algorithm]`
-
-[.description]
---
-Trust store algorithm
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_ALGORITHM+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_ALGORITHM+++`
-endif::add-copy-button-to-env-var[]
---|string 
-|`SunX509`
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-password]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-password[quarkus.rabbitmqclient.tls.trust-store-password]`
-
-[.description]
---
-Trust store password
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_PASSWORD+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_PASSWORD+++`
-endif::add-copy-button-to-env-var[]
---|string 
-|
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-file]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-file[quarkus.rabbitmqclient.tls.key-store-file]`
-
-[.description]
---
-Key store file
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_FILE+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_FILE+++`
-endif::add-copy-button-to-env-var[]
---|string 
-|
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-password]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-password[quarkus.rabbitmqclient.tls.key-store-password]`
-
-[.description]
---
-Key store password
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_PASSWORD+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_PASSWORD+++`
-endif::add-copy-button-to-env-var[]
---|string 
-|
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-type]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-type[quarkus.rabbitmqclient.tls.key-store-type]`
-
-[.description]
---
-Key store type
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_TYPE+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_TYPE+++`
-endif::add-copy-button-to-env-var[]
---|string 
-|`PKCS12`
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-algorithm]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-algorithm[quarkus.rabbitmqclient.tls.key-store-algorithm]`
-
-[.description]
---
-Key store algorithm
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_ALGORITHM+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_ALGORITHM+++`
-endif::add-copy-button-to-env-var[]
---|string 
-|`SunX509`
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.validate-server-certificate]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.validate-server-certificate[quarkus.rabbitmqclient.tls.validate-server-certificate]`
-
-[.description]
---
-Validate server certificate
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_VALIDATE_SERVER_CERTIFICATE+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_VALIDATE_SERVER_CERTIFICATE+++`
-endif::add-copy-button-to-env-var[]
---|boolean 
-|`true`
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.verify-hostname]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.verify-hostname[quarkus.rabbitmqclient.tls.verify-hostname]`
-
-[.description]
---
-Verify hostname
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_TLS_VERIFY_HOSTNAME+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_VERIFY_HOSTNAME+++`
-endif::add-copy-button-to-env-var[]
---|boolean 
-|`true`
-
-
-h|[[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio-non-blocking-io-configuration]]link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio-non-blocking-io-configuration[Non blocking IO configuration]
-
-h|Type
-h|Default
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.enabled]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.enabled[quarkus.rabbitmqclient.nio.enabled]`
-
-[.description]
---
-Enables non blocking IO
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_NIO_ENABLED+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_ENABLED+++`
-endif::add-copy-button-to-env-var[]
---|boolean 
-|`false`
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.read-byte-buffer-size]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.read-byte-buffer-size[quarkus.rabbitmqclient.nio.read-byte-buffer-size]`
-
-[.description]
---
-Read buffer size in bytes
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_NIO_READ_BYTE_BUFFER_SIZE+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_READ_BYTE_BUFFER_SIZE+++`
-endif::add-copy-button-to-env-var[]
---|int 
-|`32768`
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-byte-buffer-size]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-byte-buffer-size[quarkus.rabbitmqclient.nio.write-byte-buffer-size]`
-
-[.description]
---
-Write buffer size in bytes
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_NIO_WRITE_BYTE_BUFFER_SIZE+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_WRITE_BYTE_BUFFER_SIZE+++`
-endif::add-copy-button-to-env-var[]
---|int 
-|`32768`
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.threads]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.threads[quarkus.rabbitmqclient.nio.threads]`
-
-[.description]
---
-Number of non blocking IO threads
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_NIO_THREADS+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_THREADS+++`
-endif::add-copy-button-to-env-var[]
---|int 
-|`1`
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-enqueuing-timeout]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-enqueuing-timeout[quarkus.rabbitmqclient.nio.write-enqueuing-timeout]`
-
-[.description]
---
-Write enqueuing timeout in milliseconds
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_NIO_WRITE_ENQUEUING_TIMEOUT+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_WRITE_ENQUEUING_TIMEOUT+++`
-endif::add-copy-button-to-env-var[]
---|int 
-|`10000`
-
-
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-queue-capacity]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-queue-capacity[quarkus.rabbitmqclient.nio.write-queue-capacity]`
-
-[.description]
---
-Write queue capacity.
-
-ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_NIO_WRITE_QUEUE_CAPACITY+++[]
-endif::add-copy-button-to-env-var[]
-ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_WRITE_QUEUE_CAPACITY+++`
 endif::add-copy-button-to-env-var[]
 --|int 
 |`10000`
