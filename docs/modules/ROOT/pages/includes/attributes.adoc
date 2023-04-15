@@ -1,5 +1,5 @@
 :quarkus-version: 3.0.0.Final
-:quarkus-rabbitmq-client-version: 0.5.3
+:quarkus-rabbitmq-client-version: 3.0.0
 :maven-version: 3.8.1+
 
 :quarkus-org-url: https://github.com/quarkusio
