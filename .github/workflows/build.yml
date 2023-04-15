@@ -7,6 +7,7 @@ on:
       - "1.x"
       - "2.x"
     paths-ignore:
+      - '.github'
       - '.gitignore'
       - 'CODEOWNERS'
       - 'LICENSE'
@@ -16,6 +17,7 @@ on:
       - '.all-contributorsrc'
   pull_request:
     paths-ignore:
+      - '.github'
       - '.gitignore'
       - 'CODEOWNERS'
       - 'LICENSE'
