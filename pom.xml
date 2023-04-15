@@ -22,10 +22,10 @@
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <quarkus.version>3.0.0.Final</quarkus.version>
-        <compiler-plugin.version>3.10.1</compiler-plugin.version>
+        <compiler-plugin.version>3.11.0</compiler-plugin.version>
+        <surefire-plugin.version>3.0.0</surefire-plugin.version>
         <exec-plugin.version>3.1.0</exec-plugin.version>
         <amqp-client.version>5.17.0</amqp-client.version>
-        <testcontainers.version>1.17.6</testcontainers.version>
     </properties>
 
     <modules>
@@ -51,6 +51,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${compiler-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${surefire-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
