@@ -24,7 +24,7 @@
     <amqp-client.version>5.17.0</amqp-client.version>
   </properties>
   <scm>
-    <connection>:git:git@github.com:quarkiverse/quarkus-rabbitmq-client.git</connection>
+    <connection>scm:git:git@github.com:quarkiverse/quarkus-rabbitmq-client.git</connection>
     <developerConnection>scm:git:git@github.com:quarkiverse/quarkus-rabbitmq-client.git</developerConnection>
     <url>https://github.com/quarkiverse/quarkus-rabbitmq-client</url>
   </scm>
