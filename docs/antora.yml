@@ -1,5 +1,5 @@
 name: quarkus-rabbitmq-client
-title: Quarkus RabbitMQ Client
+title: RabbitMQ Client
 version: dev
 nav:
   - modules/ROOT/nav.adoc
