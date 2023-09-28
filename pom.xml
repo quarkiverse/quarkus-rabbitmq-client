@@ -21,7 +21,7 @@
     <compiler-plugin.version>3.11.0</compiler-plugin.version>
     <surefire-plugin.version>3.1.2</surefire-plugin.version>
     <exec-plugin.version>3.1.0</exec-plugin.version>
-    <amqp-client.version>5.18.0</amqp-client.version>
+    <amqp-client.version>5.19.0</amqp-client.version>
   </properties>
   <scm>
     <connection>scm:git:git@github.com:quarkiverse/quarkus-rabbitmq-client.git</connection>
