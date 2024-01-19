@@ -51,7 +51,7 @@ class QuarkusRabbitMQClientProcessor {
     @BuildStep
     HealthBuildItem addHealthCheck(RabbitMQClientsBuildConfig buildTimeConfig) {
         return new HealthBuildItem("io.quarkiverse.rabbitmqclient.RabbitMQReadyCheck",
-                buildTimeConfig.healthEnabled);
+                buildTimeConfig.healthEnabled());
     }
 
     @BuildStep
@@ -65,18 +65,20 @@ class QuarkusRabbitMQClientProcessor {
     @BuildStep
     public void defineClients(BuildProducer<QuarkusRabbitMQClientBuildItem> clientName, RabbitMQClientsBuildConfig clients,
             BeanArchiveIndexBuildItem indexBuildItem) {
-        if (clients.defaultClient.enabled) {
-            clientName.produce(new QuarkusRabbitMQClientBuildItem(RabbitMQClients.DEFAULT_CLIENT_NAME, clients.metricsEnabled));
+
+        if (clients.clients().get(RabbitMQClients.DEFAULT_CLIENT_NAME).enabled()) {
+            clientName
+                    .produce(new QuarkusRabbitMQClientBuildItem(RabbitMQClients.DEFAULT_CLIENT_NAME, clients.metricsEnabled()));
         }
 
         IndexView indexView = indexBuildItem.getIndex();
         Collection<AnnotationInstance> clientAnnotations = indexView.getAnnotations(NAMED_RABBITMQ_CLIENT_ANNOTATION);
         for (AnnotationInstance annotation : clientAnnotations) {
-            RabbitMQClientBuildConfig cfg = clients.namedClients.get(annotation.value().asString());
-            if (cfg != null && cfg.enabled) {
-                clientName.produce(new QuarkusRabbitMQClientBuildItem(annotation.value().asString(), clients.metricsEnabled));
+            RabbitMQClientBuildConfig cfg = clients.clients().get(annotation.value().asString());
+            if (cfg != null && cfg.enabled()) {
+                clientName.produce(new QuarkusRabbitMQClientBuildItem(annotation.value().asString(), clients.metricsEnabled()));
             } else if (cfg == null) {
-                clientName.produce(new QuarkusRabbitMQClientBuildItem(annotation.value().asString(), clients.metricsEnabled));
+                clientName.produce(new QuarkusRabbitMQClientBuildItem(annotation.value().asString(), clients.metricsEnabled()));
             }
         }
     }

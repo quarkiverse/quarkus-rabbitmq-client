@@ -32,9 +32,9 @@ class RabbitMQHelper {
             if (mc != null) {
                 cf.setMetricsCollector(mc);
             }
-            List<Address> addresses = config.addresses.isEmpty()
-                    ? Collections.singletonList(new Address(config.hostname, config.port))
-                    : convertAddresses(config.addresses);
+            List<Address> addresses = config.addresses().isEmpty()
+                    ? Collections.singletonList(new Address(config.hostname(), config.port()))
+                    : convertAddresses(config.addresses());
 
             return addresses == null ? cf.newConnection(name)
                     : cf.newConnection(addresses, name);
@@ -46,11 +46,11 @@ class RabbitMQHelper {
     private static ConnectionFactory newConnectionFactory(RabbitMQClientParams params) {
         ConnectionFactory cf = new ConnectionFactory();
         cf.setSharedExecutor(params.getExecutorService());
-        cf.setSaslConfig(params.getConfig().sasl.getSaslConfig());
+        cf.setSaslConfig(params.getConfig().sasl().getSaslConfig());
 
         ConnectionFactoryConfigurator.load(cf, newProperties(params), "");
 
-        String uri = params.getConfig().uri.orElse(null);
+        String uri = params.getConfig().uri().orElse(null);
         if (uri != null) {
             try {
                 cleanUriConnectionProperties(cf);
@@ -74,16 +74,16 @@ class RabbitMQHelper {
      * @return a list of RabbitMQ broker addresses.
      */
     public static List<Address> resolveBrokerAddresses(RabbitMQClientConfig config) {
-        return config.addresses.isEmpty()
-                ? Collections.singletonList(new Address(config.hostname,
-                        ConnectionFactory.portOrDefault(config.port, config.tls != null && config.tls.enabled)))
-                : convertAddresses(config.addresses);
+        return config.addresses().isEmpty()
+                ? Collections.singletonList(new Address(config.hostname(),
+                        ConnectionFactory.portOrDefault(config.port(), config.tls() != null && config.tls().enabled())))
+                : convertAddresses(config.addresses());
     }
 
     private static List<Address> convertAddresses(Map<String, RabbitMQClientConfig.Address> addresses) {
         return addresses.values()
                 .stream()
-                .map(a -> new Address(a.hostname, a.port))
+                .map(a -> new Address(a.hostname(), a.port()))
                 .collect(Collectors.toList());
     }
 
@@ -103,86 +103,88 @@ class RabbitMQHelper {
      */
     static Properties newProperties(RabbitMQClientParams params) {
         Properties properties = new Properties();
-        properties.setProperty(ConnectionFactoryConfigurator.USERNAME, params.getConfig().username);
-        properties.setProperty(ConnectionFactoryConfigurator.PASSWORD, params.getConfig().password);
-        properties.setProperty(ConnectionFactoryConfigurator.VIRTUAL_HOST, params.getConfig().virtualHost);
-        properties.setProperty(ConnectionFactoryConfigurator.HOST, params.getConfig().hostname);
-        properties.setProperty(ConnectionFactoryConfigurator.PORT, Integer.toString(params.getConfig().port));
+        properties.setProperty(ConnectionFactoryConfigurator.USERNAME, params.getConfig().username());
+        properties.setProperty(ConnectionFactoryConfigurator.PASSWORD, params.getConfig().password());
+        properties.setProperty(ConnectionFactoryConfigurator.VIRTUAL_HOST, params.getConfig().virtualHost());
+        properties.setProperty(ConnectionFactoryConfigurator.HOST, params.getConfig().hostname());
+        properties.setProperty(ConnectionFactoryConfigurator.PORT, Integer.toString(params.getConfig().port()));
         properties.setProperty(ConnectionFactoryConfigurator.CONNECTION_CHANNEL_MAX,
-                Integer.toString(params.getConfig().requestedChannelMax));
+                Integer.toString(params.getConfig().requestedChannelMax()));
         properties.setProperty(ConnectionFactoryConfigurator.CONNECTION_FRAME_MAX,
-                Integer.toString(params.getConfig().requestedFrameMax));
+                Integer.toString(params.getConfig().requestedFrameMax()));
         properties.setProperty(ConnectionFactoryConfigurator.CONNECTION_HEARTBEAT,
-                Integer.toString(params.getConfig().requestedHeartbeat));
+                Integer.toString(params.getConfig().requestedHeartbeat()));
         properties.setProperty(ConnectionFactoryConfigurator.CONNECTION_TIMEOUT,
-                Integer.toString(params.getConfig().connectionTimeout));
+                Integer.toString(params.getConfig().connectionTimeout()));
         properties.setProperty(ConnectionFactoryConfigurator.HANDSHAKE_TIMEOUT,
-                Integer.toString(params.getConfig().handshakeTimeout));
+                Integer.toString(params.getConfig().handshakeTimeout()));
         properties.setProperty(ConnectionFactoryConfigurator.SHUTDOWN_TIMEOUT,
-                Integer.toString(params.getConfig().shutdownTimeout));
+                Integer.toString(params.getConfig().shutdownTimeout()));
 
         // client properties
         properties.setProperty(ConnectionFactoryConfigurator.CLIENT_PROPERTIES_PREFIX, CLIENT_PROPERTY_PREFIX);
-        params.getConfig().properties.forEach((name, value) -> {
+        params.getConfig().properties().forEach((name, value) -> {
             properties.setProperty(CLIENT_PROPERTY_PREFIX + name, value);
         });
 
         properties.setProperty(ConnectionFactoryConfigurator.CONNECTION_RECOVERY_ENABLED,
-                Boolean.toString(params.getConfig().connectionRecovery));
+                Boolean.toString(params.getConfig().connectionRecovery()));
         properties.setProperty(ConnectionFactoryConfigurator.TOPOLOGY_RECOVERY_ENABLED,
-                Boolean.toString(params.getConfig().topologyRecovery));
+                Boolean.toString(params.getConfig().topologyRecovery()));
         properties.setProperty(ConnectionFactoryConfigurator.CONNECTION_RECOVERY_INTERVAL,
-                Integer.toString(params.getConfig().networkRecoveryInterval));
+                Integer.toString(params.getConfig().networkRecoveryInterval()));
         properties.setProperty(ConnectionFactoryConfigurator.CHANNEL_RPC_TIMEOUT,
-                Integer.toString(params.getConfig().channelRpcTimeout));
+                Integer.toString(params.getConfig().channelRpcTimeout()));
         properties.setProperty(ConnectionFactoryConfigurator.CHANNEL_SHOULD_CHECK_RPC_RESPONSE_TYPE,
-                Boolean.toString(params.getConfig().channelRpcResponseTypeCheck));
+                Boolean.toString(params.getConfig().channelRpcResponseTypeCheck()));
 
         // NIO
-        properties.setProperty(ConnectionFactoryConfigurator.USE_NIO, Boolean.toString(params.getConfig().nio.enabled));
+        properties.setProperty(ConnectionFactoryConfigurator.USE_NIO, Boolean.toString(params.getConfig().nio().enabled()));
         properties.setProperty(ConnectionFactoryConfigurator.NIO_READ_BYTE_BUFFER_SIZE,
-                Integer.toString(params.getConfig().nio.readByteBufferSize));
+                Integer.toString(params.getConfig().nio().readByteBufferSize()));
         properties.setProperty(ConnectionFactoryConfigurator.NIO_WRITE_BYTE_BUFFER_SIZE,
-                Integer.toString(params.getConfig().nio.writeByteBufferSize));
+                Integer.toString(params.getConfig().nio().writeByteBufferSize()));
         properties.setProperty(ConnectionFactoryConfigurator.NIO_NB_IO_THREADS,
-                Integer.toString(params.getConfig().nio.threads));
+                Integer.toString(params.getConfig().nio().threads()));
         properties.setProperty(ConnectionFactoryConfigurator.NIO_WRITE_ENQUEUING_TIMEOUT_IN_MS,
-                Integer.toString(params.getConfig().nio.writeEnqueuingTimeout));
+                Integer.toString(params.getConfig().nio().writeEnqueuingTimeout()));
         properties.setProperty(ConnectionFactoryConfigurator.NIO_WRITE_QUEUE_CAPACITY,
-                Integer.toString(params.getConfig().nio.writeQueueCapacity));
+                Integer.toString(params.getConfig().nio().writeQueueCapacity()));
 
         // TLS Configuration
-        if (params.getConfig().tls != null) {
-            properties.setProperty(ConnectionFactoryConfigurator.SSL_ALGORITHM, params.getConfig().tls.algorithm);
-            properties.setProperty(ConnectionFactoryConfigurator.SSL_ENABLED, Boolean.toString(params.getConfig().tls.enabled));
+        if (params.getConfig().tls() != null) {
+            properties.setProperty(ConnectionFactoryConfigurator.SSL_ALGORITHM, params.getConfig().tls().algorithm());
+            properties.setProperty(ConnectionFactoryConfigurator.SSL_ENABLED,
+                    Boolean.toString(params.getConfig().tls().enabled()));
 
             if (params.getTlsConfig().trustAll) {
                 properties.setProperty(ConnectionFactoryConfigurator.SSL_VALIDATE_SERVER_CERTIFICATE, Boolean.FALSE.toString());
                 properties.setProperty(ConnectionFactoryConfigurator.SSL_VERIFY_HOSTNAME, Boolean.FALSE.toString());
             } else {
                 properties.setProperty(ConnectionFactoryConfigurator.SSL_VALIDATE_SERVER_CERTIFICATE,
-                        Boolean.toString(params.getConfig().tls.validateServerCertificate));
+                        Boolean.toString(params.getConfig().tls().validateServerCertificate()));
                 properties.setProperty(ConnectionFactoryConfigurator.SSL_VERIFY_HOSTNAME,
-                        Boolean.toString(params.getConfig().tls.verifyHostname));
+                        Boolean.toString(params.getConfig().tls().verifyHostname()));
 
                 // TLS Keys
-                params.getConfig().tls.keyStoreFile
+                params.getConfig().tls().keyStoreFile()
                         .ifPresent(s -> properties.setProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE, s));
-                params.getConfig().tls.keyStorePassword
+                params.getConfig().tls().keyStorePassword()
                         .ifPresent(s -> properties.setProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_PASSWORD, s));
-                properties.setProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_TYPE, params.getConfig().tls.keyStoreType);
+                properties.setProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_TYPE,
+                        params.getConfig().tls().keyStoreType());
                 properties.setProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_ALGORITHM,
-                        params.getConfig().tls.keyStoreAlgorithm);
+                        params.getConfig().tls().keyStoreAlgorithm());
 
                 // TLS Trust
-                params.getConfig().tls.trustStoreFile
+                params.getConfig().tls().trustStoreFile()
                         .ifPresent(s -> properties.setProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE, s));
-                params.getConfig().tls.trustStorePassword
+                params.getConfig().tls().trustStorePassword()
                         .ifPresent(s -> properties.setProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE_PASSWORD, s));
                 properties.setProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE_TYPE,
-                        params.getConfig().tls.trustStoreType);
+                        params.getConfig().tls().trustStoreType());
                 properties.setProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE_ALGORITHM,
-                        params.getConfig().tls.trustStoreAlgorithm);
+                        params.getConfig().tls().trustStoreAlgorithm());
             }
         }
 

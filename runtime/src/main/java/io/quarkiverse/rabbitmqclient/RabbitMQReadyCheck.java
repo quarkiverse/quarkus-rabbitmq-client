@@ -40,10 +40,10 @@ public class RabbitMQReadyCheck implements HealthCheck {
         //   addresses is reachable.
 
         Map<String, List<ClientStatus>> data = new HashMap<>();
-        if (config.defaultClient != null) {
-            appendClientState(data, null, config.defaultClient);
-        }
-        config.namedClients.forEach((n, c) -> appendClientState(data, n, c));
+        //        if (config.clients().get(RabbitMQClients.DEFAULT_CLIENT_NAME) != null) {
+        //            appendClientState(data, null, config.clients().get(RabbitMQClients.DEFAULT_CLIENT_NAME));
+        //        }
+        config.clients().forEach((n, c) -> appendClientState(data, n, c));
 
         HealthCheckResponseBuilder builder = HealthCheckResponse.builder();
         builder.name(HEALTH_CHECK_NAME);
@@ -59,7 +59,7 @@ public class RabbitMQReadyCheck implements HealthCheck {
     }
 
     private void appendClientState(Map<String, List<ClientStatus>> data, String name, RabbitMQClientConfig config) {
-        String clientName = name == null ? "" : name;
+        String clientName = name == null || RabbitMQClients.DEFAULT_CLIENT_NAME.equals(name) ? "" : name;
         data.putIfAbsent(clientName, new ArrayList<>());
         RabbitMQHelper.resolveBrokerAddresses(config)
                 .forEach((a) -> {

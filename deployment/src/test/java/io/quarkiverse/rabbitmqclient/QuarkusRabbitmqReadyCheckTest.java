@@ -1,8 +1,6 @@
 package io.quarkiverse.rabbitmqclient;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import jakarta.inject.Inject;
 
@@ -133,25 +131,159 @@ public class QuarkusRabbitmqReadyCheckTest {
     }
 
     private void setupDummyServers(RabbitMQClientsConfig config, String name, int number, int down) {
-        RabbitMQClientConfig cfg = new RabbitMQClientConfig();
+        RabbitMQClientConfig cfg;
         Runnable closeCallback;
         if (name == null) {
-            config.defaultClient = cfg;
-            closeCallback = () -> config.defaultClient = null;
+            cfg = newClientConfig();
+            config.clients().put(RabbitMQClients.DEFAULT_CLIENT_NAME, cfg);
+            closeCallback = () -> config.clients().remove(RabbitMQClients.DEFAULT_CLIENT_NAME);
         } else {
-            config.namedClients.put(name, cfg);
-            closeCallback = () -> config.namedClients.remove(name);
+            cfg = newClientConfig();
+            config.clients().put(name, cfg);
+            closeCallback = () -> config.clients().remove(name);
         }
-        cfg.addresses = new HashMap<>();
+
         String hostName = "client-" + (name == null ? "" : name + "-") + "dummy-";
         for (int i = 0; i < number; i++) {
             DummyServer ds = DummyServer.newDummyServer(name, closeCallback, i < down);
-            RabbitMQClientConfig.Address address = new RabbitMQClientConfig.Address();
-            address.hostname = ds.getHostname();
-            address.port = ds.getPort();
-            cfg.addresses.put(hostName + i, address);
+            cfg.addresses().put(hostName + i, addressFor(ds));
             dummyServers.add(ds);
         }
+    }
+
+    private RabbitMQClientConfig newClientConfig() {
+        return new RabbitMQClientConfig() {
+            private Map<String, Address> addresses = new HashMap<>();
+
+            @Override
+            public Optional<String> uri() {
+                return Optional.empty();
+            }
+
+            @Override
+            public Map<String, Address> addresses() {
+                return addresses;
+            }
+
+            @Override
+            public String username() {
+                return null;
+            }
+
+            @Override
+            public String password() {
+                return null;
+            }
+
+            @Override
+            public String hostname() {
+                return null;
+            }
+
+            @Override
+            public String virtualHost() {
+                return null;
+            }
+
+            @Override
+            public int port() {
+                return 0;
+            }
+
+            @Override
+            public int connectionTimeout() {
+                return 0;
+            }
+
+            @Override
+            public int connectionCloseTimeout() {
+                return 0;
+            }
+
+            @Override
+            public int requestedHeartbeat() {
+                return 0;
+            }
+
+            @Override
+            public int handshakeTimeout() {
+                return 0;
+            }
+
+            @Override
+            public int shutdownTimeout() {
+                return 0;
+            }
+
+            @Override
+            public int requestedChannelMax() {
+                return 0;
+            }
+
+            @Override
+            public int requestedFrameMax() {
+                return 0;
+            }
+
+            @Override
+            public int networkRecoveryInterval() {
+                return 0;
+            }
+
+            @Override
+            public int channelRpcTimeout() {
+                return 0;
+            }
+
+            @Override
+            public boolean channelRpcResponseTypeCheck() {
+                return false;
+            }
+
+            @Override
+            public boolean connectionRecovery() {
+                return false;
+            }
+
+            @Override
+            public boolean topologyRecovery() {
+                return false;
+            }
+
+            @Override
+            public SaslType sasl() {
+                return null;
+            }
+
+            @Override
+            public TlsConfig tls() {
+                return null;
+            }
+
+            @Override
+            public NioConfig nio() {
+                return null;
+            }
+
+            @Override
+            public Map<String, String> properties() {
+                return null;
+            }
+        };
+    }
+
+    private RabbitMQClientConfig.Address addressFor(DummyServer ds) {
+        return new RabbitMQClientConfig.Address() {
+            @Override
+            public String hostname() {
+                return ds.getHostname();
+            }
+
+            @Override
+            public int port() {
+                return ds.getPort();
+            }
+        };
     }
 
     private void assertNumberOfBrokersInState(HealthCheckResponse resp, int number, HealthCheckResponse.Status state) {

@@ -14,7 +14,6 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestHelper;
-import io.quarkiverse.rabbitmqclient.util.TestConfig;
 import io.quarkus.test.QuarkusUnitTest;
 import io.quarkus.test.common.QuarkusTestResource;
 
@@ -25,7 +24,7 @@ public class QuarkusRabbitMQConsumerTest {
     static final QuarkusUnitTest unitTest = new QuarkusUnitTest() // Start unit test with your extension loaded
             .setFlatClassPath(true)
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(TestConfig.class, RabbitMQTestHelper.class)
+                    .addClasses(RabbitMQTestHelper.class)
                     .addAsResource(
                             QuarkusRabbitMQConsumerTest.class
                                     .getResource("/rabbitmq/rabbitmq-properties.properties"),
@@ -40,26 +39,25 @@ public class QuarkusRabbitMQConsumerTest {
 
     @BeforeEach
     public void setup() throws IOException {
-        rabbitMQTestHelper.connectClientServerSsl();
-        rabbitMQTestHelper.declareExchange("receive-test");
-        rabbitMQTestHelper.declareQueue("receive-test-queue", "receive-test");
+        rabbitMQTestHelper.ssl().declareExchange("receive-test");
+        rabbitMQTestHelper.ssl().declareQueue("receive-test-queue", "receive-test");
     }
 
     @AfterEach
     public void cleanup() throws IOException {
-        rabbitMQTestHelper.deleteQueue("receive-test-queue");
-        rabbitMQTestHelper.deleteExchange("receive-test");
+        rabbitMQTestHelper.ssl().deleteQueue("receive-test-queue");
+        rabbitMQTestHelper.ssl().deleteExchange("receive-test");
     }
 
     @Test
     public void testRabbitMQConsumer() throws Exception {
         CountDownLatch cdl = new CountDownLatch(1);
-        rabbitMQTestHelper.basicConsume("receive-test-queue", false, (tag, envelope, properties, body) -> {
+        rabbitMQTestHelper.ssl().basicConsume("receive-test-queue", false, (tag, envelope, properties, body) -> {
             System.out.println(new String(body, StandardCharsets.UTF_8));
             cdl.countDown();
         });
 
-        rabbitMQTestHelper.send("receive-test", "{'foo':'bar'}");
+        rabbitMQTestHelper.ssl().send("receive-test", "{'foo':'bar'}");
         Assertions.assertTrue(cdl.await(1, TimeUnit.SECONDS));
     }
 }

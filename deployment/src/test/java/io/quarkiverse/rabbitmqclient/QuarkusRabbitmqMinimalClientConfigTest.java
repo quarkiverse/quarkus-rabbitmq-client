@@ -29,9 +29,7 @@ public class QuarkusRabbitmqMinimalClientConfigTest extends RabbitMQConfigTest {
 
     @Test
     public void testConnectionFactoryProperties() {
-        assertRabbitMQConfig(config.defaultClient);
-
-        config.namedClients.forEach((n, c) -> {
+        config.clients().forEach((n, c) -> {
             assertRabbitMQConfig(c);
         });
     }

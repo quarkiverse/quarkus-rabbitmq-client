@@ -1,7 +1,7 @@
 package io.quarkiverse.rabbitmqclient.deployment;
 
 import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
+import io.smallrye.config.WithDefault;
 
 /**
  * RabbitMQ client configuration.
@@ -9,11 +9,11 @@ import io.quarkus.runtime.annotations.ConfigItem;
  * @author b.passon
  */
 @ConfigGroup
-public class RabbitMQClientBuildConfig {
+public interface RabbitMQClientBuildConfig {
 
     /**
      * Disable the client.
      */
-    @ConfigItem(defaultValue = "true")
-    public boolean enabled;
+    @WithDefault("true")
+    boolean enabled();
 }

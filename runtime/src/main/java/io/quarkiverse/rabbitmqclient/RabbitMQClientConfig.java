@@ -1,12 +1,12 @@
 package io.quarkiverse.rabbitmqclient;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
 import com.rabbitmq.client.ConnectionFactory;
 
 import io.quarkus.runtime.annotations.*;
+import io.smallrye.config.WithDefault;
 
 /**
  * RabbitMQ client configuration.
@@ -14,13 +14,12 @@ import io.quarkus.runtime.annotations.*;
  * @author b.passon
  */
 @ConfigGroup
-public class RabbitMQClientConfig {
+public interface RabbitMQClientConfig {
 
     /**
      * URI for connecting, formatted as amqp://userName:password@hostName:portNumber/virtualHost
      */
-    @ConfigItem
-    public Optional<String> uri;
+    Optional<String> uri();
 
     /**
      * Broker addresses for creating connections.
@@ -29,273 +28,263 @@ public class RabbitMQClientConfig {
      * {@code quarkus.rabbitmqclient.port} are ignored.
      * </p>
      */
-    @ConfigItem
     @ConfigDocMapKey("broker-name")
     @ConfigDocSection
-    public Map<String, Address> addresses = Collections.emptyMap();
+    Map<String, Address> addresses();
 
     /**
      * Username for authentication
      */
-    @ConfigItem(defaultValue = ConnectionFactory.DEFAULT_USER)
-    public String username;
+    @WithDefault(ConnectionFactory.DEFAULT_USER)
+    String username();
 
     /**
      * Password for authentication
      */
-    @ConfigItem(defaultValue = ConnectionFactory.DEFAULT_PASS)
-    public String password;
+    @WithDefault(ConnectionFactory.DEFAULT_PASS)
+    String password();
 
     /**
      * Hostname for connecting
      */
-    @ConfigItem(defaultValue = ConnectionFactory.DEFAULT_HOST)
-    public String hostname;
+    @WithDefault(ConnectionFactory.DEFAULT_HOST)
+    String hostname();
 
     /**
      * Virtual host
      */
-    @ConfigItem(defaultValue = ConnectionFactory.DEFAULT_VHOST)
-    public String virtualHost;
+    @WithDefault(ConnectionFactory.DEFAULT_VHOST)
+    String virtualHost();
 
     /**
      * Port number for connecting
      */
-    @ConfigItem(defaultValue = "" + ConnectionFactory.USE_DEFAULT_PORT)
-    public int port;
+    @WithDefault("" + ConnectionFactory.USE_DEFAULT_PORT)
+    int port();
 
     /**
      * Connection timeout in milliseconds
      */
-    @ConfigItem(defaultValue = "" + ConnectionFactory.DEFAULT_CONNECTION_TIMEOUT)
-    public int connectionTimeout;
+    @WithDefault("" + ConnectionFactory.DEFAULT_CONNECTION_TIMEOUT)
+    int connectionTimeout();
 
     /**
      * Connection close timeout in milliseconds
      */
-    @ConfigItem(defaultValue = "-1")
-    public int connectionCloseTimeout;
+    @WithDefault("-1")
+    int connectionCloseTimeout();
 
     /**
      * Heartbeat interval in seconds
      */
-    @ConfigItem(defaultValue = "" + ConnectionFactory.DEFAULT_HEARTBEAT)
-    public int requestedHeartbeat;
+    @WithDefault("" + ConnectionFactory.DEFAULT_HEARTBEAT)
+    int requestedHeartbeat();
 
     /**
      * Handshake timeout in milliseconds
      */
-    @ConfigItem(defaultValue = "" + ConnectionFactory.DEFAULT_HANDSHAKE_TIMEOUT)
-    public int handshakeTimeout;
+    @WithDefault("" + ConnectionFactory.DEFAULT_HANDSHAKE_TIMEOUT)
+    int handshakeTimeout();
 
     /**
      * Shutdown timeout in milliseconds
      */
-    @ConfigItem(defaultValue = "" + ConnectionFactory.DEFAULT_SHUTDOWN_TIMEOUT)
-    public int shutdownTimeout;
+    @WithDefault("" + ConnectionFactory.DEFAULT_SHUTDOWN_TIMEOUT)
+    int shutdownTimeout();
 
     /**
      * Maximum number of channels per connection
      */
-    @ConfigItem(defaultValue = "" + ConnectionFactory.DEFAULT_CHANNEL_MAX)
-    public int requestedChannelMax;
+    @WithDefault("" + ConnectionFactory.DEFAULT_CHANNEL_MAX)
+    int requestedChannelMax();
 
     /**
      * Maximum frame size
      */
-    @ConfigItem(defaultValue = "" + ConnectionFactory.DEFAULT_FRAME_MAX)
-    public int requestedFrameMax;
+    @WithDefault("" + ConnectionFactory.DEFAULT_FRAME_MAX)
+    int requestedFrameMax();
 
     /**
      * Network recovery interval in milliseconds
      */
-    @ConfigItem(defaultValue = "" + ConnectionFactory.DEFAULT_NETWORK_RECOVERY_INTERVAL)
-    public int networkRecoveryInterval;
+    @WithDefault("" + ConnectionFactory.DEFAULT_NETWORK_RECOVERY_INTERVAL)
+    int networkRecoveryInterval();
 
     /**
      * Channel RPC timeout in milliseconds
      */
-    @ConfigItem(defaultValue = "600000")
-    public int channelRpcTimeout;
+    @WithDefault("600000")
+    int channelRpcTimeout();
 
     /**
      * Validate channel RPC response type
      */
-    @ConfigItem(defaultValue = "false")
-    public boolean channelRpcResponseTypeCheck;
+    @WithDefault("false")
+    boolean channelRpcResponseTypeCheck();
 
     /**
      * Recover connection on failure
      */
-    @ConfigItem(defaultValue = "true")
-    public boolean connectionRecovery;
+    @WithDefault("true")
+    boolean connectionRecovery();
 
     /**
      * Recover topology on failure
      */
-    @ConfigItem(defaultValue = "true")
-    public boolean topologyRecovery;
+    @WithDefault("true")
+    boolean topologyRecovery();
 
     /**
      * SASL authentication mechanisms
      */
-    @ConfigItem(defaultValue = "plain")
-    public SaslType sasl;
+    @WithDefault("plain")
+    SaslType sasl();
 
     /**
      * Tls configuration
      */
-    @ConfigItem
     @ConfigDocSection
-    public TlsConfig tls;
+    TlsConfig tls();
 
     /**
-     * Non blocking IO configuration
+     * Non-blocking IO configuration
      */
-    @ConfigItem
     @ConfigDocSection
-    public NioConfig nio;
+    NioConfig nio();
 
     /**
      * Client properties
      */
-    @ConfigItem
     @ConfigDocMapKey("property-name")
     @ConfigDocSection
-    public Map<String, String> properties;
+    Map<String, String> properties();
 
     @ConfigGroup
-    public static class Address {
+    interface Address {
 
         /**
          * Hostname for connecting
          */
-        @ConfigItem
-        public String hostname;
+        String hostname();
 
         /**
          * Port number for connecting
          */
-        @ConfigItem
-        public int port;
+        int port();
 
     }
 
     @ConfigGroup
-    public static class NioConfig {
+    interface NioConfig {
 
         /**
          * Enables non blocking IO
          */
-        @ConfigItem(defaultValue = "false")
-        public boolean enabled;
+        @WithDefault("false")
+        boolean enabled();
 
         /**
          * Read buffer size in bytes
          */
-        @ConfigItem(defaultValue = "32768")
-        public int readByteBufferSize;
+        @WithDefault("32768")
+        int readByteBufferSize();
 
         /**
          * Write buffer size in bytes
          */
-        @ConfigItem(defaultValue = "32768")
-        public int writeByteBufferSize;
+        @WithDefault("32768")
+        int writeByteBufferSize();
 
         /**
          * Number of non blocking IO threads
          */
-        @ConfigItem(defaultValue = "1")
-        public int threads;
+        @WithDefault("1")
+        int threads();
 
         /**
          * Write enqueuing timeout in milliseconds
          */
-        @ConfigItem(defaultValue = "10000")
-        public int writeEnqueuingTimeout;
+        @WithDefault("10000")
+        int writeEnqueuingTimeout();
 
         /**
          * Write queue capacity.
          */
-        @ConfigItem(defaultValue = "10000")
-        public int writeQueueCapacity;
+        @WithDefault("10000")
+        int writeQueueCapacity();
 
     }
 
     @ConfigGroup
-    public static class TlsConfig {
+    interface TlsConfig {
 
         /**
          * Enables TLS
          */
-        @ConfigItem(defaultValue = "false")
-        public boolean enabled;
+        @WithDefault("false")
+        boolean enabled();
 
         /**
          * TLS Algorithm to use
          */
-        @ConfigItem(defaultValue = "TLSv1.2")
-        public String algorithm;
+        @WithDefault("TLSv1.2")
+        String algorithm();
 
         /**
          * Trust store file
          */
-        @ConfigItem
-        public Optional<String> trustStoreFile;
+        Optional<String> trustStoreFile();
 
         /**
          * Trust store type
          */
-        @ConfigItem(defaultValue = "JKS")
-        public String trustStoreType;
+        @WithDefault("JKS")
+        String trustStoreType();
 
         /**
          * Trust store algorithm
          */
-        @ConfigItem(defaultValue = "SunX509")
-        public String trustStoreAlgorithm;
+        @WithDefault("SunX509")
+        String trustStoreAlgorithm();
 
         /**
          * Trust store password
          */
-        @ConfigItem
-        public Optional<String> trustStorePassword;
+        Optional<String> trustStorePassword();
 
         /**
          * Key store file
          */
-        @ConfigItem
-        public Optional<String> keyStoreFile;
+        Optional<String> keyStoreFile();
 
         /**
          * Key store password
          */
-        @ConfigItem
-        public Optional<String> keyStorePassword;
+        Optional<String> keyStorePassword();
 
         /**
          * Key store type
          */
-        @ConfigItem(defaultValue = "PKCS12")
-        public String keyStoreType;
+        @WithDefault("PKCS12")
+        String keyStoreType();
 
         /**
          * Key store algorithm
          */
-        @ConfigItem(defaultValue = "SunX509")
-        public String keyStoreAlgorithm;
+        @WithDefault("SunX509")
+        String keyStoreAlgorithm();
 
         /**
          * Validate server certificate
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean validateServerCertificate;
+        @WithDefault("true")
+        boolean validateServerCertificate();
 
         /**
          * Verify hostname
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean verifyHostname;
+        @WithDefault("true")
+        boolean verifyHostname();
 
     }
 }

@@ -14,6 +14,8 @@ public class RabbitMQTestContainer implements QuarkusTestResourceLifecycleManage
     private static final String AMQPS_PORT = "test.amqps-port";
     private static final String AMQP_PORT = "test.amqp-port";
     private static final String HOSTNAME = "test.hostname";
+    private static final String USERNAME = "test.username";
+    private static final String PASSWORD = "test.password";
 
     private final MountableFile keyFile = MountableFile.forClasspathResource("/rabbitmq/server/key.pem");
     private final MountableFile certFile = MountableFile.forClasspathResource("/rabbitmq/server/cert.pem");
@@ -26,9 +28,13 @@ public class RabbitMQTestContainer implements QuarkusTestResourceLifecycleManage
                 .withSSL(keyFile, certFile, caFile, RabbitMQContainer.SslVerification.VERIFY_PEER, false);
         rabbitmq.start();
         Map<String, String> testConfig = new HashMap<>();
+
         testConfig.put(HOSTNAME, rabbitmq.getHost());
         testConfig.put(AMQP_PORT, rabbitmq.getAmqpPort().toString());
         testConfig.put(AMQPS_PORT, rabbitmq.getAmqpsPort().toString());
+        testConfig.put(USERNAME, rabbitmq.getAdminUsername());
+        testConfig.put(PASSWORD, rabbitmq.getAdminPassword());
+
         return testConfig;
     }
 

@@ -3,21 +3,20 @@ package io.quarkiverse.rabbitmqclient;
 import java.util.Map;
 
 import io.quarkus.runtime.annotations.*;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithParentName;
+import io.smallrye.config.WithUnnamedKey;
 
-@ConfigRoot(name = "rabbitmqclient", phase = ConfigPhase.RUN_TIME)
-public class RabbitMQClientsConfig {
-
-    /**
-     * The default client.
-     */
-    @ConfigItem(name = ConfigItem.PARENT)
-    public RabbitMQClientConfig defaultClient;
+@ConfigMapping(prefix = "quarkus.rabbitmqclient")
+@ConfigRoot(phase = ConfigPhase.RUN_TIME)
+public interface RabbitMQClientsConfig {
 
     /**
-     * Additional named clients.
+     * RabbitMQ clients.
      */
     @ConfigDocSection
     @ConfigDocMapKey("client-name")
-    @ConfigItem(name = ConfigItem.PARENT)
-    public Map<String, RabbitMQClientConfig> namedClients;
+    @WithParentName
+    @WithUnnamedKey(RabbitMQClients.DEFAULT_CLIENT_NAME)
+    Map<String, RabbitMQClientConfig> clients();
 }
