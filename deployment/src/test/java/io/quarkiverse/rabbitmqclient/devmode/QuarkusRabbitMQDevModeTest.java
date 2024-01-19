@@ -10,7 +10,6 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import io.quarkiverse.rabbitmqclient.RabbitMQConfigTest;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestHelper;
-import io.quarkiverse.rabbitmqclient.util.TestConfig;
 import io.quarkus.test.QuarkusDevModeTest;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.restassured.RestAssured;
@@ -21,7 +20,7 @@ public class QuarkusRabbitMQDevModeTest extends RabbitMQConfigTest {
     @RegisterExtension
     static final QuarkusDevModeTest unitTest = new QuarkusDevModeTest() // Start unit test with your extension loaded
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(TestConfig.class, RabbitMQTestHelper.class, MessageResource.class, MessageService.class)
+                    .addClasses(RabbitMQTestHelper.class, MessageResource.class, MessageService.class)
                     .addAsResource(
                             io.quarkiverse.rabbitmqclient.QuarkusRabbitMQConsumerTest.class
                                     .getResource("/rabbitmq/rabbitmq-properties.properties"),

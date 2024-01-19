@@ -32,12 +32,12 @@ public class QuarkusRabbitmqNonDefaultClientConfigTest extends RabbitMQConfigTes
     @Test
     public void testConnectionFactoryProperties() {
         RabbitMQClientParams params = new RabbitMQClientParams();
-        params.setConfig(config.defaultClient);
+        params.setConfig(config.clients().get(RabbitMQClients.DEFAULT_CLIENT_NAME));
         params.setTlsConfig(tlsConfig);
 
         Properties properties = RabbitMQHelper.newProperties(params);
-        assertRabbitMQConfig(config.defaultClient, tlsConfig, properties);
-        Assertions.assertEquals(config.defaultClient.connectionCloseTimeout, 200);
+        assertRabbitMQConfig(config.clients().get(RabbitMQClients.DEFAULT_CLIENT_NAME), tlsConfig, properties);
+        Assertions.assertEquals(config.clients().get(RabbitMQClients.DEFAULT_CLIENT_NAME).connectionCloseTimeout(), 200);
     }
 
 }

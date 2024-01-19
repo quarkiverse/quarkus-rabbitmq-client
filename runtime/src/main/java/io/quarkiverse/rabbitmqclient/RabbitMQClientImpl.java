@@ -64,12 +64,12 @@ class RabbitMQClientImpl implements RabbitMQClient {
             cdl.countDown();
         };
 
-        int closeTimeOut = params.getConfig().connectionCloseTimeout;
+        int closeTimeOut = params.getConfig().connectionCloseTimeout();
         connections.forEach((name, connection) -> {
             try {
                 connection.addShutdownListener(l);
                 log.debug("Closing connection {} with RabbitMQ broker.", name);
-                connection.close(params.getConfig().connectionCloseTimeout);
+                connection.close(params.getConfig().connectionCloseTimeout());
                 log.debug("Closed connection {} with RabbitMQ broker.", name);
             } catch (AlreadyClosedException ex) {
                 log.debug("Already closed connection {} with RabbitMQ broker.", name);
@@ -81,7 +81,8 @@ class RabbitMQClientImpl implements RabbitMQClient {
             if (closeTimeOut < 0) {
                 cdl.await();
             } else {
-                if (!cdl.await((long) params.getConfig().connectionCloseTimeout * connections.size(), TimeUnit.MILLISECONDS)) {
+                if (!cdl.await((long) params.getConfig().connectionCloseTimeout() * connections.size(),
+                        TimeUnit.MILLISECONDS)) {
                     log.warn("Disconnecting RabbitMQ client connections timed out.");
                 }
             }

@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.quarkiverse.rabbitmqclient.util.OtherClientService;
-import io.quarkiverse.rabbitmqclient.util.TestConfig;
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.InjectableBean;
 import io.quarkus.arc.impl.ArcContainerImpl;
@@ -24,7 +23,7 @@ public class QuarkusRabbitMQNoDefaultClientTest extends RabbitMQConfigTest {
     static final QuarkusUnitTest unitTest = new QuarkusUnitTest() // Start unit test with your extension loaded
             .setFlatClassPath(true)
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(TestConfig.class, OtherClientService.class)
+                    .addClasses(OtherClientService.class)
                     .addAsResource(QuarkusRabbitMQNoDefaultClientTest.class.getResource("/no-default.properties"),
                             "application.properties"));
 

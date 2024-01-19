@@ -73,8 +73,7 @@ public class RabbitMQClients {
         params.setExecutorService(executorService);
         params.setLaunchMode(launchMode);
         params.setTlsConfig(tlsConfig);
-        params.setConfig(DEFAULT_CLIENT_NAME.equals(name) ? rabbitMQClientsConfig.defaultClient
-                : rabbitMQClientsConfig.namedClients.get(name));
+        params.setConfig(rabbitMQClientsConfig.clients().get(name));
         return params;
     }
 

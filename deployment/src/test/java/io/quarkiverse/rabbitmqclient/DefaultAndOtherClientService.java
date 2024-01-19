@@ -10,7 +10,11 @@ public class DefaultAndOtherClientService {
     RabbitMQClient rabbitMQClient;
 
     @Inject
-    @NamedRabbitMQClient("other")
-    RabbitMQClient otherRabbitMQClient;
+    @NamedRabbitMQClient("ssl")
+    RabbitMQClient sslRabbitMQClient;
+
+    @Inject
+    @NamedRabbitMQClient("mtls")
+    RabbitMQClient mtlsRabbitMQClient;
 
 }
