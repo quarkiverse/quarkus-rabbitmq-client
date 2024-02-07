@@ -10,7 +10,7 @@ h|[[quarkus-rabbitmqclient_configuration]]link:#quarkus-rabbitmqclient_configura
 h|Type
 h|Default
 
-a|icon:lock[title=Fixed at build time] [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.health.enabled]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.health.enabled[quarkus.rabbitmqclient.health.enabled]`
+a|icon:lock[title=Fixed at build time] [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-health-enabled]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-health-enabled[quarkus.rabbitmqclient.health.enabled]`
 
 
 [.description]
@@ -27,7 +27,7 @@ endif::add-copy-button-to-env-var[]
 |`true`
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.metrics.enabled]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.metrics.enabled[quarkus.rabbitmqclient.metrics.enabled]`
+a|icon:lock[title=Fixed at build time] [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-metrics-enabled]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-metrics-enabled[quarkus.rabbitmqclient.metrics.enabled]`
 
 
 [.description]
@@ -44,14 +44,14 @@ endif::add-copy-button-to-env-var[]
 |`true`
 
 
-h|[[quarkus-rabbitmqclient_quarkus.rabbitmqclient.clients-rabbitmq-clients]]link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.clients-rabbitmq-clients[RabbitMQ clients]
+h|[[quarkus-rabbitmqclient_quarkus-rabbitmqclient-clients-rabbitmq-clients]]link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-clients-rabbitmq-clients[RabbitMQ clients]
 
 h|Type
 h|Default
 
-a|icon:lock[title=Fixed at build time] [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.enabled]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.enabled[quarkus.rabbitmqclient.enabled]`
+a|icon:lock[title=Fixed at build time] [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-enabled]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-enabled[quarkus.rabbitmqclient.enabled]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.enabled[quarkus.rabbitmqclient."client-name".enabled]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-enabled[quarkus.rabbitmqclient."client-name".enabled]`
 
 
 [.description]
@@ -68,9 +68,9 @@ endif::add-copy-button-to-env-var[]
 |`true`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.uri]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.uri[quarkus.rabbitmqclient.uri]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-uri]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-uri[quarkus.rabbitmqclient.uri]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.uri[quarkus.rabbitmqclient."client-name".uri]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-uri[quarkus.rabbitmqclient."client-name".uri]`
 
 
 [.description]
@@ -87,9 +87,9 @@ endif::add-copy-button-to-env-var[]
 |
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.username]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.username[quarkus.rabbitmqclient.username]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-username]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-username[quarkus.rabbitmqclient.username]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.username[quarkus.rabbitmqclient."client-name".username]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-username[quarkus.rabbitmqclient."client-name".username]`
 
 
 [.description]
@@ -106,9 +106,9 @@ endif::add-copy-button-to-env-var[]
 |`guest`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.password]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.password[quarkus.rabbitmqclient.password]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-password]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-password[quarkus.rabbitmqclient.password]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.password[quarkus.rabbitmqclient."client-name".password]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-password[quarkus.rabbitmqclient."client-name".password]`
 
 
 [.description]
@@ -125,9 +125,9 @@ endif::add-copy-button-to-env-var[]
 |`guest`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.hostname]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.hostname[quarkus.rabbitmqclient.hostname]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-hostname]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-hostname[quarkus.rabbitmqclient.hostname]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.hostname[quarkus.rabbitmqclient."client-name".hostname]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-hostname[quarkus.rabbitmqclient."client-name".hostname]`
 
 
 [.description]
@@ -144,9 +144,9 @@ endif::add-copy-button-to-env-var[]
 |`localhost`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.virtual-host]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.virtual-host[quarkus.rabbitmqclient.virtual-host]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-virtual-host]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-virtual-host[quarkus.rabbitmqclient.virtual-host]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.virtual-host[quarkus.rabbitmqclient."client-name".virtual-host]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-virtual-host[quarkus.rabbitmqclient."client-name".virtual-host]`
 
 
 [.description]
@@ -163,9 +163,9 @@ endif::add-copy-button-to-env-var[]
 |`/`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.port]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.port[quarkus.rabbitmqclient.port]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-port]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-port[quarkus.rabbitmqclient.port]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.port[quarkus.rabbitmqclient."client-name".port]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-port[quarkus.rabbitmqclient."client-name".port]`
 
 
 [.description]
@@ -182,9 +182,9 @@ endif::add-copy-button-to-env-var[]
 |`-1`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.connection-timeout]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.connection-timeout[quarkus.rabbitmqclient.connection-timeout]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-connection-timeout]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-connection-timeout[quarkus.rabbitmqclient.connection-timeout]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.connection-timeout[quarkus.rabbitmqclient."client-name".connection-timeout]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-connection-timeout[quarkus.rabbitmqclient."client-name".connection-timeout]`
 
 
 [.description]
@@ -201,9 +201,9 @@ endif::add-copy-button-to-env-var[]
 |`60000`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.connection-close-timeout]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.connection-close-timeout[quarkus.rabbitmqclient.connection-close-timeout]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-connection-close-timeout]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-connection-close-timeout[quarkus.rabbitmqclient.connection-close-timeout]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.connection-close-timeout[quarkus.rabbitmqclient."client-name".connection-close-timeout]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-connection-close-timeout[quarkus.rabbitmqclient."client-name".connection-close-timeout]`
 
 
 [.description]
@@ -220,9 +220,9 @@ endif::add-copy-button-to-env-var[]
 |`-1`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.requested-heartbeat]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.requested-heartbeat[quarkus.rabbitmqclient.requested-heartbeat]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-requested-heartbeat]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-requested-heartbeat[quarkus.rabbitmqclient.requested-heartbeat]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.requested-heartbeat[quarkus.rabbitmqclient."client-name".requested-heartbeat]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-requested-heartbeat[quarkus.rabbitmqclient."client-name".requested-heartbeat]`
 
 
 [.description]
@@ -239,9 +239,9 @@ endif::add-copy-button-to-env-var[]
 |`60`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.handshake-timeout]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.handshake-timeout[quarkus.rabbitmqclient.handshake-timeout]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-handshake-timeout]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-handshake-timeout[quarkus.rabbitmqclient.handshake-timeout]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.handshake-timeout[quarkus.rabbitmqclient."client-name".handshake-timeout]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-handshake-timeout[quarkus.rabbitmqclient."client-name".handshake-timeout]`
 
 
 [.description]
@@ -258,9 +258,9 @@ endif::add-copy-button-to-env-var[]
 |`10000`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.shutdown-timeout]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.shutdown-timeout[quarkus.rabbitmqclient.shutdown-timeout]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-shutdown-timeout]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-shutdown-timeout[quarkus.rabbitmqclient.shutdown-timeout]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.shutdown-timeout[quarkus.rabbitmqclient."client-name".shutdown-timeout]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-shutdown-timeout[quarkus.rabbitmqclient."client-name".shutdown-timeout]`
 
 
 [.description]
@@ -277,9 +277,9 @@ endif::add-copy-button-to-env-var[]
 |`10000`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.requested-channel-max]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.requested-channel-max[quarkus.rabbitmqclient.requested-channel-max]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-requested-channel-max]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-requested-channel-max[quarkus.rabbitmqclient.requested-channel-max]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.requested-channel-max[quarkus.rabbitmqclient."client-name".requested-channel-max]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-requested-channel-max[quarkus.rabbitmqclient."client-name".requested-channel-max]`
 
 
 [.description]
@@ -296,9 +296,9 @@ endif::add-copy-button-to-env-var[]
 |`2047`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.requested-frame-max]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.requested-frame-max[quarkus.rabbitmqclient.requested-frame-max]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-requested-frame-max]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-requested-frame-max[quarkus.rabbitmqclient.requested-frame-max]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.requested-frame-max[quarkus.rabbitmqclient."client-name".requested-frame-max]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-requested-frame-max[quarkus.rabbitmqclient."client-name".requested-frame-max]`
 
 
 [.description]
@@ -315,9 +315,9 @@ endif::add-copy-button-to-env-var[]
 |`0`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.network-recovery-interval]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.network-recovery-interval[quarkus.rabbitmqclient.network-recovery-interval]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-network-recovery-interval]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-network-recovery-interval[quarkus.rabbitmqclient.network-recovery-interval]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.network-recovery-interval[quarkus.rabbitmqclient."client-name".network-recovery-interval]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-network-recovery-interval[quarkus.rabbitmqclient."client-name".network-recovery-interval]`
 
 
 [.description]
@@ -334,9 +334,9 @@ endif::add-copy-button-to-env-var[]
 |`5000`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.channel-rpc-timeout]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.channel-rpc-timeout[quarkus.rabbitmqclient.channel-rpc-timeout]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-channel-rpc-timeout]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-channel-rpc-timeout[quarkus.rabbitmqclient.channel-rpc-timeout]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.channel-rpc-timeout[quarkus.rabbitmqclient."client-name".channel-rpc-timeout]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-channel-rpc-timeout[quarkus.rabbitmqclient."client-name".channel-rpc-timeout]`
 
 
 [.description]
@@ -353,9 +353,9 @@ endif::add-copy-button-to-env-var[]
 |`600000`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.channel-rpc-response-type-check]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.channel-rpc-response-type-check[quarkus.rabbitmqclient.channel-rpc-response-type-check]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-channel-rpc-response-type-check]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-channel-rpc-response-type-check[quarkus.rabbitmqclient.channel-rpc-response-type-check]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.channel-rpc-response-type-check[quarkus.rabbitmqclient."client-name".channel-rpc-response-type-check]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-channel-rpc-response-type-check[quarkus.rabbitmqclient."client-name".channel-rpc-response-type-check]`
 
 
 [.description]
@@ -372,9 +372,9 @@ endif::add-copy-button-to-env-var[]
 |`false`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.connection-recovery]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.connection-recovery[quarkus.rabbitmqclient.connection-recovery]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-connection-recovery]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-connection-recovery[quarkus.rabbitmqclient.connection-recovery]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.connection-recovery[quarkus.rabbitmqclient."client-name".connection-recovery]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-connection-recovery[quarkus.rabbitmqclient."client-name".connection-recovery]`
 
 
 [.description]
@@ -391,9 +391,9 @@ endif::add-copy-button-to-env-var[]
 |`true`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.topology-recovery]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.topology-recovery[quarkus.rabbitmqclient.topology-recovery]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-topology-recovery]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-topology-recovery[quarkus.rabbitmqclient.topology-recovery]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.topology-recovery[quarkus.rabbitmqclient."client-name".topology-recovery]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-topology-recovery[quarkus.rabbitmqclient."client-name".topology-recovery]`
 
 
 [.description]
@@ -410,9 +410,9 @@ endif::add-copy-button-to-env-var[]
 |`true`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.sasl]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.sasl[quarkus.rabbitmqclient.sasl]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-sasl]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-sasl[quarkus.rabbitmqclient.sasl]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.sasl[quarkus.rabbitmqclient."client-name".sasl]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-sasl[quarkus.rabbitmqclient."client-name".sasl]`
 
 
 [.description]
@@ -430,9 +430,9 @@ endif::add-copy-button-to-env-var[]
 |`plain`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.properties-property-name]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.properties-property-name[quarkus.rabbitmqclient.properties]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-properties-property-name]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-properties-property-name[quarkus.rabbitmqclient.properties]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.properties-property-name[quarkus.rabbitmqclient."client-name".properties]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-properties-property-name[quarkus.rabbitmqclient."client-name".properties]`
 
 
 [.description]
@@ -449,14 +449,14 @@ endif::add-copy-button-to-env-var[]
 |
 
 
-h|[[quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses-broker-addresses-for-creating-connections]]link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses-broker-addresses-for-creating-connections[Broker addresses for creating connections]
+h|[[quarkus-rabbitmqclient_quarkus-rabbitmqclient-addresses-broker-addresses-for-creating-connections]]link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-addresses-broker-addresses-for-creating-connections[Broker addresses for creating connections]
 
 h|Type
 h|Default
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses.-broker-name-.hostname]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses.-broker-name-.hostname[quarkus.rabbitmqclient.addresses."broker-name".hostname]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-addresses-broker-name-hostname]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-addresses-broker-name-hostname[quarkus.rabbitmqclient.addresses."broker-name".hostname]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses.-broker-name-.hostname[quarkus.rabbitmqclient."client-name".addresses."broker-name".hostname]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-addresses-broker-name-hostname[quarkus.rabbitmqclient."client-name".addresses."broker-name".hostname]`
 
 
 [.description]
@@ -473,9 +473,9 @@ endif::add-copy-button-to-env-var[]
 |required icon:exclamation-circle[title=Configuration property is required]
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses.-broker-name-.port]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses.-broker-name-.port[quarkus.rabbitmqclient.addresses."broker-name".port]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-addresses-broker-name-port]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-addresses-broker-name-port[quarkus.rabbitmqclient.addresses."broker-name".port]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.addresses.-broker-name-.port[quarkus.rabbitmqclient."client-name".addresses."broker-name".port]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-addresses-broker-name-port[quarkus.rabbitmqclient."client-name".addresses."broker-name".port]`
 
 
 [.description]
@@ -492,14 +492,14 @@ endif::add-copy-button-to-env-var[]
 |`0`
 
 
-h|[[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls-tls-configuration]]link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls-tls-configuration[Tls configuration]
+h|[[quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-tls-configuration]]link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-tls-configuration[Tls configuration]
 
 h|Type
 h|Default
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.enabled]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.enabled[quarkus.rabbitmqclient.tls.enabled]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-enabled]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-enabled[quarkus.rabbitmqclient.tls.enabled]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.enabled[quarkus.rabbitmqclient."client-name".tls.enabled]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-enabled[quarkus.rabbitmqclient."client-name".tls.enabled]`
 
 
 [.description]
@@ -516,9 +516,9 @@ endif::add-copy-button-to-env-var[]
 |`false`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.algorithm]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.algorithm[quarkus.rabbitmqclient.tls.algorithm]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-algorithm]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-algorithm[quarkus.rabbitmqclient.tls.algorithm]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.algorithm[quarkus.rabbitmqclient."client-name".tls.algorithm]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-algorithm[quarkus.rabbitmqclient."client-name".tls.algorithm]`
 
 
 [.description]
@@ -535,9 +535,9 @@ endif::add-copy-button-to-env-var[]
 |`TLSv1.2`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-file]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-file[quarkus.rabbitmqclient.tls.trust-store-file]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-trust-store-file]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-trust-store-file[quarkus.rabbitmqclient.tls.trust-store-file]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-file[quarkus.rabbitmqclient."client-name".tls.trust-store-file]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-trust-store-file[quarkus.rabbitmqclient."client-name".tls.trust-store-file]`
 
 
 [.description]
@@ -554,9 +554,9 @@ endif::add-copy-button-to-env-var[]
 |
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-type]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-type[quarkus.rabbitmqclient.tls.trust-store-type]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-trust-store-type]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-trust-store-type[quarkus.rabbitmqclient.tls.trust-store-type]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-type[quarkus.rabbitmqclient."client-name".tls.trust-store-type]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-trust-store-type[quarkus.rabbitmqclient."client-name".tls.trust-store-type]`
 
 
 [.description]
@@ -573,9 +573,9 @@ endif::add-copy-button-to-env-var[]
 |`JKS`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-algorithm]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-algorithm[quarkus.rabbitmqclient.tls.trust-store-algorithm]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-trust-store-algorithm]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-trust-store-algorithm[quarkus.rabbitmqclient.tls.trust-store-algorithm]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-algorithm[quarkus.rabbitmqclient."client-name".tls.trust-store-algorithm]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-trust-store-algorithm[quarkus.rabbitmqclient."client-name".tls.trust-store-algorithm]`
 
 
 [.description]
@@ -592,9 +592,9 @@ endif::add-copy-button-to-env-var[]
 |`SunX509`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-password]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-password[quarkus.rabbitmqclient.tls.trust-store-password]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-trust-store-password]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-trust-store-password[quarkus.rabbitmqclient.tls.trust-store-password]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.trust-store-password[quarkus.rabbitmqclient."client-name".tls.trust-store-password]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-trust-store-password[quarkus.rabbitmqclient."client-name".tls.trust-store-password]`
 
 
 [.description]
@@ -611,9 +611,9 @@ endif::add-copy-button-to-env-var[]
 |
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-file]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-file[quarkus.rabbitmqclient.tls.key-store-file]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-key-store-file]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-key-store-file[quarkus.rabbitmqclient.tls.key-store-file]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-file[quarkus.rabbitmqclient."client-name".tls.key-store-file]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-key-store-file[quarkus.rabbitmqclient."client-name".tls.key-store-file]`
 
 
 [.description]
@@ -630,9 +630,9 @@ endif::add-copy-button-to-env-var[]
 |
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-password]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-password[quarkus.rabbitmqclient.tls.key-store-password]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-key-store-password]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-key-store-password[quarkus.rabbitmqclient.tls.key-store-password]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-password[quarkus.rabbitmqclient."client-name".tls.key-store-password]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-key-store-password[quarkus.rabbitmqclient."client-name".tls.key-store-password]`
 
 
 [.description]
@@ -649,9 +649,9 @@ endif::add-copy-button-to-env-var[]
 |
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-type]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-type[quarkus.rabbitmqclient.tls.key-store-type]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-key-store-type]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-key-store-type[quarkus.rabbitmqclient.tls.key-store-type]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-type[quarkus.rabbitmqclient."client-name".tls.key-store-type]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-key-store-type[quarkus.rabbitmqclient."client-name".tls.key-store-type]`
 
 
 [.description]
@@ -668,9 +668,9 @@ endif::add-copy-button-to-env-var[]
 |`PKCS12`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-algorithm]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-algorithm[quarkus.rabbitmqclient.tls.key-store-algorithm]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-key-store-algorithm]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-key-store-algorithm[quarkus.rabbitmqclient.tls.key-store-algorithm]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.key-store-algorithm[quarkus.rabbitmqclient."client-name".tls.key-store-algorithm]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-key-store-algorithm[quarkus.rabbitmqclient."client-name".tls.key-store-algorithm]`
 
 
 [.description]
@@ -687,9 +687,9 @@ endif::add-copy-button-to-env-var[]
 |`SunX509`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.validate-server-certificate]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.validate-server-certificate[quarkus.rabbitmqclient.tls.validate-server-certificate]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-validate-server-certificate]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-validate-server-certificate[quarkus.rabbitmqclient.tls.validate-server-certificate]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.validate-server-certificate[quarkus.rabbitmqclient."client-name".tls.validate-server-certificate]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-validate-server-certificate[quarkus.rabbitmqclient."client-name".tls.validate-server-certificate]`
 
 
 [.description]
@@ -706,9 +706,9 @@ endif::add-copy-button-to-env-var[]
 |`true`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.verify-hostname]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.verify-hostname[quarkus.rabbitmqclient.tls.verify-hostname]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-verify-hostname]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-verify-hostname[quarkus.rabbitmqclient.tls.verify-hostname]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.tls.verify-hostname[quarkus.rabbitmqclient."client-name".tls.verify-hostname]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-tls-verify-hostname[quarkus.rabbitmqclient."client-name".tls.verify-hostname]`
 
 
 [.description]
@@ -725,14 +725,14 @@ endif::add-copy-button-to-env-var[]
 |`true`
 
 
-h|[[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio-non-blocking-io-configuration]]link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio-non-blocking-io-configuration[Non-blocking IO configuration]
+h|[[quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-non-blocking-io-configuration]]link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-non-blocking-io-configuration[Non-blocking IO configuration]
 
 h|Type
 h|Default
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.enabled]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.enabled[quarkus.rabbitmqclient.nio.enabled]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-enabled]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-enabled[quarkus.rabbitmqclient.nio.enabled]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.enabled[quarkus.rabbitmqclient."client-name".nio.enabled]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-enabled[quarkus.rabbitmqclient."client-name".nio.enabled]`
 
 
 [.description]
@@ -749,9 +749,9 @@ endif::add-copy-button-to-env-var[]
 |`false`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.read-byte-buffer-size]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.read-byte-buffer-size[quarkus.rabbitmqclient.nio.read-byte-buffer-size]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-read-byte-buffer-size]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-read-byte-buffer-size[quarkus.rabbitmqclient.nio.read-byte-buffer-size]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.read-byte-buffer-size[quarkus.rabbitmqclient."client-name".nio.read-byte-buffer-size]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-read-byte-buffer-size[quarkus.rabbitmqclient."client-name".nio.read-byte-buffer-size]`
 
 
 [.description]
@@ -768,9 +768,9 @@ endif::add-copy-button-to-env-var[]
 |`32768`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-byte-buffer-size]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-byte-buffer-size[quarkus.rabbitmqclient.nio.write-byte-buffer-size]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-write-byte-buffer-size]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-write-byte-buffer-size[quarkus.rabbitmqclient.nio.write-byte-buffer-size]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-byte-buffer-size[quarkus.rabbitmqclient."client-name".nio.write-byte-buffer-size]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-write-byte-buffer-size[quarkus.rabbitmqclient."client-name".nio.write-byte-buffer-size]`
 
 
 [.description]
@@ -787,9 +787,9 @@ endif::add-copy-button-to-env-var[]
 |`32768`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.threads]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.threads[quarkus.rabbitmqclient.nio.threads]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-threads]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-threads[quarkus.rabbitmqclient.nio.threads]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.threads[quarkus.rabbitmqclient."client-name".nio.threads]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-threads[quarkus.rabbitmqclient."client-name".nio.threads]`
 
 
 [.description]
@@ -806,9 +806,9 @@ endif::add-copy-button-to-env-var[]
 |`1`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-enqueuing-timeout]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-enqueuing-timeout[quarkus.rabbitmqclient.nio.write-enqueuing-timeout]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-write-enqueuing-timeout]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-write-enqueuing-timeout[quarkus.rabbitmqclient.nio.write-enqueuing-timeout]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-enqueuing-timeout[quarkus.rabbitmqclient."client-name".nio.write-enqueuing-timeout]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-write-enqueuing-timeout[quarkus.rabbitmqclient."client-name".nio.write-enqueuing-timeout]`
 
 
 [.description]
@@ -825,9 +825,9 @@ endif::add-copy-button-to-env-var[]
 |`10000`
 
 
-a| [[quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-queue-capacity]]`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-queue-capacity[quarkus.rabbitmqclient.nio.write-queue-capacity]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-write-queue-capacity]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-write-queue-capacity[quarkus.rabbitmqclient.nio.write-queue-capacity]`
 
-`link:#quarkus-rabbitmqclient_quarkus.rabbitmqclient.nio.write-queue-capacity[quarkus.rabbitmqclient."client-name".nio.write-queue-capacity]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-nio-write-queue-capacity[quarkus.rabbitmqclient."client-name".nio.write-queue-capacity]`
 
 
 [.description]
