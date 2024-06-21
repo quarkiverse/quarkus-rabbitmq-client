@@ -6,6 +6,8 @@ on:
       - "master"
       - "1.x"
       - "2.x"
+      - "3.2.x"
+      - "3.8.x"
     paths-ignore:
       - '.github'
       - '.gitignore'
