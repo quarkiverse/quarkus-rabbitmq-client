@@ -152,40 +152,35 @@ class RabbitMQHelper {
                 Integer.toString(params.getConfig().nio().writeQueueCapacity()));
 
         // TLS Configuration
-        if (params.getConfig().tls() != null) {
+        if (params.getConfig().tls() != null && params.getConfig().tls().enabled()) {
             properties.setProperty(ConnectionFactoryConfigurator.SSL_ALGORITHM, params.getConfig().tls().algorithm());
             properties.setProperty(ConnectionFactoryConfigurator.SSL_ENABLED,
                     Boolean.toString(params.getConfig().tls().enabled()));
 
-            if (params.getTlsConfig().trustAll) {
-                properties.setProperty(ConnectionFactoryConfigurator.SSL_VALIDATE_SERVER_CERTIFICATE, Boolean.FALSE.toString());
-                properties.setProperty(ConnectionFactoryConfigurator.SSL_VERIFY_HOSTNAME, Boolean.FALSE.toString());
-            } else {
-                properties.setProperty(ConnectionFactoryConfigurator.SSL_VALIDATE_SERVER_CERTIFICATE,
-                        Boolean.toString(params.getConfig().tls().validateServerCertificate()));
-                properties.setProperty(ConnectionFactoryConfigurator.SSL_VERIFY_HOSTNAME,
-                        Boolean.toString(params.getConfig().tls().verifyHostname()));
+            properties.setProperty(ConnectionFactoryConfigurator.SSL_VALIDATE_SERVER_CERTIFICATE,
+                    Boolean.toString(params.getConfig().tls().validateServerCertificate()));
+            properties.setProperty(ConnectionFactoryConfigurator.SSL_VERIFY_HOSTNAME,
+                    Boolean.toString(params.getConfig().tls().verifyHostname()));
 
-                // TLS Keys
-                params.getConfig().tls().keyStoreFile()
-                        .ifPresent(s -> properties.setProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE, s));
-                params.getConfig().tls().keyStorePassword()
-                        .ifPresent(s -> properties.setProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_PASSWORD, s));
-                properties.setProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_TYPE,
-                        params.getConfig().tls().keyStoreType());
-                properties.setProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_ALGORITHM,
-                        params.getConfig().tls().keyStoreAlgorithm());
+            // TLS Keys
+            params.getConfig().tls().keyStoreFile()
+                    .ifPresent(s -> properties.setProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE, s));
+            params.getConfig().tls().keyStorePassword()
+                    .ifPresent(s -> properties.setProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_PASSWORD, s));
+            properties.setProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_TYPE,
+                    params.getConfig().tls().keyStoreType());
+            properties.setProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_ALGORITHM,
+                    params.getConfig().tls().keyStoreAlgorithm());
 
-                // TLS Trust
-                params.getConfig().tls().trustStoreFile()
-                        .ifPresent(s -> properties.setProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE, s));
-                params.getConfig().tls().trustStorePassword()
-                        .ifPresent(s -> properties.setProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE_PASSWORD, s));
-                properties.setProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE_TYPE,
-                        params.getConfig().tls().trustStoreType());
-                properties.setProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE_ALGORITHM,
-                        params.getConfig().tls().trustStoreAlgorithm());
-            }
+            // TLS Trust
+            params.getConfig().tls().trustStoreFile()
+                    .ifPresent(s -> properties.setProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE, s));
+            params.getConfig().tls().trustStorePassword()
+                    .ifPresent(s -> properties.setProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE_PASSWORD, s));
+            properties.setProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE_TYPE,
+                    params.getConfig().tls().trustStoreType());
+            properties.setProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE_ALGORITHM,
+                    params.getConfig().tls().trustStoreAlgorithm());
         }
 
         return properties;

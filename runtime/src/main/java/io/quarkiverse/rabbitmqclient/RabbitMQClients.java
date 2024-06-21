@@ -3,6 +3,7 @@ package io.quarkiverse.rabbitmqclient;
 import java.util.HashMap;
 import java.util.Map;
 
+import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
 import org.eclipse.microprofile.context.ManagedExecutor;
@@ -10,7 +11,6 @@ import org.eclipse.microprofile.context.ManagedExecutor;
 import com.rabbitmq.client.MetricsCollector;
 
 import io.quarkus.runtime.LaunchMode;
-import io.quarkus.runtime.TlsConfig;
 
 /**
  * This class is sort of a producer {@link RabbitMQClient} instances.
@@ -29,16 +29,14 @@ public class RabbitMQClients {
 
     public static final String DEFAULT_CLIENT_NAME = "<default>";
     private final Map<String, RabbitMQClientImpl> clients;
-
     private final ManagedExecutor executorService;
-    private final TlsConfig tlsConfig;
     private final RabbitMQClientsConfig rabbitMQClientsConfig;
     private final LaunchMode launchMode;
 
-    public RabbitMQClients(RabbitMQClientsConfig rabbitMQClientsConfig, TlsConfig tlsConfig, ManagedExecutor executorService,
+    @Inject
+    public RabbitMQClients(RabbitMQClientsConfig rabbitMQClientsConfig, ManagedExecutor executorService,
             LaunchMode launchMode) {
         this.rabbitMQClientsConfig = rabbitMQClientsConfig;
-        this.tlsConfig = tlsConfig;
         this.executorService = executorService;
         this.clients = new HashMap<>();
         this.launchMode = launchMode;
@@ -72,7 +70,6 @@ public class RabbitMQClients {
         params.setName(name);
         params.setExecutorService(executorService);
         params.setLaunchMode(launchMode);
-        params.setTlsConfig(tlsConfig);
         params.setConfig(rabbitMQClientsConfig.clients().get(name));
         return params;
     }

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import io.quarkus.runtime.TlsConfig;
 import io.quarkus.test.QuarkusUnitTest;
 
 public class QuarkusRabbitmqNonDefaultClientConfigTest extends RabbitMQConfigTest {
@@ -26,17 +25,13 @@ public class QuarkusRabbitmqNonDefaultClientConfigTest extends RabbitMQConfigTes
     @Inject
     RabbitMQClientsConfig config;
 
-    @Inject
-    TlsConfig tlsConfig;
-
     @Test
     public void testConnectionFactoryProperties() {
         RabbitMQClientParams params = new RabbitMQClientParams();
         params.setConfig(config.clients().get(RabbitMQClients.DEFAULT_CLIENT_NAME));
-        params.setTlsConfig(tlsConfig);
 
         Properties properties = RabbitMQHelper.newProperties(params);
-        assertRabbitMQConfig(config.clients().get(RabbitMQClients.DEFAULT_CLIENT_NAME), tlsConfig, properties);
+        assertRabbitMQConfig(config.clients().get(RabbitMQClients.DEFAULT_CLIENT_NAME), properties);
         Assertions.assertEquals(config.clients().get(RabbitMQClients.DEFAULT_CLIENT_NAME).connectionCloseTimeout(), 200);
     }
 

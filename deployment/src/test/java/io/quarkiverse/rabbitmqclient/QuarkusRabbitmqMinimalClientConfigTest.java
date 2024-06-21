@@ -9,7 +9,6 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import io.quarkus.runtime.TlsConfig;
 import io.quarkus.test.QuarkusUnitTest;
 
 public class QuarkusRabbitmqMinimalClientConfigTest extends RabbitMQConfigTest {
@@ -24,9 +23,6 @@ public class QuarkusRabbitmqMinimalClientConfigTest extends RabbitMQConfigTest {
     @Inject
     RabbitMQClientsConfig config;
 
-    @Inject
-    TlsConfig tlsConfig;
-
     @Test
     public void testConnectionFactoryProperties() {
         config.clients().forEach((n, c) -> {
@@ -37,9 +33,8 @@ public class QuarkusRabbitmqMinimalClientConfigTest extends RabbitMQConfigTest {
     private void assertRabbitMQConfig(RabbitMQClientConfig config) {
         RabbitMQClientParams params = new RabbitMQClientParams();
         params.setConfig(config);
-        params.setTlsConfig(tlsConfig);
 
         Properties properties = RabbitMQHelper.newProperties(params);
-        assertRabbitMQConfig(config, tlsConfig, properties);
+        assertRabbitMQConfig(config, properties);
     }
 }

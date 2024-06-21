@@ -1,4 +1,4 @@
-:quarkus-version: 3.7.1
+:quarkus-version: 3.12.0
 :quarkus-rabbitmq-client-version: 3.0.1
 :maven-version: 3.8.1+
 

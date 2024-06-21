@@ -430,9 +430,9 @@ endif::add-copy-button-to-env-var[]
 |`plain`
 
 
-a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-properties-property-name]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-properties-property-name[quarkus.rabbitmqclient.properties]`
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-properties-property-name]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-properties-property-name[quarkus.rabbitmqclient.properties."property-name"]`
 
-`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-properties-property-name[quarkus.rabbitmqclient."client-name".properties]`
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-properties-property-name[quarkus.rabbitmqclient."client-name".properties."property-name"]`
 
 
 [.description]
@@ -440,12 +440,13 @@ a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-properties-property-name]]`li
 Client properties
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_PROPERTIES+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_PROPERTIES__PROPERTY_NAME_+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_RABBITMQCLIENT_PROPERTIES+++`
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_PROPERTIES__PROPERTY_NAME_+++`
 endif::add-copy-button-to-env-var[]
---|`Map<String,String>` 
+--|link:https://docs.oracle.com/javase/8/docs/api/java/lang/String.html[String]
+ 
 |
 
 

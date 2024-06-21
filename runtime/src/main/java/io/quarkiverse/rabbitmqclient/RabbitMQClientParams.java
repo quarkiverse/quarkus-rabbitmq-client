@@ -3,7 +3,6 @@ package io.quarkiverse.rabbitmqclient;
 import java.util.concurrent.ExecutorService;
 
 import io.quarkus.runtime.LaunchMode;
-import io.quarkus.runtime.TlsConfig;
 
 /**
  * RabbitMQ client parameters for creation of {@link RabbitMQClient}
@@ -14,7 +13,6 @@ class RabbitMQClientParams {
 
     private String name;
     private RabbitMQClientConfig config;
-    private TlsConfig tlsConfig;
     private ExecutorService executorService;
     private LaunchMode launchMode;
 
@@ -32,14 +30,6 @@ class RabbitMQClientParams {
 
     public void setConfig(RabbitMQClientConfig config) {
         this.config = config;
-    }
-
-    public TlsConfig getTlsConfig() {
-        return tlsConfig;
-    }
-
-    public void setTlsConfig(TlsConfig tlsConfig) {
-        this.tlsConfig = tlsConfig;
     }
 
     public ExecutorService getExecutorService() {

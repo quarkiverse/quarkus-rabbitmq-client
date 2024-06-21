@@ -6,11 +6,9 @@ import org.junit.jupiter.api.Assertions;
 
 import com.rabbitmq.client.ConnectionFactoryConfigurator;
 
-import io.quarkus.runtime.TlsConfig;
-
 public abstract class RabbitMQConfigTest {
 
-    protected void assertRabbitMQConfig(RabbitMQClientConfig config, TlsConfig tlsConfig, Properties properties) {
+    protected void assertRabbitMQConfig(RabbitMQClientConfig config, Properties properties) {
         Assertions.assertEquals(config.username(), properties.getProperty(ConnectionFactoryConfigurator.USERNAME));
         Assertions.assertEquals(config.password(), properties.getProperty(ConnectionFactoryConfigurator.PASSWORD));
         Assertions.assertEquals(config.virtualHost(), properties.getProperty(ConnectionFactoryConfigurator.VIRTUAL_HOST));
@@ -59,35 +57,29 @@ public abstract class RabbitMQConfigTest {
             Assertions.assertEquals(asString(config.tls().enabled()),
                     properties.getProperty(ConnectionFactoryConfigurator.SSL_ENABLED));
 
-            if (tlsConfig.trustAll) {
-                Assertions.assertEquals(Boolean.FALSE.toString(),
-                        properties.getProperty(ConnectionFactoryConfigurator.SSL_VALIDATE_SERVER_CERTIFICATE));
-                Assertions.assertEquals(Boolean.FALSE.toString(),
-                        properties.getProperty(ConnectionFactoryConfigurator.SSL_VERIFY_HOSTNAME));
-            } else {
-                Assertions.assertEquals(asString(config.tls().validateServerCertificate()),
-                        properties.getProperty(ConnectionFactoryConfigurator.SSL_VALIDATE_SERVER_CERTIFICATE));
-                Assertions.assertEquals(asString(config.tls().verifyHostname()),
-                        properties.getProperty(ConnectionFactoryConfigurator.SSL_VERIFY_HOSTNAME));
+            Assertions.assertEquals(asString(config.tls().validateServerCertificate()),
+                    properties.getProperty(ConnectionFactoryConfigurator.SSL_VALIDATE_SERVER_CERTIFICATE));
+            Assertions.assertEquals(asString(config.tls().verifyHostname()),
+                    properties.getProperty(ConnectionFactoryConfigurator.SSL_VERIFY_HOSTNAME));
 
-                Assertions.assertEquals(config.tls().keyStoreFile().orElse(null),
-                        properties.getProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE));
-                Assertions.assertEquals(config.tls().keyStorePassword().orElse(null),
-                        properties.getProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_PASSWORD));
-                Assertions.assertEquals(config.tls().keyStoreType(),
-                        properties.getProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_TYPE));
-                Assertions.assertEquals(config.tls().keyStoreAlgorithm(),
-                        properties.getProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_ALGORITHM));
+            Assertions.assertEquals(config.tls().keyStoreFile().orElse(null),
+                    properties.getProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE));
+            Assertions.assertEquals(config.tls().keyStorePassword().orElse(null),
+                    properties.getProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_PASSWORD));
+            Assertions.assertEquals(config.tls().keyStoreType(),
+                    properties.getProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_TYPE));
+            Assertions.assertEquals(config.tls().keyStoreAlgorithm(),
+                    properties.getProperty(ConnectionFactoryConfigurator.SSL_KEY_STORE_ALGORITHM));
 
-                Assertions.assertEquals(config.tls().trustStoreFile().orElse(null),
-                        properties.getProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE));
-                Assertions.assertEquals(config.tls().trustStorePassword().orElse(null),
-                        properties.getProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE_PASSWORD));
-                Assertions.assertEquals(config.tls().trustStoreType(),
-                        properties.getProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE_TYPE));
-                Assertions.assertEquals(config.tls().trustStoreAlgorithm(),
-                        properties.getProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE_ALGORITHM));
-            }
+            Assertions.assertEquals(config.tls().trustStoreFile().orElse(null),
+                    properties.getProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE));
+            Assertions.assertEquals(config.tls().trustStorePassword().orElse(null),
+                    properties.getProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE_PASSWORD));
+            Assertions.assertEquals(config.tls().trustStoreType(),
+                    properties.getProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE_TYPE));
+            Assertions.assertEquals(config.tls().trustStoreAlgorithm(),
+                    properties.getProperty(ConnectionFactoryConfigurator.SSL_TRUST_STORE_ALGORITHM));
+
         }
 
         // client properties
