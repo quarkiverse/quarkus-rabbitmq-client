@@ -9,15 +9,18 @@ import jakarta.inject.Inject;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestHelper;
 import io.quarkus.test.QuarkusUnitTest;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 
-@QuarkusTestResource(RabbitMQTestContainer.class)
+@WithTestResource(RabbitMQTestContainer.class)
 public class QuarkusRabbitMQConsumerTest {
 
     @RegisterExtension

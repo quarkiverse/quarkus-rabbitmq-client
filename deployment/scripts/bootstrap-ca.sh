@@ -2,6 +2,7 @@
 CLIENT_NAME=client
 HOSTNAME=rabbitmq
 TARGET_DIR=${1:-openssl}
+EXTRA_SAN=${TESTCONTAINERS_HOST_OVERRIDE:-"127.0.0.1"}
 
 echo "[CA]: Bootstrapping CA directories ..."
 rm -rf ${TARGET_DIR}
@@ -82,7 +83,7 @@ openssl genrsa -out ${TARGET_DIR}/server/key.pem 2048
 openssl req -new -key ${TARGET_DIR}/server/key.pem -out ${TARGET_DIR}/server/req.pem -outform PEM -subj /CN=${HOSTNAME}/O=server/ -nodes \
   -reqexts SAN \
   -config <(cat ${TARGET_DIR}/ca/openssl.cnf \
-    <(printf "\n[SAN]\nsubjectAltName=DNS:localhost"))
+    <(printf "\n[SAN]\nsubjectAltName=DNS:localhost,IP:${EXTRA_SAN}"))
 
 openssl ca -config ${TARGET_DIR}/ca/openssl.cnf -in ${TARGET_DIR}/server/req.pem -out ${TARGET_DIR}/server/cert.pem -notext -batch -extensions server_ca_extensions
 openssl pkcs12 -export -out ${TARGET_DIR}/server/keycert.p12 -in ${TARGET_DIR}/server/cert.pem -inkey ${TARGET_DIR}/server/key.pem -passout pass:letmein
