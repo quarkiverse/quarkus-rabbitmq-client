@@ -18,9 +18,9 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestHelper;
 import io.quarkus.test.QuarkusUnitTest;
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 
-@WithTestResource(RabbitMQTestContainer.class)
+@QuarkusTestResource(RabbitMQTestContainer.class)
 public class QuarkusRabbitMQConsumerTest {
 
     @RegisterExtension

@@ -16,9 +16,9 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestHelper;
 import io.quarkus.test.QuarkusUnitTest;
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 
-@WithTestResource(RabbitMQTestContainer.class)
+@QuarkusTestResource(RabbitMQTestContainer.class)
 public class QuarkusRabbitMQMicrometerMetricsTest {
 
     @RegisterExtension

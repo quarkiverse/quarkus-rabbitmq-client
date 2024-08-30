@@ -11,10 +11,10 @@ import io.quarkiverse.rabbitmqclient.RabbitMQConfigTest;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestHelper;
 import io.quarkus.test.QuarkusDevModeTest;
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.restassured.RestAssured;
 
-@WithTestResource(RabbitMQTestContainer.class)
+@QuarkusTestResource(RabbitMQTestContainer.class)
 public class QuarkusRabbitMQDevModeTest extends RabbitMQConfigTest {
 
     @RegisterExtension
