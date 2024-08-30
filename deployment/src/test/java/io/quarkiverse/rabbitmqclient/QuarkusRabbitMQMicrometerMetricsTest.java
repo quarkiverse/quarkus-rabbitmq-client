@@ -1,22 +1,20 @@
 package io.quarkiverse.rabbitmqclient;
 
-import java.io.IOException;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
-import jakarta.inject.Inject;
-
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.RegisterExtension;
-
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestHelper;
 import io.quarkus.test.QuarkusUnitTest;
 import io.quarkus.test.common.QuarkusTestResource;
+import jakarta.inject.Inject;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.RegisterExtension;
+
+import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 @QuarkusTestResource(RabbitMQTestContainer.class)
 public class QuarkusRabbitMQMicrometerMetricsTest {

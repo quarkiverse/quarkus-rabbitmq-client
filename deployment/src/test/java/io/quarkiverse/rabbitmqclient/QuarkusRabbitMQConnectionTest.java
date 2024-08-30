@@ -11,9 +11,9 @@ import com.rabbitmq.client.Connection;
 
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
 import io.quarkus.test.QuarkusUnitTest;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 
-@QuarkusTestResource(RabbitMQTestContainer.class)
+@WithTestResource(RabbitMQTestContainer.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class QuarkusRabbitMQConnectionTest {
 

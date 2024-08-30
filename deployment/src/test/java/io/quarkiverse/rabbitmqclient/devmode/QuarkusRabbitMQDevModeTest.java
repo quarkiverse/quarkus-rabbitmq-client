@@ -1,18 +1,17 @@
 package io.quarkiverse.rabbitmqclient.devmode;
 
-import org.apache.http.HttpStatus;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.RegisterExtension;
-
 import io.quarkiverse.rabbitmqclient.RabbitMQConfigTest;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestHelper;
 import io.quarkus.test.QuarkusDevModeTest;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.restassured.RestAssured;
+import org.apache.http.HttpStatus;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 @QuarkusTestResource(RabbitMQTestContainer.class)
 public class QuarkusRabbitMQDevModeTest extends RabbitMQConfigTest {

@@ -2,6 +2,7 @@ package io.quarkiverse.rabbitmqclient;
 
 import java.util.*;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import jakarta.inject.Inject;
 
 import org.eclipse.microprofile.health.HealthCheckResponse;
