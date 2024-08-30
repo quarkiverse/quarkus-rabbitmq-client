@@ -2,7 +2,6 @@ package io.quarkiverse.rabbitmqclient;
 
 import java.util.*;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import jakarta.inject.Inject;
 
 import org.eclipse.microprofile.health.HealthCheckResponse;
@@ -18,9 +17,9 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import io.quarkiverse.rabbitmqclient.util.DummyServer;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
 import io.quarkus.test.QuarkusUnitTest;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 
-@QuarkusTestResource(RabbitMQTestContainer.class)
+@WithTestResource(RabbitMQTestContainer.class)
 public class QuarkusRabbitmqReadyCheckTest {
 
     @RegisterExtension
