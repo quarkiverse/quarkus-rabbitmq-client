@@ -1,6 +1,6 @@
 # Quarkiverse RabbitMQ Client
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END --> 
 [![version](https://img.shields.io/maven-central/v/io.quarkiverse.rabbitmqclient/quarkus-rabbitmq-client-parent?logo=apache-maven&style=flat-square)](https://repo1.maven.org/maven2/io/quarkiverse/rabbitmqclient/)
 
@@ -29,6 +29,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="http://schlothauer.de"><img src="https://avatars.githubusercontent.com/u/38556808?v=4?s=100" width="100px;" alt="Stefan Gürtler"/><br /><sub><b>Stefan Gürtler</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=SpeedsterF2" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://lesincroyableslivres.fr/"><img src="https://avatars.githubusercontent.com/u/1279749?v=4?s=100" width="100px;" alt="Guillaume Smet"/><br /><sub><b>Guillaume Smet</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=gsmet" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://gastaldi.wordpress.com"><img src="https://avatars.githubusercontent.com/u/54133?v=4?s=100" width="100px;" alt="George Gastaldi"/><br /><sub><b>George Gastaldi</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=gastaldi" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/sarxos"><img src="https://avatars.githubusercontent.com/u/472658?v=4?s=100" width="100px;" alt="Bartosz Firyn"/><br /><sub><b>Bartosz Firyn</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=sarxos" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
