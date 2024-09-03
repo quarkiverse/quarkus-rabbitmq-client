@@ -60,6 +60,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "sarxos",
+      "name": "Bartosz Firyn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/472658?v=4",
+      "profile": "https://github.com/sarxos",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
