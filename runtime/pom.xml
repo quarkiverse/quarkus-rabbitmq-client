@@ -9,6 +9,7 @@
 
     <artifactId>quarkus-rabbitmq-client</artifactId>
     <name>Quarkus RabbitMQ Client - Runtime</name>
+    <description>Quarkus extension supporting RabbitMQ</description>
 
     <dependencies>
         <dependency>
