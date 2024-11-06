@@ -105,6 +105,15 @@ public interface RabbitMQClientConfig {
     int requestedFrameMax();
 
     /**
+     * Maximum body size of inbound (received) messages in bytes.
+     *
+     * <p>
+     * Default value is 67,108,864 (64 MiB).
+     */
+    @WithDefault("67108864")
+    int maxInboundMessageBodySize();
+
+    /**
      * Network recovery interval in milliseconds
      */
     @WithDefault("" + ConnectionFactory.DEFAULT_NETWORK_RECOVERY_INTERVAL)

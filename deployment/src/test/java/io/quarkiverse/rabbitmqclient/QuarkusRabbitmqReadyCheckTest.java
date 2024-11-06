@@ -226,6 +226,11 @@ public class QuarkusRabbitmqReadyCheckTest {
             }
 
             @Override
+            public int maxInboundMessageBodySize() {
+                return 0;
+            }
+
+            @Override
             public int networkRecoveryInterval() {
                 return 0;
             }
