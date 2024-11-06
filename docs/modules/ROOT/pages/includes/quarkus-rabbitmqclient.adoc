@@ -315,6 +315,27 @@ endif::add-copy-button-to-env-var[]
 |`0`
 
 
+a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-max-inbound-message-body-size]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-max-inbound-message-body-size[quarkus.rabbitmqclient.max-inbound-message-body-size]`
+
+`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-max-inbound-message-body-size[quarkus.rabbitmqclient."client-name".max-inbound-message-body-size]`
+
+
+[.description]
+--
+Maximum body size of inbound (received) messages in bytes.
+
+Default value is 67,108,864 (64 MiB).
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_MAX_INBOUND_MESSAGE_BODY_SIZE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_MAX_INBOUND_MESSAGE_BODY_SIZE+++`
+endif::add-copy-button-to-env-var[]
+--|int 
+|`134217728`
+
+
 a| [[quarkus-rabbitmqclient_quarkus-rabbitmqclient-network-recovery-interval]]`link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-network-recovery-interval[quarkus.rabbitmqclient.network-recovery-interval]`
 
 `link:#quarkus-rabbitmqclient_quarkus-rabbitmqclient-network-recovery-interval[quarkus.rabbitmqclient."client-name".network-recovery-interval]`

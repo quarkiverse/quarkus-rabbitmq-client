@@ -49,6 +49,7 @@ class RabbitMQHelper {
         cf.setSaslConfig(params.getConfig().sasl().getSaslConfig());
 
         ConnectionFactoryConfigurator.load(cf, newProperties(params), "");
+        cf.setMaxInboundMessageBodySize(params.getConfig().maxInboundMessageBodySize());
 
         String uri = params.getConfig().uri().orElse(null);
         if (uri != null) {
@@ -96,7 +97,8 @@ class RabbitMQHelper {
     }
 
     /**
-     * Compute the {@link Properties} for use with {@link ConnectionFactoryConfigurator}.
+     * Compute the {@link Properties} for use with
+     * {@link ConnectionFactoryConfigurator}.
      *
      * @param params the {@link RabbitMQClientParams}.
      * @return the computed properties.
