@@ -69,6 +69,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "andyhan",
+      "name": "Andy Han",
+      "avatar_url": "https://avatars.githubusercontent.com/u/142950?v=4",
+      "profile": "https://github.com/andyhan",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
