@@ -19,7 +19,7 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <quarkus.version>3.26.3</quarkus.version>
         <compiler-plugin.version>3.11.0</compiler-plugin.version>
-        <surefire-plugin.version>3.5.3</surefire-plugin.version>
+        <surefire-plugin.version>3.5.4</surefire-plugin.version>
         <exec-plugin.version>3.5.1</exec-plugin.version>
         <amqp-client.version>5.26.0</amqp-client.version>
     </properties>
