@@ -176,6 +176,16 @@ public class QuarkusRabbitmqReadyCheckTest {
             }
 
             @Override
+            public Optional<String> credentialsProvider() {
+                return Optional.empty();
+            }
+
+            @Override
+            public Optional<String> credentialsProviderName() {
+                return Optional.empty();
+            }
+
+            @Override
             public String hostname() {
                 return null;
             }

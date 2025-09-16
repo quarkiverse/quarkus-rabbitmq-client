@@ -1,12 +1,14 @@
 package io.quarkiverse.rabbitmqclient;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.rabbitmq.client.*;
+import com.rabbitmq.client.impl.DefaultCredentialsRefreshService;
+
+import io.quarkiverse.rabbitmqclient.runtime.CredentialsProviderLink;
+import io.quarkus.credentials.CredentialsProvider;
+import io.quarkus.credentials.runtime.CredentialsProviderFinder;
 
 /**
  * Helper class with RabbitMQClient utility methods.
@@ -50,6 +52,23 @@ class RabbitMQHelper {
 
         ConnectionFactoryConfigurator.load(cf, newProperties(params), "");
         cf.setMaxInboundMessageBodySize(params.getConfig().maxInboundMessageBodySize());
+
+        params.getConfig().credentialsProvider().ifPresent(credentialsProvider -> {
+
+            String credentialsProviderName = params.getConfig().credentialsProviderName().orElse(null);
+            CredentialsProvider provider = CredentialsProviderFinder.find(null);
+            CredentialsProviderLink credentialsProviderLink = new CredentialsProviderLink(provider, credentialsProviderName);
+            cf.setCredentialsProvider(credentialsProviderLink);
+
+            if (credentialsProviderLink.getTimeBeforeExpiration() != null) {
+                cf.setCredentialsRefreshService(
+                        new DefaultCredentialsRefreshService(
+                                null,
+                                DefaultCredentialsRefreshService.ratioRefreshDelayStrategy(0.8),
+                                DefaultCredentialsRefreshService.fixedTimeApproachingExpirationStrategy(
+                                        credentialsProviderLink.getTimeBeforeExpiration())));
+            }
+        });
 
         String uri = params.getConfig().uri().orElse(null);
         if (uri != null) {
