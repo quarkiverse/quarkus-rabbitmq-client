@@ -21,8 +21,7 @@ public class CredentialsProviderLink implements com.rabbitmq.client.impl.Credent
     public CredentialsProviderLink(CredentialsProvider credentialsProvider, String credentialsProviderName) {
         this.credentialsProvider = credentialsProvider;
         this.credentialsProviderName = credentialsProviderName;
-        this.expiresAt = Instant.MIN;
-        refreshIfExpired();
+        this.expiresAt = Instant.now();
     }
 
     private void refreshIfExpired() {
