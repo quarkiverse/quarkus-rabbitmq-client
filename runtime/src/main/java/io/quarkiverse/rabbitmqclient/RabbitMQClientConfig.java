@@ -45,6 +45,22 @@ public interface RabbitMQClientConfig {
     String password();
 
     /**
+     * The credentials provider name.
+     */
+    Optional<String> credentialsProvider();
+
+    /**
+     * The credentials provider bean name.
+     * <p>
+     * This is a bean name (as in {@code @Named}) of a bean that implements {@code CredentialsProvider}.
+     * It is used to select the credentials provider bean when multiple exist.
+     * This is unnecessary when there is only one credentials provider available.
+     * <p>
+     * For Vault, the credentials provider bean name is {@code vault-credentials-provider}.
+     */
+    Optional<String> credentialsProviderName();
+
+    /**
      * Hostname for connecting
      */
     @WithDefault(ConnectionFactory.DEFAULT_HOST)
