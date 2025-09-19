@@ -66,6 +66,32 @@ public class MessageService {
 
 It is possible to use multiple RabbitMQ clients in the same class as long as they are all named, or in combination with the default client. The name `default` is reserved for the default client and if used will trigger a deployment exception.
 
+=== Credentials Provider
+The extension supports retrieve login/password from Credentials Provider(io.quarkus.credentials.CredentialsProvider) for example Hashicorp Vault.
+Credentials Provider should be present and configured.
+```properties
+quarkus.rabbitmqclient.<name>.virtual-host=/
+quarkus.rabbitmqclient.<name>.hostname=localhost
+quarkus.rabbitmqclient.<name>.port=5672
+quarkus.rabbitmqclient.credentials-provider=custom
+```
+The property `quarkus.rabbitmqclient.credentials-provider` should contain identifier by which credential provider return login/password.
+
+In case the multiple credentials providers exist
+For Vault, the credentials provider bean name is vault-credentials-provider from extension https://docs.quarkiverse.io/quarkus-vault/dev/index.html
+Or use annotation @Named("custom-provider-name").
+
+```properties
+quarkus.rabbitmqclient.<name>.virtual-host=/
+quarkus.rabbitmqclient.<name>.hostname=localhost
+quarkus.rabbitmqclient.<name>.port=5672
+quarkus.rabbitmqclient.credentials-provider=custom
+quarkus.rabbitmqclient.credentials-provider-name=vault-credentials-provider
+```
+CAUTION: Login/password can overwrite settings from properties.
+
+If credential is renewable and has "expires-at" will be create `com.rabbitmq.client.impl.DefaultCredentialsRefreshService`
+
 === Disabling Clients
 It is possible to disable clients using the `quarkus.rabbitmqclient.<client-nane>.enabled=false` configuration property. To disable the default client, use `quarkus.rabbitmqclient.enabled=false`.
 
