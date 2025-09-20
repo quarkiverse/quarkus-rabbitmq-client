@@ -56,8 +56,8 @@ class RabbitMQHelper {
         params.getConfig().credentialsProvider().ifPresent(credentialsProvider -> {
 
             String credentialsProviderName = params.getConfig().credentialsProviderName().orElse(null);
-            CredentialsProvider provider = CredentialsProviderFinder.find(null);
-            CredentialsProviderLink credentialsProviderLink = new CredentialsProviderLink(provider, credentialsProviderName);
+            CredentialsProvider provider = CredentialsProviderFinder.find(credentialsProviderName);
+            CredentialsProviderLink credentialsProviderLink = new CredentialsProviderLink(provider, credentialsProvider);
             cf.setCredentialsProvider(credentialsProviderLink);
 
             if (credentialsProviderLink.getTimeBeforeExpiration() != null) {
