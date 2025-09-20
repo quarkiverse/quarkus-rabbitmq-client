@@ -21,11 +21,11 @@ public class CredentialsProviderLink implements com.rabbitmq.client.impl.Credent
     public CredentialsProviderLink(CredentialsProvider credentialsProvider, String credentialsProviderName) {
         this.credentialsProvider = credentialsProvider;
         this.credentialsProviderName = credentialsProviderName;
-        this.expiresAt = Instant.now();
+        refresh();
     }
 
     private void refreshIfExpired() {
-        if (expiresAt.isAfter(Instant.now())) {
+        if (expiresAt != null && expiresAt.isAfter(Instant.now())) {
             return;
         }
         refresh();
@@ -45,7 +45,7 @@ public class CredentialsProviderLink implements com.rabbitmq.client.impl.Credent
 
     @Override
     public Duration getTimeBeforeExpiration() {
-        return Duration.between(Instant.now(), expiresAt);
+        return expiresAt != null ? Duration.between(Instant.now(), expiresAt) : null;
     }
 
     @Override
@@ -53,7 +53,10 @@ public class CredentialsProviderLink implements com.rabbitmq.client.impl.Credent
         Map<String, String> credentials = credentialsProvider.getCredentials(credentialsProviderName);
         username = credentials.get(USER_PROPERTY_NAME);
         password = credentials.get(PASSWORD_PROPERTY_NAME);
-        expiresAt = Instant.parse(credentials.getOrDefault(EXPIRATION_TIMESTAMP_PROPERTY_NAME, getDefaultExpiresAt()));
+        String expirationTimestamp;
+        if ((expirationTimestamp = credentials.get(EXPIRATION_TIMESTAMP_PROPERTY_NAME)) != null) {
+            expiresAt = Instant.parse(expirationTimestamp);
+        }
     }
 
     public String getDefaultExpiresAt() {
