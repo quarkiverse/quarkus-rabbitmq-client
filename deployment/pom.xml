@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.quarkiverse.rabbitmqclient</groupId>
         <artifactId>quarkus-rabbitmq-client-parent</artifactId>
-        <version>3.2.2</version>
+        <version>3.2.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>quarkus-rabbitmq-client-deployment</artifactId>
