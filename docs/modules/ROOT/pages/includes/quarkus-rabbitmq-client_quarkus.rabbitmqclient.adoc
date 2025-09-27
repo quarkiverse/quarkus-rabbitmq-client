@@ -1,4 +1,3 @@
-:summaryTableId: quarkus-rabbitmq-client_quarkus-rabbitmqclient
 [.configuration-legend]
 icon:lock[title=Fixed at build time] Configuration property fixed at build time - All other configuration properties are overridable at runtime
 [.configuration-reference.searchable, cols="80,.^10,.^10"]
@@ -8,7 +7,11 @@ h|[.header-title]##Configuration property##
 h|Type
 h|Default
 
-a|icon:lock[title=Fixed at build time] [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-health-enabled]] [.property-path]##`quarkus.rabbitmqclient.health.enabled`##
+a|icon:lock[title=Fixed at build time] [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-health-enabled]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-health-enabled[`quarkus.rabbitmqclient.health.enabled`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.health.enabled+++[]
+endif::add-copy-button-to-config-props[]
+
 
 [.description]
 --
@@ -23,9 +26,13 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_HEALTH_ENABLED+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
-|`true`
+|`+++true+++`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-metrics-enabled]] [.property-path]##`quarkus.rabbitmqclient.metrics.enabled`##
+a|icon:lock[title=Fixed at build time] [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-metrics-enabled]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-metrics-enabled[`quarkus.rabbitmqclient.metrics.enabled`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.metrics.enabled+++[]
+endif::add-copy-button-to-config-props[]
+
 
 [.description]
 --
@@ -40,15 +47,22 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_METRICS_ENABLED+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
-|`true`
+|`+++true+++`
 
-h|[[quarkus-rabbitmq-client_section_quarkus-rabbitmqclient]] [.section-name.section-level0]##RabbitMQ clients##
+h|[[quarkus-rabbitmq-client_section_quarkus-rabbitmqclient]] [.section-name.section-level0]##link:#quarkus-rabbitmq-client_section_quarkus-rabbitmqclient[RabbitMQ clients]##
 h|Type
 h|Default
 
-a|icon:lock[title=Fixed at build time] [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-enabled]] [.property-path]##`quarkus.rabbitmqclient.enabled`##
+a|icon:lock[title=Fixed at build time] [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-enabled]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-enabled[`quarkus.rabbitmqclient.enabled`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.enabled+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".enabled`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".enabled+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -63,11 +77,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_ENABLED+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
-|`true`
+|`+++true+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-uri]] [.property-path]##`quarkus.rabbitmqclient.uri`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-uri]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-uri[`quarkus.rabbitmqclient.uri`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.uri+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".uri`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".uri+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -84,9 +105,16 @@ endif::add-copy-button-to-env-var[]
 |string
 |
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-username]] [.property-path]##`quarkus.rabbitmqclient.username`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-username]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-username[`quarkus.rabbitmqclient.username`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.username+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".username`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".username+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -101,11 +129,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_USERNAME+++`
 endif::add-copy-button-to-env-var[]
 --
 |string
-|`guest`
+|`+++guest+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-password]] [.property-path]##`quarkus.rabbitmqclient.password`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-password]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-password[`quarkus.rabbitmqclient.password`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.password+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".password`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".password+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -120,11 +155,74 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_PASSWORD+++`
 endif::add-copy-button-to-env-var[]
 --
 |string
-|`guest`
+|`+++guest+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-hostname]] [.property-path]##`quarkus.rabbitmqclient.hostname`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-credentials-provider]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-credentials-provider[`quarkus.rabbitmqclient.credentials-provider`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.credentials-provider+++[]
+endif::add-copy-button-to-config-props[]
+
+
+`quarkus.rabbitmqclient."client-name".credentials-provider`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".credentials-provider+++[]
+endif::add-copy-button-to-config-props[]
+
+[.description]
+--
+The credentials provider name.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_CREDENTIALS_PROVIDER+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_CREDENTIALS_PROVIDER+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|
+
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-credentials-provider-name]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-credentials-provider-name[`quarkus.rabbitmqclient.credentials-provider-name`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.credentials-provider-name+++[]
+endif::add-copy-button-to-config-props[]
+
+
+`quarkus.rabbitmqclient."client-name".credentials-provider-name`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".credentials-provider-name+++[]
+endif::add-copy-button-to-config-props[]
+
+[.description]
+--
+The credentials provider bean name.
+
+This is a bean name (as in `@Named`) of a bean that implements `CredentialsProvider`. It is used to select the credentials provider bean when multiple exist. This is unnecessary when there is only one credentials provider available.
+
+For Vault, the credentials provider bean name is `vault-credentials-provider`.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_CREDENTIALS_PROVIDER_NAME+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_CREDENTIALS_PROVIDER_NAME+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|
+
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-hostname]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-hostname[`quarkus.rabbitmqclient.hostname`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.hostname+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".hostname`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".hostname+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -139,11 +237,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_HOSTNAME+++`
 endif::add-copy-button-to-env-var[]
 --
 |string
-|`localhost`
+|`+++localhost+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-virtual-host]] [.property-path]##`quarkus.rabbitmqclient.virtual-host`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-virtual-host]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-virtual-host[`quarkus.rabbitmqclient.virtual-host`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.virtual-host+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".virtual-host`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".virtual-host+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -158,11 +263,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_VIRTUAL_HOST+++`
 endif::add-copy-button-to-env-var[]
 --
 |string
-|`/`
+|`+++/+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-port]] [.property-path]##`quarkus.rabbitmqclient.port`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-port]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-port[`quarkus.rabbitmqclient.port`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.port+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".port`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".port+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -177,11 +289,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_PORT+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`-1`
+|`+++-1+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-connection-timeout]] [.property-path]##`quarkus.rabbitmqclient.connection-timeout`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-connection-timeout]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-connection-timeout[`quarkus.rabbitmqclient.connection-timeout`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.connection-timeout+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".connection-timeout`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".connection-timeout+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -196,11 +315,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_CONNECTION_TIMEOUT+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`60000`
+|`+++60000+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-connection-close-timeout]] [.property-path]##`quarkus.rabbitmqclient.connection-close-timeout`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-connection-close-timeout]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-connection-close-timeout[`quarkus.rabbitmqclient.connection-close-timeout`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.connection-close-timeout+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".connection-close-timeout`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".connection-close-timeout+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -215,11 +341,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_CONNECTION_CLOSE_TIMEOUT+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`-1`
+|`+++-1+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-requested-heartbeat]] [.property-path]##`quarkus.rabbitmqclient.requested-heartbeat`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-requested-heartbeat]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-requested-heartbeat[`quarkus.rabbitmqclient.requested-heartbeat`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.requested-heartbeat+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".requested-heartbeat`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".requested-heartbeat+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -234,11 +367,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_REQUESTED_HEARTBEAT+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`60`
+|`+++60+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-handshake-timeout]] [.property-path]##`quarkus.rabbitmqclient.handshake-timeout`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-handshake-timeout]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-handshake-timeout[`quarkus.rabbitmqclient.handshake-timeout`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.handshake-timeout+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".handshake-timeout`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".handshake-timeout+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -253,11 +393,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_HANDSHAKE_TIMEOUT+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`10000`
+|`+++10000+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-shutdown-timeout]] [.property-path]##`quarkus.rabbitmqclient.shutdown-timeout`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-shutdown-timeout]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-shutdown-timeout[`quarkus.rabbitmqclient.shutdown-timeout`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.shutdown-timeout+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".shutdown-timeout`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".shutdown-timeout+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -272,11 +419,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_SHUTDOWN_TIMEOUT+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`10000`
+|`+++10000+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-requested-channel-max]] [.property-path]##`quarkus.rabbitmqclient.requested-channel-max`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-requested-channel-max]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-requested-channel-max[`quarkus.rabbitmqclient.requested-channel-max`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.requested-channel-max+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".requested-channel-max`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".requested-channel-max+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -291,11 +445,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_REQUESTED_CHANNEL_MAX+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`2047`
+|`+++2047+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-requested-frame-max]] [.property-path]##`quarkus.rabbitmqclient.requested-frame-max`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-requested-frame-max]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-requested-frame-max[`quarkus.rabbitmqclient.requested-frame-max`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.requested-frame-max+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".requested-frame-max`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".requested-frame-max+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -310,11 +471,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_REQUESTED_FRAME_MAX+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`0`
+|`+++0+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-max-inbound-message-body-size]] [.property-path]##`quarkus.rabbitmqclient.max-inbound-message-body-size`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-max-inbound-message-body-size]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-max-inbound-message-body-size[`quarkus.rabbitmqclient.max-inbound-message-body-size`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.max-inbound-message-body-size+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".max-inbound-message-body-size`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".max-inbound-message-body-size+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -331,11 +499,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_MAX_INBOUND_MESSAGE_BODY_SIZE++
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`67108864`
+|`+++67108864+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-network-recovery-interval]] [.property-path]##`quarkus.rabbitmqclient.network-recovery-interval`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-network-recovery-interval]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-network-recovery-interval[`quarkus.rabbitmqclient.network-recovery-interval`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.network-recovery-interval+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".network-recovery-interval`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".network-recovery-interval+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -350,11 +525,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_NETWORK_RECOVERY_INTERVAL+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`5000`
+|`+++5000+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-channel-rpc-timeout]] [.property-path]##`quarkus.rabbitmqclient.channel-rpc-timeout`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-channel-rpc-timeout]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-channel-rpc-timeout[`quarkus.rabbitmqclient.channel-rpc-timeout`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.channel-rpc-timeout+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".channel-rpc-timeout`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".channel-rpc-timeout+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -369,11 +551,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_CHANNEL_RPC_TIMEOUT+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`600000`
+|`+++600000+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-channel-rpc-response-type-check]] [.property-path]##`quarkus.rabbitmqclient.channel-rpc-response-type-check`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-channel-rpc-response-type-check]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-channel-rpc-response-type-check[`quarkus.rabbitmqclient.channel-rpc-response-type-check`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.channel-rpc-response-type-check+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".channel-rpc-response-type-check`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".channel-rpc-response-type-check+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -388,11 +577,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_CHANNEL_RPC_RESPONSE_TYPE_CHECK
 endif::add-copy-button-to-env-var[]
 --
 |boolean
-|`false`
+|`+++false+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-connection-recovery]] [.property-path]##`quarkus.rabbitmqclient.connection-recovery`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-connection-recovery]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-connection-recovery[`quarkus.rabbitmqclient.connection-recovery`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.connection-recovery+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".connection-recovery`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".connection-recovery+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -407,11 +603,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_CONNECTION_RECOVERY+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
-|`true`
+|`+++true+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-topology-recovery]] [.property-path]##`quarkus.rabbitmqclient.topology-recovery`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-topology-recovery]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-topology-recovery[`quarkus.rabbitmqclient.topology-recovery`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.topology-recovery+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".topology-recovery`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".topology-recovery+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -426,11 +629,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_TOPOLOGY_RECOVERY+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
-|`true`
+|`+++true+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-sasl]] [.property-path]##`quarkus.rabbitmqclient.sasl`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-sasl]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-sasl[`quarkus.rabbitmqclient.sasl`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.sasl+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".sasl`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".sasl+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -444,12 +654,19 @@ ifndef::add-copy-button-to-env-var[]
 Environment variable: `+++QUARKUS_RABBITMQCLIENT_SASL+++`
 endif::add-copy-button-to-env-var[]
 --
-a|SaslType
-|`plain`
+a|`plain`, `external`
+|`+++plain+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-properties-property-name]] [.property-path]##`quarkus.rabbitmqclient.properties."property-name"`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-properties-property-name]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-properties-property-name[`quarkus.rabbitmqclient.properties."property-name"`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.properties."property-name"+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".properties."property-name"`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".properties."property-name"+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -466,13 +683,20 @@ endif::add-copy-button-to-env-var[]
 |Map<String,String>
 |
 
-h|[[quarkus-rabbitmq-client_section_quarkus-rabbitmqclient-addresses]] [.section-name.section-level1]##Broker addresses for creating connections##
+h|[[quarkus-rabbitmq-client_section_quarkus-rabbitmqclient-addresses]] [.section-name.section-level1]##link:#quarkus-rabbitmq-client_section_quarkus-rabbitmqclient-addresses[Broker addresses for creating connections]##
 h|Type
 h|Default
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-addresses-broker-name-hostname]] [.property-path]##`quarkus.rabbitmqclient.addresses."broker-name".hostname`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-addresses-broker-name-hostname]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-addresses-broker-name-hostname[`quarkus.rabbitmqclient.addresses."broker-name".hostname`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.addresses."broker-name".hostname+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".addresses."broker-name".hostname`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".addresses."broker-name".hostname+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -489,9 +713,16 @@ endif::add-copy-button-to-env-var[]
 |string
 |required icon:exclamation-circle[title=Configuration property is required]
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-addresses-broker-name-port]] [.property-path]##`quarkus.rabbitmqclient.addresses."broker-name".port`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-addresses-broker-name-port]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-addresses-broker-name-port[`quarkus.rabbitmqclient.addresses."broker-name".port`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.addresses."broker-name".port+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".addresses."broker-name".port`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".addresses."broker-name".port+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -506,16 +737,23 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_ADDRESSES__BROKER_NAME__PORT+++
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`0`
+|`+++0+++`
 
 
-h|[[quarkus-rabbitmq-client_section_quarkus-rabbitmqclient-tls]] [.section-name.section-level1]##Tls configuration##
+h|[[quarkus-rabbitmq-client_section_quarkus-rabbitmqclient-tls]] [.section-name.section-level1]##link:#quarkus-rabbitmq-client_section_quarkus-rabbitmqclient-tls[Tls configuration]##
 h|Type
 h|Default
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-enabled]] [.property-path]##`quarkus.rabbitmqclient.tls.enabled`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-enabled]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-enabled[`quarkus.rabbitmqclient.tls.enabled`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.tls.enabled+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".tls.enabled`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".tls.enabled+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -530,11 +768,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_ENABLED+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
-|`false`
+|`+++false+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-algorithm]] [.property-path]##`quarkus.rabbitmqclient.tls.algorithm`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-algorithm]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-algorithm[`quarkus.rabbitmqclient.tls.algorithm`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.tls.algorithm+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".tls.algorithm`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".tls.algorithm+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -549,11 +794,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_ALGORITHM+++`
 endif::add-copy-button-to-env-var[]
 --
 |string
-|`TLSv1.2`
+|`+++TLSv1.2+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-trust-store-file]] [.property-path]##`quarkus.rabbitmqclient.tls.trust-store-file`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-trust-store-file]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-trust-store-file[`quarkus.rabbitmqclient.tls.trust-store-file`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.tls.trust-store-file+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".tls.trust-store-file`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".tls.trust-store-file+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -570,9 +822,16 @@ endif::add-copy-button-to-env-var[]
 |string
 |
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-trust-store-type]] [.property-path]##`quarkus.rabbitmqclient.tls.trust-store-type`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-trust-store-type]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-trust-store-type[`quarkus.rabbitmqclient.tls.trust-store-type`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.tls.trust-store-type+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".tls.trust-store-type`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".tls.trust-store-type+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -587,11 +846,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_TYPE+++`
 endif::add-copy-button-to-env-var[]
 --
 |string
-|`JKS`
+|`+++JKS+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-trust-store-algorithm]] [.property-path]##`quarkus.rabbitmqclient.tls.trust-store-algorithm`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-trust-store-algorithm]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-trust-store-algorithm[`quarkus.rabbitmqclient.tls.trust-store-algorithm`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.tls.trust-store-algorithm+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".tls.trust-store-algorithm`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".tls.trust-store-algorithm+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -606,11 +872,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_TRUST_STORE_ALGORITHM+++`
 endif::add-copy-button-to-env-var[]
 --
 |string
-|`SunX509`
+|`+++SunX509+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-trust-store-password]] [.property-path]##`quarkus.rabbitmqclient.tls.trust-store-password`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-trust-store-password]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-trust-store-password[`quarkus.rabbitmqclient.tls.trust-store-password`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.tls.trust-store-password+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".tls.trust-store-password`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".tls.trust-store-password+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -627,9 +900,16 @@ endif::add-copy-button-to-env-var[]
 |string
 |
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-key-store-file]] [.property-path]##`quarkus.rabbitmqclient.tls.key-store-file`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-key-store-file]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-key-store-file[`quarkus.rabbitmqclient.tls.key-store-file`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.tls.key-store-file+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".tls.key-store-file`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".tls.key-store-file+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -646,9 +926,16 @@ endif::add-copy-button-to-env-var[]
 |string
 |
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-key-store-password]] [.property-path]##`quarkus.rabbitmqclient.tls.key-store-password`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-key-store-password]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-key-store-password[`quarkus.rabbitmqclient.tls.key-store-password`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.tls.key-store-password+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".tls.key-store-password`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".tls.key-store-password+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -665,9 +952,16 @@ endif::add-copy-button-to-env-var[]
 |string
 |
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-key-store-type]] [.property-path]##`quarkus.rabbitmqclient.tls.key-store-type`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-key-store-type]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-key-store-type[`quarkus.rabbitmqclient.tls.key-store-type`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.tls.key-store-type+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".tls.key-store-type`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".tls.key-store-type+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -682,11 +976,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_TYPE+++`
 endif::add-copy-button-to-env-var[]
 --
 |string
-|`PKCS12`
+|`+++PKCS12+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-key-store-algorithm]] [.property-path]##`quarkus.rabbitmqclient.tls.key-store-algorithm`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-key-store-algorithm]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-key-store-algorithm[`quarkus.rabbitmqclient.tls.key-store-algorithm`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.tls.key-store-algorithm+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".tls.key-store-algorithm`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".tls.key-store-algorithm+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -701,11 +1002,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_KEY_STORE_ALGORITHM+++`
 endif::add-copy-button-to-env-var[]
 --
 |string
-|`SunX509`
+|`+++SunX509+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-validate-server-certificate]] [.property-path]##`quarkus.rabbitmqclient.tls.validate-server-certificate`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-validate-server-certificate]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-validate-server-certificate[`quarkus.rabbitmqclient.tls.validate-server-certificate`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.tls.validate-server-certificate+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".tls.validate-server-certificate`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".tls.validate-server-certificate+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -720,11 +1028,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_VALIDATE_SERVER_CERTIFICATE
 endif::add-copy-button-to-env-var[]
 --
 |boolean
-|`true`
+|`+++true+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-verify-hostname]] [.property-path]##`quarkus.rabbitmqclient.tls.verify-hostname`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-verify-hostname]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-tls-verify-hostname[`quarkus.rabbitmqclient.tls.verify-hostname`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.tls.verify-hostname+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".tls.verify-hostname`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".tls.verify-hostname+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -739,16 +1054,23 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_TLS_VERIFY_HOSTNAME+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
-|`true`
+|`+++true+++`
 
 
-h|[[quarkus-rabbitmq-client_section_quarkus-rabbitmqclient-nio]] [.section-name.section-level1]##Non-blocking IO configuration##
+h|[[quarkus-rabbitmq-client_section_quarkus-rabbitmqclient-nio]] [.section-name.section-level1]##link:#quarkus-rabbitmq-client_section_quarkus-rabbitmqclient-nio[Non-blocking IO configuration]##
 h|Type
 h|Default
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-enabled]] [.property-path]##`quarkus.rabbitmqclient.nio.enabled`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-enabled]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-enabled[`quarkus.rabbitmqclient.nio.enabled`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.nio.enabled+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".nio.enabled`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".nio.enabled+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -763,11 +1085,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_ENABLED+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
-|`false`
+|`+++false+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-read-byte-buffer-size]] [.property-path]##`quarkus.rabbitmqclient.nio.read-byte-buffer-size`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-read-byte-buffer-size]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-read-byte-buffer-size[`quarkus.rabbitmqclient.nio.read-byte-buffer-size`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.nio.read-byte-buffer-size+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".nio.read-byte-buffer-size`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".nio.read-byte-buffer-size+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -782,11 +1111,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_READ_BYTE_BUFFER_SIZE+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`32768`
+|`+++32768+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-write-byte-buffer-size]] [.property-path]##`quarkus.rabbitmqclient.nio.write-byte-buffer-size`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-write-byte-buffer-size]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-write-byte-buffer-size[`quarkus.rabbitmqclient.nio.write-byte-buffer-size`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.nio.write-byte-buffer-size+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".nio.write-byte-buffer-size`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".nio.write-byte-buffer-size+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -801,11 +1137,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_WRITE_BYTE_BUFFER_SIZE+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`32768`
+|`+++32768+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-threads]] [.property-path]##`quarkus.rabbitmqclient.nio.threads`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-threads]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-threads[`quarkus.rabbitmqclient.nio.threads`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.nio.threads+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".nio.threads`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".nio.threads+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -820,11 +1163,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_THREADS+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`1`
+|`+++1+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-write-enqueuing-timeout]] [.property-path]##`quarkus.rabbitmqclient.nio.write-enqueuing-timeout`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-write-enqueuing-timeout]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-write-enqueuing-timeout[`quarkus.rabbitmqclient.nio.write-enqueuing-timeout`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.nio.write-enqueuing-timeout+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".nio.write-enqueuing-timeout`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".nio.write-enqueuing-timeout+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -839,11 +1189,18 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_WRITE_ENQUEUING_TIMEOUT+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`10000`
+|`+++10000+++`
 
-a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-write-queue-capacity]] [.property-path]##`quarkus.rabbitmqclient.nio.write-queue-capacity`##
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-write-queue-capacity]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-nio-write-queue-capacity[`quarkus.rabbitmqclient.nio.write-queue-capacity`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.nio.write-queue-capacity+++[]
+endif::add-copy-button-to-config-props[]
+
 
 `quarkus.rabbitmqclient."client-name".nio.write-queue-capacity`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".nio.write-queue-capacity+++[]
+endif::add-copy-button-to-config-props[]
 
 [.description]
 --
@@ -858,11 +1215,9 @@ Environment variable: `+++QUARKUS_RABBITMQCLIENT_NIO_WRITE_QUEUE_CAPACITY+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`10000`
+|`+++10000+++`
 
 
 
 |===
 
-
-:!summaryTableId:
