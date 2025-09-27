@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -29,6 +30,9 @@ public class RabbitMQReadyCheck implements HealthCheck {
     @Inject
     RabbitMQClientsConfig config;
 
+    @Inject
+    RabbitMQClientsBuildConfig buildConfig;
+
     @Override
     public HealthCheckResponse call() {
         return checkAllBrokers();
@@ -40,22 +44,26 @@ public class RabbitMQReadyCheck implements HealthCheck {
         //   addresses is reachable.
 
         Map<String, List<ClientStatus>> data = new HashMap<>();
-        //        if (config.clients().get(RabbitMQClients.DEFAULT_CLIENT_NAME) != null) {
-        //            appendClientState(data, null, config.clients().get(RabbitMQClients.DEFAULT_CLIENT_NAME));
-        //        }
-        config.clients().forEach((n, c) -> appendClientState(data, n, c));
+        resolveEnabledClients()
+                .forEach((n, c) -> appendClientState(data, n, c));
 
         HealthCheckResponseBuilder builder = HealthCheckResponse.builder();
         builder.name(HEALTH_CHECK_NAME);
         builder.status(data.values().stream()
                 .allMatch(clientStatuses -> clientStatuses.stream().anyMatch(ClientStatus::isUp)));
         data.forEach((name, clientStatuses) -> {
-            String prefix = name.length() > 0 ? name + "|" : name;
+            String prefix = !name.isEmpty() ? name + "|" : name;
             clientStatuses.forEach(cs -> {
                 builder.withData(prefix + cs.getAddress(), cs.getStatus());
             });
         });
         return builder.build();
+    }
+
+    private Map<String, RabbitMQClientConfig> resolveEnabledClients() {
+        return config.clients().entrySet().stream()
+                .filter(e -> buildConfig.clients().get(e.getKey()).enabled())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     private void appendClientState(Map<String, List<ClientStatus>> data, String name, RabbitMQClientConfig config) {

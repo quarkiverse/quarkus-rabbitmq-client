@@ -1,4 +1,4 @@
-package io.quarkiverse.rabbitmqclient.deployment;
+package io.quarkiverse.rabbitmqclient;
 
 import io.quarkus.runtime.annotations.ConfigGroup;
 import io.smallrye.config.WithDefault;

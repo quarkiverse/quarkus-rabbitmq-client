@@ -15,7 +15,9 @@ import org.jboss.jandex.IndexView;
 
 import io.quarkiverse.rabbitmqclient.NamedRabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClient;
+import io.quarkiverse.rabbitmqclient.RabbitMQClientBuildConfig;
 import io.quarkiverse.rabbitmqclient.RabbitMQClients;
+import io.quarkiverse.rabbitmqclient.RabbitMQClientsBuildConfig;
 import io.quarkiverse.rabbitmqclient.runtime.RabbitMQRecorder;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanArchiveIndexBuildItem;

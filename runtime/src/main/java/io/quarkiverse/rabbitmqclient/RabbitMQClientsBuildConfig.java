@@ -1,8 +1,7 @@
-package io.quarkiverse.rabbitmqclient.deployment;
+package io.quarkiverse.rabbitmqclient;
 
 import java.util.Map;
 
-import io.quarkiverse.rabbitmqclient.RabbitMQClients;
 import io.quarkus.runtime.annotations.*;
 import io.smallrye.config.*;
 
@@ -12,7 +11,7 @@ import io.smallrye.config.*;
  * @author b.passon
  */
 @ConfigMapping(prefix = "quarkus.rabbitmqclient")
-@ConfigRoot(phase = ConfigPhase.BUILD_TIME)
+@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public interface RabbitMQClientsBuildConfig {
 
     /**
