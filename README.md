@@ -1,6 +1,6 @@
 # Quarkiverse RabbitMQ Client
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END --> 
 [![version](https://img.shields.io/maven-central/v/io.quarkiverse.rabbitmqclient/quarkus-rabbitmq-client-parent?logo=apache-maven&style=flat-square)](https://repo1.maven.org/maven2/io/quarkiverse/rabbitmqclient/)
 
@@ -33,6 +33,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/andyhan"><img src="https://avatars.githubusercontent.com/u/142950?v=4?s=100" width="100px;" alt="Andy Han"/><br /><sub><b>Andy Han</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=andyhan" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/skyrylyuk"><img src="https://avatars.githubusercontent.com/u/785578?v=4?s=100" width="100px;" alt="Serhiy Kyrylyuk"/><br /><sub><b>Serhiy Kyrylyuk</b></sub></a><br /><a href="https://github.com/quarkiverse/quarkus-rabbitmq-client/commits?author=skyrylyuk" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
