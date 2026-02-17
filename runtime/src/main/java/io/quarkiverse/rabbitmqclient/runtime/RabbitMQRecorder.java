@@ -26,9 +26,4 @@ public class RabbitMQRecorder {
         RabbitMQClients producer = Arc.container().instance(RabbitMQClients.class).get();
         return () -> producer.getRabbitMQClient(name, new QuarkusMicrometerMetricsCollector(tags));
     }
-
-    public Supplier<RabbitMQClient> rabbitMQClientSupplierMPMetrics(String name, Map<String, String> tags) {
-        RabbitMQClients producer = Arc.container().instance(RabbitMQClients.class).get();
-        return () -> producer.getRabbitMQClient(name, new QuarkusMPMetricsCollector(tags));
-    }
 }

@@ -118,9 +118,6 @@ class QuarkusRabbitMQClientProcessor {
             if (metricsCapability.get().metricsSupported(MetricsFactory.MICROMETER)) {
                 rabbitMQClientSupplier = recorder.rabbitMQClientSupplierMicrometerMetrics(client.getName(),
                         Map.of("name", client.getName()));
-            } else if (metricsCapability.get().metricsSupported(MetricsFactory.MP_METRICS)) {
-                rabbitMQClientSupplier = recorder.rabbitMQClientSupplierMPMetrics(client.getName(),
-                        Map.of("name", client.getName()));
             }
         }
         if (rabbitMQClientSupplier == null) {
