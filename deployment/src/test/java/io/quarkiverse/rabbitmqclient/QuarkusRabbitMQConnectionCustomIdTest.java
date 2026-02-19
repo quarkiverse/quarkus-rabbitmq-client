@@ -4,7 +4,11 @@ import jakarta.inject.Inject;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import com.rabbitmq.client.Connection;
@@ -15,54 +19,54 @@ import io.quarkus.test.common.QuarkusTestResource;
 
 @QuarkusTestResource(RabbitMQTestContainer.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class QuarkusRabbitMQConnectionTest {
+public class QuarkusRabbitMQConnectionCustomIdTest {
 
     @RegisterExtension
     static final QuarkusUnitTest unitTest = new QuarkusUnitTest() // Start unit test with your extension loaded
             .setFlatClassPath(true)
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addAsResource(
-                            QuarkusRabbitMQConnectionTest.class
-                                    .getResource("/rabbitmq/rabbitmq-properties.properties"),
+                            QuarkusRabbitMQConnectionCustomIdTest.class
+                                    .getResource("/rabbitmq/rabbitmq-custom-id-properties.properties"),
                             "application.properties")
-                    .addAsResource(QuarkusRabbitMQConnectionTest.class.getResource("/rabbitmq/ca/cacerts.jks"),
+                    .addAsResource(QuarkusRabbitMQConnectionCustomIdTest.class.getResource("/rabbitmq/ca/cacerts.jks"),
                             "rabbitmq/ca/cacerts.jks")
-                    .addAsResource(QuarkusRabbitMQConnectionTest.class.getResource("/rabbitmq/client/client.jks"),
+                    .addAsResource(QuarkusRabbitMQConnectionCustomIdTest.class.getResource("/rabbitmq/client/client.jks"),
                             "rabbitmq/client/client.jks"));
 
     @Inject
     RabbitMQClient rabbitMQClient;
 
     @Inject
-    @NamedRabbitMQClient("ssl")
-    RabbitMQClient rabbitMQClientSsl;
+    @NamedRabbitMQClient("two")
+    RabbitMQClient rabbitMQClientTwo;
 
     @Inject
-    @NamedRabbitMQClient("mtls")
-    RabbitMQClient rabbitMQClientMtls;
+    @NamedRabbitMQClient("three")
+    RabbitMQClient rabbitMQClientThree;
 
     @Test
     @Order(1)
     public void testNonSSL() {
         Connection conn = rabbitMQClient.connect("test-connection-non-ssl");
         Assertions.assertNotNull(conn);
-        Assertions.assertEquals("default", rabbitMQClient.getId());
+        Assertions.assertEquals("one", rabbitMQClient.getId());
     }
 
     @Test
     @Order(2)
     public void testRabbitMQSSLDefault() {
-        Connection conn = rabbitMQClientSsl.connect("test-connection-ssl");
+        Connection conn = rabbitMQClientTwo.connect("test-connection-ssl");
         Assertions.assertNotNull(conn);
-        Assertions.assertEquals("ssl", rabbitMQClientSsl.getId());
+        Assertions.assertEquals("two", rabbitMQClientTwo.getId());
     }
 
     @Test
     @Order(3)
     public void testRabbitMQSSLClientCert() {
-        Connection conn = rabbitMQClientMtls.connect("test-connection-ssl-client-cert");
+        Connection conn = rabbitMQClientThree.connect("test-connection-ssl-client-cert");
         Assertions.assertNotNull(conn);
-        Assertions.assertEquals("mtls", rabbitMQClientMtls.getId());
+        Assertions.assertEquals("three", rabbitMQClientThree.getId());
     }
 
 }

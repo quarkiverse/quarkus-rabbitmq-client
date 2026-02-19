@@ -1,4 +1,4 @@
-package io.quarkiverse.rabbitmqclient;
+package io.quarkiverse.rabbitmqclient.runtime;
 
 import java.util.Properties;
 
@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import io.quarkiverse.rabbitmqclient.RabbitMQClientsConfig;
 import io.quarkus.test.QuarkusUnitTest;
 
 public class QuarkusRabbitmqNonDefaultClientConfigTest extends RabbitMQConfigTest {
@@ -28,11 +29,11 @@ public class QuarkusRabbitmqNonDefaultClientConfigTest extends RabbitMQConfigTes
     @Test
     public void testConnectionFactoryProperties() {
         RabbitMQClientParams params = new RabbitMQClientParams();
-        params.setConfig(config.clients().get(RabbitMQClients.DEFAULT_CLIENT_NAME));
+        params.setConfig(config.clients().get(RabbitMQClientsConfig.DEFAULT_CLIENT_NAME));
 
         Properties properties = RabbitMQHelper.newProperties(params);
-        assertRabbitMQConfig(config.clients().get(RabbitMQClients.DEFAULT_CLIENT_NAME), properties);
-        Assertions.assertEquals(config.clients().get(RabbitMQClients.DEFAULT_CLIENT_NAME).connectionCloseTimeout(), 200);
+        assertRabbitMQConfig(config.clients().get(RabbitMQClientsConfig.DEFAULT_CLIENT_NAME), properties);
+        Assertions.assertEquals(200, config.clients().get(RabbitMQClientsConfig.DEFAULT_CLIENT_NAME).connectionCloseTimeout());
     }
 
 }

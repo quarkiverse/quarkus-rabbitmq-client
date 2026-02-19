@@ -1,90 +1,43 @@
 package io.quarkiverse.rabbitmqclient;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
-
-import org.eclipse.microprofile.context.ManagedExecutor;
-
-import com.rabbitmq.client.MetricsCollector;
-
-import io.quarkus.runtime.LaunchMode;
-
-/**
- * This class is sort of a producer {@link RabbitMQClient} instances.
- * <p>
- * It isn't a CDI producer in the literal sense, but it is created by a synthetic bean
- * from {@code QuarkusRabbitMQClientProcessor}
- * The {@code createRabbitMQClient} method is called at runtime (see
- * {@link io.quarkiverse.rabbitmqclient.runtime.RabbitMQRecorder#rabbitMQClientSupplier(String)}
- * in order to produce the actual {@code RabbitMQClient} objects.
- * </p>
- *
- * @author b.passon
- */
-@Singleton
-public class RabbitMQClients {
-
-    public static final String DEFAULT_CLIENT_NAME = "<default>";
-    private final Map<String, RabbitMQClientImpl> clients;
-    private final ManagedExecutor executorService;
-    private final RabbitMQClientsConfig rabbitMQClientsConfig;
-    private final LaunchMode launchMode;
-
-    @Inject
-    public RabbitMQClients(RabbitMQClientsConfig rabbitMQClientsConfig, ManagedExecutor executorService,
-            LaunchMode launchMode) {
-        this.rabbitMQClientsConfig = rabbitMQClientsConfig;
-        this.executorService = executorService;
-        this.clients = new HashMap<>();
-        this.launchMode = launchMode;
-    }
+public interface RabbitMQClients {
 
     /**
-     * Creates a singleton {@link RabbitMQClient}.
+     * Returns a default {@link RabbitMQClient}.
+     *
+     * @return {@link RabbitMQClient}
+     */
+    RabbitMQClient getClient();
+
+    /**
+     * Returns an {@link RabbitMQClient} with a specific id.
+     *
+     * @param id {@link RabbitMQClient} id
+     * @return {@link RabbitMQClient}
+     */
+    RabbitMQClient getClient(String id);
+
+    /**
+     * Returns the list of configured client ids.
+     *
+     * @return a list of client ids
+     */
+    List<String> getClientIds();
+
+    /**
+     * Gets a named {@link RabbitMQClient}.
      *
      * @param name the name of the rabbit mq client, if null the default is assumed.
      * @return a configured {@link RabbitMQClient}.
+     * @deprecated use {@link #getClient(String)} instead.
      */
-    public RabbitMQClient getRabbitMQClient(String name) {
-        return getRabbitMQClient(name, null);
-    }
-
-    /**
-     * Creates a singleton {@link RabbitMQClient}.
-     *
-     * @param name the name of the rabbit mq client, if null the default is assumed.
-     * @param mc a metrics collector to use.
-     * @return a configured {@link RabbitMQClient}.
-     */
-    public RabbitMQClient getRabbitMQClient(String name, MetricsCollector mc) {
-        RabbitMQClientParams params = params(name);
-        return clients.computeIfAbsent(name,
-                n -> new RabbitMQClientImpl(params, mc));
-    }
-
-    private RabbitMQClientParams params(String name) {
-        RabbitMQClientParams params = new RabbitMQClientParams();
-        params.setName(name);
-        params.setExecutorService(executorService);
-        params.setLaunchMode(launchMode);
-        params.setConfig(rabbitMQClientsConfig.clients().get(name));
-        return params;
-    }
-
-    /**
-     * Destroys the {@link RabbitMQClient} and closes all connections.
-     *
-     * <p>
-     * Note: This is called by the Quarkus during shutdown through the ShutdownContext, it therefore does
-     * not need @PreDestroy
-     * </p>
-     */
-    public void destroy() {
-        clients.forEach((k, v) -> {
-            v.disconnect();
-        });
+    @Deprecated(forRemoval = true, since = "3.3.0")
+    default RabbitMQClient getRabbitMQClient(String name) {
+        if (name == null) {
+            return getClient();
+        }
+        return getClient(name);
     }
 }

@@ -28,7 +28,7 @@ public class QuarkusRabbitMQMicrometerMetricsTest {
                     .addClasses(RabbitMQTestHelper.class)
                     .addAsResource(
                             QuarkusRabbitMQMicrometerMetricsTest.class
-                                    .getResource("/rabbitmq/rabbitmq-properties.properties"),
+                                    .getResource("/rabbitmq/rabbitmq-micrometer-properties.properties"),
                             "application.properties")
                     .addAsResource(
                             QuarkusRabbitMQMicrometerMetricsTest.class.getResource("/rabbitmq/ca/cacerts.jks"),
@@ -88,16 +88,16 @@ public class QuarkusRabbitMQMicrometerMetricsTest {
         Assertions.assertTrue(cdl1.await(5, TimeUnit.SECONDS));
         Assertions.assertTrue(cdl2.await(5, TimeUnit.SECONDS));
 
-        Assertions.assertEquals(1, registry.find("rabbitmq.consumed").tags("name", "<default>").counters().size());
+        Assertions.assertEquals(1, registry.find("rabbitmq.consumed").tags("name", "default").counters().size());
         Assertions.assertEquals(5.0,
-                registry.find("rabbitmq.consumed").tags("name", "<default>").counters().iterator().next().count());
+                registry.find("rabbitmq.consumed").tags("name", "default").counters().iterator().next().count());
         Assertions.assertEquals(1, registry.find("rabbitmq.consumed").tag("name", "ssl").counters().size());
         Assertions.assertEquals(5.0,
                 registry.find("rabbitmq.consumed").tag("name", "ssl").counters().iterator().next().count());
 
-        Assertions.assertEquals(1, registry.find("rabbitmq.connections").tags("name", "<default>").gauges().size());
+        Assertions.assertEquals(1, registry.find("rabbitmq.connections").tags("name", "default").gauges().size());
         Assertions.assertEquals(1.0,
-                registry.find("rabbitmq.connections").tags("name", "<default>").gauges().iterator().next().value());
+                registry.find("rabbitmq.connections").tags("name", "default").gauges().iterator().next().value());
         Assertions.assertEquals(1, registry.find("rabbitmq.connections").tag("name", "ssl").gauges().size());
         Assertions.assertEquals(1.0,
                 registry.find("rabbitmq.connections").tag("name", "ssl").gauges().iterator().next().value());

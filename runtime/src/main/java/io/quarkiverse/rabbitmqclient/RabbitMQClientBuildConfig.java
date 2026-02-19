@@ -1,7 +1,10 @@
 package io.quarkiverse.rabbitmqclient;
 
+import java.util.Optional;
+
 import io.quarkus.runtime.annotations.ConfigGroup;
 import io.smallrye.config.WithDefault;
+import io.smallrye.config.WithName;
 
 /**
  * RabbitMQ client configuration.
@@ -12,8 +15,14 @@ import io.smallrye.config.WithDefault;
 public interface RabbitMQClientBuildConfig {
 
     /**
-     * Disable the client.
+     * A unique RabbitMQ client identifier.
      */
+    Optional<String> id();
+
+    /**
+     * Enables the client.
+     */
+    @WithName("client-enabled")
     @WithDefault("true")
-    boolean enabled();
+    boolean clientEnabled();
 }
