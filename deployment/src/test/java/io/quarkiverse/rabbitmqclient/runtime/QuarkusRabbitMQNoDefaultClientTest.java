@@ -1,4 +1,4 @@
-package io.quarkiverse.rabbitmqclient;
+package io.quarkiverse.rabbitmqclient.runtime;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import io.quarkiverse.rabbitmqclient.NamedRabbitMQClient;
+import io.quarkiverse.rabbitmqclient.RabbitMQClient;
 import io.quarkiverse.rabbitmqclient.util.OtherClientService;
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.InjectableBean;

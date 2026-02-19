@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import io.quarkiverse.rabbitmqclient.RabbitMQConfigTest;
+import io.quarkiverse.rabbitmqclient.runtime.RabbitMQConfigTest;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestHelper;
 import io.quarkus.test.QuarkusDevModeTest;

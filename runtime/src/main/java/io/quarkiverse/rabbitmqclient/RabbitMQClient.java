@@ -1,5 +1,7 @@
 package io.quarkiverse.rabbitmqclient;
 
+import java.io.Closeable;
+
 import com.rabbitmq.client.Connection;
 
 /**
@@ -7,7 +9,7 @@ import com.rabbitmq.client.Connection;
  *
  * @author b.passon
  */
-public interface RabbitMQClient {
+public interface RabbitMQClient extends Closeable {
 
     /**
      * Opens a connection to the configured RabbitMQ broker.
@@ -26,14 +28,32 @@ public interface RabbitMQClient {
 
     /**
      * Explicitly disconnects the client from the RabbitMQ broker.
-     * <p>
-     * Clients are also closed during Quarkus shutdown.
-     * </p>
+     *
+     * @deprecated Use {@link #close()} instead.
      */
-    void disconnect();
+    @Deprecated(forRemoval = true, since = "3.3.0")
+    default void disconnect() {
+        try {
+            close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Gets the name of the client.
+     *
+     * @deprecated use {@link #getId()} instead.
      */
-    String getName();
+    @Deprecated(forRemoval = true, since = "3.3.0")
+    default String getName() {
+        return getId();
+    }
+
+    /**
+     * Gets the unique identifier of the client.
+     *
+     * @return the unique identifier of the client.
+     */
+    String getId();
 }

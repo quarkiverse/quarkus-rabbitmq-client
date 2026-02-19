@@ -1,4 +1,4 @@
-package io.quarkiverse.rabbitmqclient;
+package io.quarkiverse.rabbitmqclient.runtime;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -17,6 +17,10 @@ import org.eclipse.microprofile.health.Readiness;
 
 import com.rabbitmq.client.Address;
 
+import io.quarkiverse.rabbitmqclient.RabbitMQClient;
+import io.quarkiverse.rabbitmqclient.RabbitMQClientConfig;
+import io.quarkiverse.rabbitmqclient.RabbitMQClients;
+
 /**
  * RabbitMQ ready check which checks if at least one of the configured brokers is available.
  *
@@ -24,14 +28,12 @@ import com.rabbitmq.client.Address;
  */
 @Readiness
 @ApplicationScoped
-public class RabbitMQReadyCheck implements HealthCheck {
+public class RabbitMQHealthCheck implements HealthCheck {
 
     public static final String HEALTH_CHECK_NAME = "quarkus-rabbitmq-client";
-    @Inject
-    RabbitMQClientsConfig config;
 
     @Inject
-    RabbitMQClientsBuildConfig buildConfig;
+    RabbitMQClients clients;
 
     @Override
     public HealthCheckResponse call() {
@@ -61,20 +63,28 @@ public class RabbitMQReadyCheck implements HealthCheck {
     }
 
     private Map<String, RabbitMQClientConfig> resolveEnabledClients() {
-        return config.clients().entrySet().stream()
-                .filter(e -> buildConfig.clients().get(e.getKey()).enabled())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        return clients.getClientIds().stream()
+                .collect(Collectors.toMap(e -> e, this::resolveConfig));
+    }
+
+    private RabbitMQClientConfig resolveConfig(String id) {
+        for (RabbitMQClient client : ((RabbitMQClientsImpl) clients).getClients().values()) {
+            RabbitMQClientImpl ci = (RabbitMQClientImpl) client;
+            if (ci.getId().equals(id)) {
+                return ci.getConfig();
+            }
+        }
+        throw new IllegalStateException("Could not find RabbitMQClientConfig for id: " + id);
     }
 
     private void appendClientState(Map<String, List<ClientStatus>> data, String name, RabbitMQClientConfig config) {
-        String clientName = name == null || RabbitMQClients.DEFAULT_CLIENT_NAME.equals(name) ? "" : name;
-        data.putIfAbsent(clientName, new ArrayList<>());
+        data.putIfAbsent(name, new ArrayList<>());
         RabbitMQHelper.resolveBrokerAddresses(config)
                 .forEach((a) -> {
                     if (isBrokerAvailable(a)) {
-                        data.get(clientName).add(new ClientStatus(a, true));
+                        data.get(name).add(new ClientStatus(a, true));
                     } else {
-                        data.get(clientName).add(new ClientStatus(a, false));
+                        data.get(name).add(new ClientStatus(a, false));
                     }
                 });
     }

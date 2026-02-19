@@ -1,4 +1,4 @@
-package io.quarkiverse.rabbitmqclient;
+package io.quarkiverse.rabbitmqclient.runtime;
 
 import java.util.*;
 
@@ -14,6 +14,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import com.rabbitmq.client.NoOpMetricsCollector;
+
+import io.quarkiverse.rabbitmqclient.*;
 import io.quarkiverse.rabbitmqclient.util.DummyServer;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
 import io.quarkus.test.QuarkusUnitTest;
@@ -36,15 +39,19 @@ public class QuarkusRabbitmqReadyCheckTest {
     @Inject
     RabbitMQClientsBuildConfig buildConfig;
 
+    @Inject
+    RabbitMQClients clients;
+
     @Readiness
     @Inject
-    RabbitMQReadyCheck readyCheck;
+    RabbitMQHealthCheck readyCheck;
 
     private List<DummyServer> dummyServers;
 
     @BeforeEach
     public void setup() {
         dummyServers = new ArrayList<>();
+        ((RabbitMQClientsImpl) clients).getClients().clear();
     }
 
     @AfterEach
@@ -106,7 +113,6 @@ public class QuarkusRabbitmqReadyCheckTest {
 
     @Test
     public void testHealthEndpointWithoutDefaultClientUp() {
-        setupDisabledDummyServers(config, buildConfig);
         setupDummyServers(config, buildConfig, "other", 1, 0);
         HealthCheckResponse resp = readyCheck.call();
         Assertions.assertEquals(HealthCheckResponse.Status.UP, resp.getStatus());
@@ -115,7 +121,6 @@ public class QuarkusRabbitmqReadyCheckTest {
 
     @Test
     public void testHealthEndpointWithoutDefaultClientDown() {
-        setupDisabledDummyServers(config, buildConfig);
         setupDummyServers(config, buildConfig, "other", 1, 1);
         HealthCheckResponse resp = readyCheck.call();
         Assertions.assertEquals(HealthCheckResponse.Status.DOWN, resp.getStatus());
@@ -123,21 +128,12 @@ public class QuarkusRabbitmqReadyCheckTest {
     }
 
     @Test
-    public void testHealthEndpointWithoutDefaultClientMultipleAddressGivesDown() {
-        setupDisabledDummyServers(config, buildConfig);
+    public void testHealthEndpointWithoutDefaultClientMultipleAddressOneDown() {
         setupDummyServers(config, buildConfig, "other", 2, 1);
         HealthCheckResponse resp = readyCheck.call();
         Assertions.assertEquals(HealthCheckResponse.Status.UP, resp.getStatus());
         assertNumberOfBrokersInState(resp, 1, HealthCheckResponse.Status.UP);
         assertNumberOfBrokersInState(resp, 1, HealthCheckResponse.Status.DOWN);
-    }
-
-    private void setupDisabledDummyServers(RabbitMQClientsConfig config, RabbitMQClientsBuildConfig buildConfig) {
-        setupDummyServers(config, buildConfig, false, null, 0, 0);
-    }
-
-    private void setupDisabledDummyServers(RabbitMQClientsConfig config, RabbitMQClientsBuildConfig buildConfig, String name) {
-        setupDummyServers(config, buildConfig, false, name, 0, 0);
     }
 
     private void setupDummyServers(RabbitMQClientsConfig config, RabbitMQClientsBuildConfig buildConfig, int number, int down) {
@@ -151,40 +147,39 @@ public class QuarkusRabbitmqReadyCheckTest {
 
     private void setupDummyServers(RabbitMQClientsConfig config, RabbitMQClientsBuildConfig buildConfig, boolean enabled,
             String name, int number, int down) {
-        RabbitMQClientConfig cfg;
-        RabbitMQClientBuildConfig buildCfg;
-        Runnable closeCallback;
-        if (name == null) {
-            cfg = newClientConfig();
-            buildCfg = newClientBuildConfig(enabled);
-            config.clients().put(RabbitMQClients.DEFAULT_CLIENT_NAME, cfg);
-            buildConfig.clients().put(RabbitMQClients.DEFAULT_CLIENT_NAME, buildCfg);
-            closeCallback = () -> {
-                config.clients().remove(RabbitMQClients.DEFAULT_CLIENT_NAME);
-                buildConfig.clients().remove(RabbitMQClients.DEFAULT_CLIENT_NAME);
-            };
-        } else {
-            cfg = newClientConfig();
-            buildCfg = newClientBuildConfig(enabled);
-            config.clients().put(name, cfg);
-            buildConfig.clients().put(name, buildCfg);
-            closeCallback = () -> {
-                config.clients().remove(name);
-                buildConfig.clients().remove(name);
-            };
-        }
+        String id = name == null ? RabbitMQClientsConfig.DEFAULT_CLIENT_NAME : name;
+        String configId = name == null ? RabbitMQClientsConfig.DEFAULT_CLIENT_NAME : name;
 
-        String hostName = "client-" + (name == null ? "" : name + "-") + "dummy-";
+        RabbitMQClientConfig cfg = newClientConfig(id);
+        RabbitMQClientBuildConfig buildCfg = newClientBuildConfig(id, enabled);
+        config.clients().put(name, cfg);
+        buildConfig.clients().put(name, buildCfg);
+        Runnable closeCallback = () -> {
+            config.clients().remove(configId);
+            buildConfig.clients().remove(configId);
+        };
+
+        RabbitMQClientParams params = new RabbitMQClientParams();
+        params.setConfig(cfg);
+        params.setId(id);
+        ((RabbitMQClientsImpl) clients).getClients().put(id, new RabbitMQClientImpl(params, new NoOpMetricsCollector()));
+
+        String hostName = "client-" + id + "-dummy-";
         for (int i = 0; i < number; i++) {
-            DummyServer ds = DummyServer.newDummyServer(name, closeCallback, i < down);
+            DummyServer ds = DummyServer.newDummyServer(id, closeCallback, i < down);
             cfg.addresses().put(hostName + i, addressFor(ds));
             dummyServers.add(ds);
         }
     }
 
-    private RabbitMQClientConfig newClientConfig() {
+    private RabbitMQClientConfig newClientConfig(String id) {
         return new RabbitMQClientConfig() {
             private final Map<String, Address> addresses = new HashMap<>();
+
+            @Override
+            public Optional<Boolean> enabled() {
+                return Optional.empty();
+            }
 
             @Override
             public Optional<String> uri() {
@@ -318,8 +313,18 @@ public class QuarkusRabbitmqReadyCheckTest {
         };
     }
 
-    private RabbitMQClientBuildConfig newClientBuildConfig(boolean enabled) {
-        return () -> enabled;
+    private RabbitMQClientBuildConfig newClientBuildConfig(String id, boolean enabled) {
+        return new RabbitMQClientBuildConfig() {
+            @Override
+            public Optional<String> id() {
+                return Optional.ofNullable(id);
+            }
+
+            @Override
+            public boolean clientEnabled() {
+                return enabled;
+            }
+        };
     }
 
     private RabbitMQClientConfig.Address addressFor(DummyServer ds) {

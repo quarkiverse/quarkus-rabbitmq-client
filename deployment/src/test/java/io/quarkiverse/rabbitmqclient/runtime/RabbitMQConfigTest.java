@@ -1,10 +1,12 @@
-package io.quarkiverse.rabbitmqclient;
+package io.quarkiverse.rabbitmqclient.runtime;
 
 import java.util.Properties;
 
 import org.junit.jupiter.api.Assertions;
 
 import com.rabbitmq.client.ConnectionFactoryConfigurator;
+
+import io.quarkiverse.rabbitmqclient.RabbitMQClientConfig;
 
 public abstract class RabbitMQConfigTest {
 

@@ -1,4 +1,4 @@
-package io.quarkiverse.rabbitmqclient;
+package io.quarkiverse.rabbitmqclient.runtime;
 
 import java.util.Properties;
 
@@ -9,6 +9,8 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import io.quarkiverse.rabbitmqclient.RabbitMQClientConfig;
+import io.quarkiverse.rabbitmqclient.RabbitMQClientsConfig;
 import io.quarkus.test.QuarkusUnitTest;
 
 public class QuarkusRabbitmqMinimalClientConfigTest extends RabbitMQConfigTest {
