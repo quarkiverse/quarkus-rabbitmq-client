@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.2.3-SNAPSHOT
+## 3.3.0
 
 ### Breaking Changes
 * `RabbitMQClients.getRabbitMQClient(String name, MetricsCollector mc)` has been removed due to stricter client creation. It is no longer possible to add a custom metrics collector. For metrics you should use `quarkus-micrometer`.
