@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.quarkiverse</groupId>
         <artifactId>quarkiverse-parent</artifactId>
-        <version>20</version>
+        <version>21</version>
     </parent>
     <groupId>io.quarkiverse.rabbitmqclient</groupId>
     <artifactId>quarkus-rabbitmq-client-parent</artifactId>
@@ -17,11 +17,11 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.parameters>true</maven.compiler.parameters>
-        <quarkus.version>3.31.1</quarkus.version>
+        <quarkus.version>3.32.1</quarkus.version>
         <compiler-plugin.version>3.11.0</compiler-plugin.version>
-        <surefire-plugin.version>3.5.4</surefire-plugin.version>
+        <surefire-plugin.version>3.5.5</surefire-plugin.version>
         <exec-plugin.version>3.6.3</exec-plugin.version>
-        <amqp-client.version>5.28.0</amqp-client.version>
+        <amqp-client.version>5.29.0</amqp-client.version>
     </properties>
     <scm>
         <connection>scm:git:git@github.com:quarkiverse/quarkus-rabbitmq-client.git</connection>
