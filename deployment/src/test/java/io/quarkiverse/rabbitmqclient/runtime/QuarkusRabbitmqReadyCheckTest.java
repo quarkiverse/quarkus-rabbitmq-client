@@ -19,14 +19,14 @@ import com.rabbitmq.client.NoOpMetricsCollector;
 import io.quarkiverse.rabbitmqclient.*;
 import io.quarkiverse.rabbitmqclient.util.DummyServer;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
-import io.quarkus.test.QuarkusUnitTest;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.QuarkusExtensionTest;
+import io.quarkus.test.common.WithTestResource;
 
-@QuarkusTestResource(RabbitMQTestContainer.class)
+@WithTestResource(RabbitMQTestContainer.class)
 public class QuarkusRabbitmqReadyCheckTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest unitTest = new QuarkusUnitTest() // Start unit test with your extension loaded
+    static final QuarkusExtensionTest unitTest = new QuarkusExtensionTest() // Start unit test with your extension loaded
             .setFlatClassPath(true)
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClasses(DummyServer.class)

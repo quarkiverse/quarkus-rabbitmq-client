@@ -27,6 +27,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.BytecodeTransformerBuildItem;
 import io.quarkus.deployment.builditem.ExecutorBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.LaunchModeBuildItem;
@@ -184,5 +185,13 @@ class QuarkusRabbitMQClientProcessor {
                     new IllegalArgumentException("RabbitMQ client id '" + RabbitMQClientsConfig.DEFAULT_CLIENT_NAME
                             + "' is reserved for the default client.")));
         }
+    }
+
+    @BuildStep
+    void fixAmqpClientClassLoader(BuildProducer<BytecodeTransformerBuildItem> bytecodeTransformers) {
+        bytecodeTransformers.produce(new BytecodeTransformerBuildItem.Builder()
+                .setClassToTransform("com.rabbitmq.client.ConnectionFactoryConfigurator")
+                .setVisitorFunction((ignored, visitor) -> new FixAmqpClientClassLoaderClassVisitor(visitor))
+                .build());
     }
 }
