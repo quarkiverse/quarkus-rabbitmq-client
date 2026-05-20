@@ -23,15 +23,14 @@ import com.rabbitmq.client.Connection;
 
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
 import io.quarkus.credentials.CredentialsProvider;
-import io.quarkus.test.QuarkusUnitTest;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.QuarkusExtensionTest;
+import io.quarkus.test.common.WithTestResource;
 
-@QuarkusTestResource(RabbitMQTestContainer.class)
+@WithTestResource(RabbitMQTestContainer.class)
 public class QuarkusRabbitMQCredentialsProviderRenewableTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest unitTest = new QuarkusUnitTest() // Start unit test with your extension loaded
-            .setFlatClassPath(true)
+    static final QuarkusExtensionTest unitTest = new QuarkusExtensionTest() // Start unit test with your extension loaded
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addAsResource(
                             QuarkusRabbitMQConnectionTest.class

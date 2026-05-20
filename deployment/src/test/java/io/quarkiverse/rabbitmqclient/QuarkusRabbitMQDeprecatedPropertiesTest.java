@@ -14,16 +14,15 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import com.rabbitmq.client.Connection;
 
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
-import io.quarkus.test.QuarkusUnitTest;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.QuarkusExtensionTest;
+import io.quarkus.test.common.WithTestResource;
 
-@QuarkusTestResource(RabbitMQTestContainer.class)
+@WithTestResource(RabbitMQTestContainer.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class QuarkusRabbitMQDeprecatedPropertiesTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest unitTest = new QuarkusUnitTest() // Start unit test with your extension loaded
-            .setFlatClassPath(true)
+    static final QuarkusExtensionTest unitTest = new QuarkusExtensionTest() // Start unit test with your extension loaded
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addAsResource(
                             QuarkusRabbitMQDeprecatedPropertiesTest.class

@@ -19,12 +19,12 @@ import io.quarkiverse.rabbitmqclient.util.DefaultClientService;
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.InjectableBean;
 import io.quarkus.arc.impl.ArcContainerImpl;
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkus.test.QuarkusExtensionTest;
 
 public class QuarkusRabbitMQOnlyDefaultClientTest extends RabbitMQConfigTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest unitTest = new QuarkusUnitTest() // Start unit test with your extension loaded
+    static final QuarkusExtensionTest unitTest = new QuarkusExtensionTest() // Start unit test with your extension loaded
             .setFlatClassPath(true)
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClasses(DefaultClientService.class)
