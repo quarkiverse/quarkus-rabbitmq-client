@@ -22,6 +22,7 @@
         <surefire-plugin.version>3.5.5</surefire-plugin.version>
         <exec-plugin.version>3.6.3</exec-plugin.version>
         <amqp-client.version>5.29.0</amqp-client.version>
+        <assertj.version>3.27.7</assertj.version>
     </properties>
     <scm>
         <connection>scm:git:git@github.com:quarkiverse/quarkus-rabbitmq-client.git</connection>
@@ -41,6 +42,11 @@
                 <version>${quarkus.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -77,6 +83,39 @@
             <modules>
                 <module>docs</module>
             </modules>
+        </profile>
+        <profile>
+            <id>integration-test</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>!true</value>
+                </property>
+            </activation>
+            <modules>
+                <module>integration-tests</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>native-surefire-skip</id>
+            <activation>
+                <property>
+                    <name>native.surefire.skip</name>
+                </property>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-plugin</artifactId>
+                            <configuration>
+                                <skip>true</skip>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
         </profile>
     </profiles>
 </project>

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Default;
@@ -19,6 +20,7 @@ import io.quarkiverse.rabbitmqclient.runtime.MetricsType;
 import io.quarkiverse.rabbitmqclient.runtime.RabbitMQHealthCheck;
 import io.quarkiverse.rabbitmqclient.runtime.RabbitMQRecorder;
 import io.quarkus.arc.BeanDestroyer;
+import io.quarkus.arc.SyntheticCreationalContext;
 import io.quarkus.arc.deployment.*;
 import io.quarkus.arc.processor.DotNames;
 import io.quarkus.deployment.Capabilities;
@@ -83,10 +85,8 @@ class QuarkusRabbitMQClientProcessor {
                     .setRuntimeInit()
                     .destroyer(BeanDestroyer.CloseableDestroyer.class)
                     .unremovable()
-                    .createWith(recorder.createClient(clientBuildItem.getConfigId(), clientBuildItem.getId(),
-                            launchModeBuildItem.getLaunchMode(), executorBuildItem.getExecutorProxy(),
-                            clientBuildItem.getMetricsType(),
-                            clientBuildItem.isDefaultClient()));
+                    .createWith(resolveCreator(recorder, clientBuildItem,
+                            launchModeBuildItem, executorBuildItem));
             if (clientBuildItem.getMetricsType() == MetricsType.OPEN_TELEMETRY) {
                 configurator.addInjectionPoint(ClassType.builder(OpenTelemetry.class).build());
             }
@@ -113,6 +113,25 @@ class QuarkusRabbitMQClientProcessor {
                 .createWith(recorder.initClients(defaultClientId))
                 .done());
 
+    }
+
+    private Function<SyntheticCreationalContext<RabbitMQClient>, RabbitMQClient> resolveCreator(RabbitMQRecorder recorder,
+            QuarkusRabbitMQClientBuildItem clientBuildItem,
+            LaunchModeBuildItem launchModeBuildItem,
+            ExecutorBuildItem executorBuildItem) {
+        return switch (clientBuildItem.getMetricsType()) {
+            case MICROMETER ->
+                recorder.createClientWithMicrometerMetrics(clientBuildItem.getConfigId(), clientBuildItem.getId(),
+                        launchModeBuildItem.getLaunchMode(), executorBuildItem.getExecutorProxy(),
+                        clientBuildItem.isDefaultClient());
+            case OPEN_TELEMETRY ->
+                recorder.createClientWithOpenTelemetryMetrics(clientBuildItem.getConfigId(), clientBuildItem.getId(),
+                        launchModeBuildItem.getLaunchMode(), executorBuildItem.getExecutorProxy(),
+                        clientBuildItem.isDefaultClient());
+            case NOOP -> recorder.createClientWithNoopMetrics(clientBuildItem.getConfigId(), clientBuildItem.getId(),
+                    launchModeBuildItem.getLaunchMode(), executorBuildItem.getExecutorProxy(),
+                    clientBuildItem.isDefaultClient());
+        };
     }
 
     private MetricsType getMetricsType(RabbitMQClientsBuildConfig clients,
