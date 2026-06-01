@@ -8,7 +8,6 @@ import java.util.function.Function;
 import jakarta.enterprise.inject.Instance;
 import jakarta.enterprise.util.TypeLiteral;
 
-import com.rabbitmq.client.MetricsCollector;
 import com.rabbitmq.client.NoOpMetricsCollector;
 
 import io.opentelemetry.api.OpenTelemetry;
@@ -41,10 +40,9 @@ public class RabbitMQRecorder {
         };
     }
 
-    public Function<SyntheticCreationalContext<RabbitMQClient>, RabbitMQClient> createClient(String configId, String id,
-            LaunchMode launchMode,
-            ExecutorService executorService,
-            MetricsType metricsType, boolean isDefault) {
+    // RUNTIME INIT
+    public Function<SyntheticCreationalContext<RabbitMQClient>, RabbitMQClient> createClientWithNoopMetrics(String configId,
+            String id, LaunchMode launchMode, ExecutorService executorService, boolean isDefault) {
         return ctx -> {
             RabbitMQClientParams params = new RabbitMQClientParams();
             params.setId(id);
@@ -53,17 +51,39 @@ public class RabbitMQRecorder {
             params.setConfig(this.config.getValue().clients().get(configId));
             params.setDefault(isDefault);
 
-            return new RabbitMQClientImpl(params, createMetricsCollector(ctx, metricsType, Map.of("name", id)));
+            return new RabbitMQClientImpl(params, new NoOpMetricsCollector());
         };
     }
 
-    private MetricsCollector createMetricsCollector(SyntheticCreationalContext<RabbitMQClient> ctx, MetricsType type,
-            Map<String, String> metricsTags) {
-        return switch (type) {
-            case MICROMETER -> new QuarkusMicrometerMetricsCollector(metricsTags);
-            case OPEN_TELEMETRY ->
-                new QuarkusOpenTelemetryMetricsCollector(ctx.getInjectedReference(OpenTelemetry.class), metricsTags);
-            case NOOP -> new NoOpMetricsCollector();
+    // RUNTIME INIT
+    public Function<SyntheticCreationalContext<RabbitMQClient>, RabbitMQClient> createClientWithMicrometerMetrics(
+            String configId, String id, LaunchMode launchMode, ExecutorService executorService,
+            boolean isDefault) {
+        return ctx -> {
+            RabbitMQClientParams params = new RabbitMQClientParams();
+            params.setId(id);
+            params.setExecutorService(executorService);
+            params.setLaunchMode(launchMode);
+            params.setConfig(this.config.getValue().clients().get(configId));
+            params.setDefault(isDefault);
+
+            return new RabbitMQClientImpl(params, new QuarkusMicrometerMetricsCollector(Map.of("name", id)));
+        };
+    }
+
+    // RUNTIME INIT
+    public Function<SyntheticCreationalContext<RabbitMQClient>, RabbitMQClient> createClientWithOpenTelemetryMetrics(
+            String configId, String id, LaunchMode launchMode, ExecutorService executorService,
+            boolean isDefault) {
+        return ctx -> {
+            RabbitMQClientParams params = new RabbitMQClientParams();
+            params.setId(id);
+            params.setExecutorService(executorService);
+            params.setLaunchMode(launchMode);
+            params.setConfig(this.config.getValue().clients().get(configId));
+            params.setDefault(isDefault);
+            return new RabbitMQClientImpl(params, new QuarkusOpenTelemetryMetricsCollector(
+                    ctx.getInjectedReference(OpenTelemetry.class), Map.of("name", id)));
         };
     }
 }
