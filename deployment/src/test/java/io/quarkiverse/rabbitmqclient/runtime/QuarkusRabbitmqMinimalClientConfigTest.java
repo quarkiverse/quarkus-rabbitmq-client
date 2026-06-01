@@ -1,4 +1,4 @@
-package io.quarkiverse.rabbitmqclient;
+package io.quarkiverse.rabbitmqclient.runtime;
 
 import java.util.Properties;
 
@@ -9,12 +9,14 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import io.quarkus.test.QuarkusUnitTest;
+import io.quarkiverse.rabbitmqclient.RabbitMQClientConfig;
+import io.quarkiverse.rabbitmqclient.RabbitMQClientsConfig;
+import io.quarkus.test.QuarkusExtensionTest;
 
 public class QuarkusRabbitmqMinimalClientConfigTest extends RabbitMQConfigTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest unitTest = new QuarkusUnitTest() // Start unit test with your extension loaded
+    static final QuarkusExtensionTest unitTest = new QuarkusExtensionTest() // Start unit test with your extension loaded
             .setFlatClassPath(true)
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addAsResource(QuarkusRabbitmqMinimalClientConfigTest.class.getResource("/minimal-properties.properties"),

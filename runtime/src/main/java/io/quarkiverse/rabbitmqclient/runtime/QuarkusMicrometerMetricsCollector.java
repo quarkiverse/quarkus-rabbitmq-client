@@ -8,7 +8,7 @@ import com.rabbitmq.client.impl.MicrometerMetricsCollector;
 
 import io.micrometer.core.instrument.Tag;
 
-class QuarkusMicrometerMetricsCollector extends MicrometerMetricsCollector {
+public class QuarkusMicrometerMetricsCollector extends MicrometerMetricsCollector {
 
     private static final String PREFIX = "rabbitmq";
 

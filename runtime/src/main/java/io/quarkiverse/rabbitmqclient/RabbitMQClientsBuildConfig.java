@@ -2,7 +2,10 @@ package io.quarkiverse.rabbitmqclient;
 
 import java.util.Map;
 
-import io.quarkus.runtime.annotations.*;
+import io.quarkus.runtime.annotations.ConfigDocMapKey;
+import io.quarkus.runtime.annotations.ConfigDocSection;
+import io.quarkus.runtime.annotations.ConfigPhase;
+import io.quarkus.runtime.annotations.ConfigRoot;
 import io.smallrye.config.*;
 
 /**
@@ -20,7 +23,7 @@ public interface RabbitMQClientsBuildConfig {
     @ConfigDocSection
     @ConfigDocMapKey("client-name")
     @WithParentName
-    @WithUnnamedKey(RabbitMQClients.DEFAULT_CLIENT_NAME)
+    @WithUnnamedKey(RabbitMQClientsConfig.DEFAULT_CLIENT_NAME)
     Map<String, RabbitMQClientBuildConfig> clients();
 
     /**
@@ -36,5 +39,9 @@ public interface RabbitMQClientsBuildConfig {
     @WithName("metrics.enabled")
     @WithDefault("true")
     boolean metricsEnabled();
+
+    static RabbitMQClientBuildConfig getDefaultClient(RabbitMQClientsBuildConfig config) {
+        return config.clients().get(RabbitMQClientsConfig.DEFAULT_CLIENT_NAME);
+    }
 
 }

@@ -1,12 +1,16 @@
-package io.quarkiverse.rabbitmqclient;
+package io.quarkiverse.rabbitmqclient.runtime;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import com.rabbitmq.client.*;
 import com.rabbitmq.client.impl.DefaultCredentialsRefreshService;
 
-import io.quarkiverse.rabbitmqclient.runtime.CredentialsProviderLink;
+import io.quarkiverse.rabbitmqclient.RabbitMQClientConfig;
+import io.quarkiverse.rabbitmqclient.RabbitMQClientException;
 import io.quarkus.credentials.CredentialsProvider;
 import io.quarkus.credentials.runtime.CredentialsProviderFinder;
 

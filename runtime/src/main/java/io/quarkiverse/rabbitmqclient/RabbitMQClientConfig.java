@@ -16,6 +16,11 @@ import io.smallrye.config.WithDefault;
 @ConfigGroup
 public interface RabbitMQClientConfig {
 
+    @ConfigDocIgnore
+    @WithDefault("true")
+    @Deprecated(forRemoval = true, since = "3.3.0")
+    Optional<Boolean> enabled();
+
     /**
      * URI for connecting, formatted as amqp://userName:password@hostName:portNumber/virtualHost
      */

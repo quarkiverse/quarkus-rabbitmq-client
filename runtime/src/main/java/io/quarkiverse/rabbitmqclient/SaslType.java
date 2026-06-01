@@ -7,13 +7,13 @@ public enum SaslType {
     PLAIN(DefaultSaslConfig.PLAIN),
     EXTERNAL(DefaultSaslConfig.EXTERNAL);
 
-    private SaslConfig saslConfig;
+    private final SaslConfig saslConfig;
 
     SaslType(SaslConfig saslConfig) {
         this.saslConfig = saslConfig;
     }
 
-    SaslConfig getSaslConfig() {
+    public SaslConfig getSaslConfig() {
         return saslConfig;
     }
 }

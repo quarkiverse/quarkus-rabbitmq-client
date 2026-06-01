@@ -15,20 +15,19 @@ import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestContainer;
 import io.quarkiverse.rabbitmqclient.util.RabbitMQTestHelper;
-import io.quarkus.test.QuarkusUnitTest;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.QuarkusExtensionTest;
+import io.quarkus.test.common.WithTestResource;
 
-@QuarkusTestResource(RabbitMQTestContainer.class)
+@WithTestResource(RabbitMQTestContainer.class)
 public class QuarkusRabbitMQMicrometerMetricsTest {
 
     @RegisterExtension
-    static final QuarkusUnitTest unitTest = new QuarkusUnitTest() // Start unit test with your extension loaded
-            .setFlatClassPath(true)
+    static final QuarkusExtensionTest unitTest = new QuarkusExtensionTest() // Start unit test with your extension loaded
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClasses(RabbitMQTestHelper.class)
                     .addAsResource(
                             QuarkusRabbitMQMicrometerMetricsTest.class
-                                    .getResource("/rabbitmq/rabbitmq-properties.properties"),
+                                    .getResource("/rabbitmq/rabbitmq-micrometer-properties.properties"),
                             "application.properties")
                     .addAsResource(
                             QuarkusRabbitMQMicrometerMetricsTest.class.getResource("/rabbitmq/ca/cacerts.jks"),
@@ -88,16 +87,16 @@ public class QuarkusRabbitMQMicrometerMetricsTest {
         Assertions.assertTrue(cdl1.await(5, TimeUnit.SECONDS));
         Assertions.assertTrue(cdl2.await(5, TimeUnit.SECONDS));
 
-        Assertions.assertEquals(1, registry.find("rabbitmq.consumed").tags("name", "<default>").counters().size());
+        Assertions.assertEquals(1, registry.find("rabbitmq.consumed").tags("name", "default").counters().size());
         Assertions.assertEquals(5.0,
-                registry.find("rabbitmq.consumed").tags("name", "<default>").counters().iterator().next().count());
+                registry.find("rabbitmq.consumed").tags("name", "default").counters().iterator().next().count());
         Assertions.assertEquals(1, registry.find("rabbitmq.consumed").tag("name", "ssl").counters().size());
         Assertions.assertEquals(5.0,
                 registry.find("rabbitmq.consumed").tag("name", "ssl").counters().iterator().next().count());
 
-        Assertions.assertEquals(1, registry.find("rabbitmq.connections").tags("name", "<default>").gauges().size());
+        Assertions.assertEquals(1, registry.find("rabbitmq.connections").tags("name", "default").gauges().size());
         Assertions.assertEquals(1.0,
-                registry.find("rabbitmq.connections").tags("name", "<default>").gauges().iterator().next().value());
+                registry.find("rabbitmq.connections").tags("name", "default").gauges().iterator().next().value());
         Assertions.assertEquals(1, registry.find("rabbitmq.connections").tag("name", "ssl").gauges().size());
         Assertions.assertEquals(1.0,
                 registry.find("rabbitmq.connections").tag("name", "ssl").gauges().iterator().next().value());

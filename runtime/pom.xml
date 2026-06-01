@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.quarkiverse.rabbitmqclient</groupId>
         <artifactId>quarkus-rabbitmq-client-parent</artifactId>
-        <version>3.2.3-SNAPSHOT</version>
+        <version>3.3.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>quarkus-rabbitmq-client</artifactId>
@@ -27,12 +27,12 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-smallrye-metrics</artifactId>
+            <artifactId>quarkus-micrometer</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-micrometer</artifactId>
+            <artifactId>quarkus-opentelemetry</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
