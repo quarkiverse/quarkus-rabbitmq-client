@@ -68,7 +68,7 @@ class FixAmqpClientClassLoaderClassVisitor extends ClassVisitor {
         methodVisitor.visitEnd();
     }
 
-    // the method implementation as reference for ASM
+    // the method implementation as reference for ASM listed above
     private static InputStream loadResource(
             String location) throws FileNotFoundException {
 
