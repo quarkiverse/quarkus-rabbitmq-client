@@ -1,5 +1,5 @@
 = Quarkus RabbitMQ Client
-:extension-status: preview
+:extension-status: stable
 
 include::./includes/attributes.adoc[]
 
@@ -18,6 +18,21 @@ In your `pom.xml` file, add:
     <version>{quarkus-rabbitmq-client-version}</version>
 </dependency>
 ----
+
+[[compatibility]]
+== Compatibility
+
+Pick the extension version matching the Quarkus stream your application uses. Each supported stream has its own documentation version, selectable in the version picker.
+
+[cols="1,1,1,1,1"]
+|===
+|Extension |Quarkus |Java |Branch |Status
+
+|4.0.x |4.x |21+ |`main` |Development
+|3.4.x |3.40 LTS |17+ |`3.40.x` |Maintained
+|3.3.x |3.33 LTS |17+ |`3.33.x` |Maintained
+|3.2.x and older |3.28 and older |11+ / 17+ |- |End of life
+|===
 
 == Migration
 When updating to a new version of the extension always make sure you check out the https://github.com/quarkiverse/quarkus-rabbitmq-client/blob/main/CHANGELOG.md[changelog]

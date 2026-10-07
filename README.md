@@ -9,7 +9,16 @@ access to the connection but have to manage the channels. If you are looking for
 
 ## Documentation
 
-The documentation for this extension can be found [here](https://quarkiverse.github.io/quarkiverse-docs/quarkus-rabbitmq-client/dev/index.html) while the documentation for the RabbitMQ client itself is in the official [documentation](https://www.rabbitmq.com/java-client.html). When updating see the [changelog](CHANGELOG.md) for any migration notes.
+The documentation for this extension can be found [here](https://docs.quarkiverse.io/quarkus-rabbitmq-client/dev/index.html) while the documentation for the RabbitMQ client itself is in the official [documentation](https://www.rabbitmq.com/java-client.html). When updating see the [changelog](CHANGELOG.md) for any migration notes.
+
+## Compatibility
+
+| Extension        | Quarkus        | Java      | Branch   | Status      |
+|------------------|----------------|-----------|----------|-------------|
+| 4.0.x            | 4.x            | 21+       | `main`   | Development |
+| 3.4.x            | 3.40 LTS       | 17+       | `3.40.x` | Maintained  |
+| 3.3.x            | 3.33 LTS       | 17+       | `3.33.x` | Maintained  |
+| 3.2.x and older  | 3.28 and older | 11+ / 17+ | -        | End of life |
 
 ## License
 This extension is licensed under the Apache License 2.0.
