@@ -1,14 +1,73 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+# Dependabot only reads this file from the default branch (main).
+# Maintenance (LTS) branches are covered through target-branch entries below.
+# See https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
 
 version: 2
 updates:
+  # main: Quarkus patch-only (minor bumps are deliberate, see latest-quarkus workflow), everything else free
   - package-ecosystem: "maven"
     directory: "/"
+    target-branch: "main"
     schedule:
       interval: "daily"
-    target-branch: "main"
+    cooldown:
+      default-days: 3
     ignore:
-      - dependency-name: "org.apache.maven.plugins:maven-compiler-plugin"
+      - dependency-name: "io.quarkus:*"
+        update-types: [ "version-update:semver-major", "version-update:semver-minor" ]
+
+  # LTS branches: patch-only for everything, which also pins quarkiverse-parent
+  - package-ecosystem: "maven"
+    directory: "/"
+    target-branch: "3.40.x"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 3
+    ignore:
+      - dependency-name: "*"
+        update-types: [ "version-update:semver-major", "version-update:semver-minor" ]
+
+  - package-ecosystem: "maven"
+    directory: "/"
+    target-branch: "3.33.x"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 3
+    ignore:
+      - dependency-name: "*"
+        update-types: [ "version-update:semver-major", "version-update:semver-minor" ]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "main"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns: [ "*" ]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "3.40.x"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns: [ "*" ]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "3.33.x"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns: [ "*" ]
