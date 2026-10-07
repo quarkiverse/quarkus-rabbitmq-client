@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.quarkiverse</groupId>
         <artifactId>quarkiverse-parent</artifactId>
-        <version>25</version>
+        <version>26</version>
     </parent>
     <groupId>io.quarkiverse.rabbitmqclient</groupId>
     <artifactId>quarkus-rabbitmq-client-parent</artifactId>
@@ -14,11 +14,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.release>21</maven.compiler.release>
-        <maven.compiler.parameters>true</maven.compiler.parameters>
         <quarkus.version>4.0.0.Beta1</quarkus.version>
-        <compiler-plugin.version>3.16.0</compiler-plugin.version>
-        <surefire-plugin.version>3.6.0</surefire-plugin.version>
         <exec-plugin.version>3.6.4</exec-plugin.version>
         <amqp-client.version>5.37.0</amqp-client.version>
         <assertj.version>3.27.7</assertj.version>
@@ -52,16 +48,6 @@
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${compiler-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${surefire-plugin.version}</version>
-                </plugin>
                 <plugin>
                     <groupId>io.quarkus</groupId>
                     <artifactId>quarkus-config-doc-maven-plugin</artifactId>
