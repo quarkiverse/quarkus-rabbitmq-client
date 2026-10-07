@@ -27,9 +27,17 @@ jobs:
         id: resolve
         run: |
           PINNED=$(sed -n 's:.*<quarkus.version>\(.*\)</quarkus.version>.*:\1:p' pom.xml | head -1)
+          if [[ -z "${PINNED}" ]]; then
+            echo "::error::Could not read <quarkus.version> from pom.xml"
+            exit 1
+          fi
           MAJOR=${PINNED%%.*}
-          LATEST=$(curl -fsSL https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/maven-metadata.xml \
-            | grep -oE "<version>${MAJOR}\.[0-9]+\.[0-9]+</version>" \
+          METADATA=$(curl -fsSL https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/maven-metadata.xml) || {
+            echo "::error::Could not download Quarkus BOM metadata from Maven Central"
+            exit 1
+          }
+          # grep exits 1 when no final release of this major exists yet; that is not an error
+          LATEST=$( { grep -oE "<version>${MAJOR}\.[0-9]+\.[0-9]+</version>" <<< "${METADATA}" || true; } \
             | sed -E 's:</?version>::g' \
             | sort -V | tail -1)
           echo "Pinned: ${PINNED}, latest final ${MAJOR}.x: ${LATEST:-none}"
