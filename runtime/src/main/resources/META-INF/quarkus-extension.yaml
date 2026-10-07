@@ -6,4 +6,4 @@ metadata:
     - "rabbitmq"
   categories:
     - "messaging"
-  status: "experimental"
+  status: "stable"
