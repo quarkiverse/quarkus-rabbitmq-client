@@ -4,24 +4,23 @@
     <parent>
         <groupId>io.quarkiverse</groupId>
         <artifactId>quarkiverse-parent</artifactId>
-        <version>23</version>
+        <version>25</version>
     </parent>
     <groupId>io.quarkiverse.rabbitmqclient</groupId>
     <artifactId>quarkus-rabbitmq-client-parent</artifactId>
-    <version>3.4.1-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
     <name>Quarkus RabbitMQ Client - Parent</name>
     <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>21</maven.compiler.release>
         <maven.compiler.parameters>true</maven.compiler.parameters>
-        <quarkus.version>3.40.1</quarkus.version>
-        <compiler-plugin.version>3.11.0</compiler-plugin.version>
+        <quarkus.version>4.0.0.Beta1</quarkus.version>
+        <compiler-plugin.version>3.16.0</compiler-plugin.version>
         <surefire-plugin.version>3.6.0</surefire-plugin.version>
         <exec-plugin.version>3.6.4</exec-plugin.version>
-        <amqp-client.version>5.36.0</amqp-client.version>
+        <amqp-client.version>5.37.0</amqp-client.version>
         <assertj.version>3.27.7</assertj.version>
     </properties>
     <scm>
