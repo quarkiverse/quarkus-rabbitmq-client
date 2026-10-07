@@ -4,7 +4,8 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END --> 
 [![version](https://img.shields.io/maven-central/v/io.quarkiverse.rabbitmqclient/quarkus-rabbitmq-client-parent?logo=apache-maven&style=flat-square)](https://repo1.maven.org/maven2/io/quarkiverse/rabbitmqclient/)
 
-Quarkus RabbitMQ client is an extension to connect to the [RabbitMQ](https://www.rabbitmq.com/) message broker. It enables the use of the [RabbitMQ client library]() in both JVM and native executables.
+Quarkus RabbitMQ client is an extension to connect to the [RabbitMQ](https://www.rabbitmq.com/) message broker. It enables the use of the [RabbitMQ client library]() in both JVM and native executables in a low level way. You have direct
+access to the connection but have to manage the channels. If you are looking for a more high level concept of messaging [Quarkus Reactive Messaging](https://quarkus.io/guides/messaging/) is probably what you are looking for.
 
 ## Documentation
 
