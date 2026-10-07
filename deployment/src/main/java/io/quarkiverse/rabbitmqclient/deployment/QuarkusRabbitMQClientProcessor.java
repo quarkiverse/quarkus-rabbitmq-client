@@ -156,9 +156,10 @@ class QuarkusRabbitMQClientProcessor {
 
         MetricsType metricsType = getMetricsType(clients, metricsCapability, openTelemetrySdkBuildItem);
 
-        boolean clientEnabled = QuarkusRabbitMQClientDeprecatedProperties.clientEnabled(null);
-        if (clientEnabled) {
-            String id = Optional.ofNullable(RabbitMQClientsBuildConfig.getDefaultClient(clients))
+        Optional<RabbitMQClientBuildConfig> defaultClient = Optional
+                .ofNullable(RabbitMQClientsBuildConfig.getDefaultClient(clients));
+        if (defaultClient.map(RabbitMQClientBuildConfig::clientEnabled).orElse(true)) {
+            String id = defaultClient
                     .flatMap(RabbitMQClientBuildConfig::id)
                     .orElse(RabbitMQClientsConfig.DEFAULT_CLIENT_NAME);
             clientName
@@ -171,7 +172,9 @@ class QuarkusRabbitMQClientProcessor {
         for (AnnotationInstance annotation : clientAnnotations) {
             String id = annotation.value().asString();
             String name = resolveConfigName(id, clients);
-            clientEnabled = QuarkusRabbitMQClientDeprecatedProperties.clientEnabled(name);
+            boolean clientEnabled = Optional.ofNullable(clients.clients().get(name))
+                    .map(RabbitMQClientBuildConfig::clientEnabled)
+                    .orElse(true);
             if (clientEnabled) {
                 clientName.produce(new QuarkusRabbitMQClientBuildItem(name, id, metricsType, false));
             }

@@ -177,11 +177,6 @@ public class QuarkusRabbitmqReadyCheckTest {
             private final Map<String, Address> addresses = new HashMap<>();
 
             @Override
-            public Optional<Boolean> enabled() {
-                return Optional.empty();
-            }
-
-            @Override
             public Optional<String> uri() {
                 return Optional.empty();
             }
