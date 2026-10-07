@@ -20,6 +20,7 @@ import com.rabbitmq.client.Address;
 import io.quarkiverse.rabbitmqclient.RabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClientConfig;
 import io.quarkiverse.rabbitmqclient.RabbitMQClients;
+import io.quarkus.arc.ClientProxy;
 
 /**
  * RabbitMQ ready check which checks if at least one of the configured brokers is available.
@@ -68,13 +69,11 @@ public class RabbitMQHealthCheck implements HealthCheck {
     }
 
     private RabbitMQClientConfig resolveConfig(String id) {
-        for (RabbitMQClient client : ((RabbitMQClientsImpl) clients).getClients().values()) {
-            RabbitMQClientImpl ci = (RabbitMQClientImpl) client;
-            if (ci.getId().equals(id)) {
-                return ci.getConfig();
-            }
+        RabbitMQClient client = clients.getClient(id);
+        if (client == null) {
+            throw new IllegalStateException("Could not find RabbitMQClientConfig for id: " + id);
         }
-        throw new IllegalStateException("Could not find RabbitMQClientConfig for id: " + id);
+        return ((RabbitMQClientImpl) ClientProxy.unwrap(client)).getConfig();
     }
 
     private void appendClientState(Map<String, List<ClientStatus>> data, String name, RabbitMQClientConfig config) {
