@@ -25,19 +25,4 @@ public interface RabbitMQClients {
      * @return a list of client ids
      */
     List<String> getClientIds();
-
-    /**
-     * Gets a named {@link RabbitMQClient}.
-     *
-     * @param name the name of the rabbit mq client, if null the default is assumed.
-     * @return a configured {@link RabbitMQClient}.
-     * @deprecated use {@link #getClient(String)} instead.
-     */
-    @Deprecated(forRemoval = true, since = "3.3.0")
-    default RabbitMQClient getRabbitMQClient(String name) {
-        if (name == null) {
-            return getClient();
-        }
-        return getClient(name);
-    }
 }
