@@ -1,0 +1,54 @@
+name: Build against latest Quarkus release
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    name: Build against latest Quarkus release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - name: Resolve latest Quarkus release for the current major
+        id: resolve
+        run: |
+          PINNED=$(sed -n 's:.*<quarkus.version>\(.*\)</quarkus.version>.*:\1:p' pom.xml | head -1)
+          MAJOR=${PINNED%%.*}
+          LATEST=$(curl -fsSL https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/maven-metadata.xml \
+            | grep -oE "<version>${MAJOR}\.[0-9]+\.[0-9]+</version>" \
+            | sed -E 's:</?version>::g' \
+            | sort -V | tail -1)
+          echo "Pinned: ${PINNED}, latest final ${MAJOR}.x: ${LATEST:-none}"
+          echo "pinned=${PINNED}" >> "$GITHUB_OUTPUT"
+          echo "latest=${LATEST}" >> "$GITHUB_OUTPUT"
+          if [[ -z "${LATEST}" || "${LATEST}" == "${PINNED}" ]]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up JDK 21
+        if: steps.resolve.outputs.skip == 'false'
+        uses: actions/setup-java@v6.0.1
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+
+      - name: Build with Maven against Quarkus ${{ steps.resolve.outputs.latest }}
+        if: steps.resolve.outputs.skip == 'false'
+        run: ./mvnw -B clean verify -Dquarkus.version=${{ steps.resolve.outputs.latest }}
