@@ -15,6 +15,15 @@
 * Upgraded the RabbitMQ Java client (`com.rabbitmq:amqp-client`) to 5.37.0.
 * Extension status changed from `experimental` to `stable`.
 
+## 3.4.1
+
+Maintenance release for Quarkus 3.40 LTS, maintained on the `3.40.x` branch.
+
+### Non-Breaking Changes
+* Built against Quarkus 3.40.1 LTS.
+* Upgraded the RabbitMQ Java client (`com.rabbitmq:amqp-client`) to 5.36.0.
+* Extension status changed from `experimental` to `stable`.
+
 ## 3.4.0
 
 ### Non-Breaking Changes
@@ -22,6 +31,16 @@
 * Fixed [#358](https://github.com/quarkiverse/quarkus-rabbitmq-client/issues/358): native build failure introduced in 3.3.0. Native integration tests were added to prevent regressions.
 * `classpath:` resources referenced in the client configuration (e.g. TLS key and trust stores) are now loaded through the thread context class loader, fixing resource lookups with newer Quarkus class loading.
 * Built against Quarkus 3.37.4 and RabbitMQ Java client 5.34.0.
+
+## 3.3.1
+
+Maintenance release for Quarkus 3.33 LTS, maintained on the `3.33.x` branch.
+
+### Non-Breaking Changes
+* Built against Quarkus 3.33.4 LTS.
+* Backported from 3.4.0: fixed [#364](https://github.com/quarkiverse/quarkus-rabbitmq-client/issues/364), health check failed with a `ClassCastException` because the injected client proxy was not unwrapped.
+* Backported from 3.4.0: fixed [#358](https://github.com/quarkiverse/quarkus-rabbitmq-client/issues/358), native build failure introduced in 3.3.0.
+* Extension status changed from `experimental` to `stable`.
 
 ## 3.3.0
 
