@@ -3,7 +3,7 @@
 
 include::./includes/attributes.adoc[]
 
-RabbitMQ is a popular message broker. This Quarkus extension provides a client for RabbitMQ which is configurable using the `application.properties`.
+RabbitMQ is a popular message broker. This Quarkus extension provides a low level client for RabbitMQ which is configurable using the `application.properties`. If you are looking for a more high level concept of messaging https://quarkus.io/guides/messaging/[Quarkus Reactive Messaging] is probably what you are looking for.
 
 == Installation
 
