@@ -4,13 +4,8 @@ on:
   push:
     branches:
       - "main"
-      - "feature/**"
-      - "1.x"
-      - "2.x"
-      - "3.2.x"
-      - "3.8.x"
+      - "[0-9]+.[0-9]+.x"
     paths-ignore:
-      - '.github'
       - '.gitignore'
       - 'CODEOWNERS'
       - 'LICENSE'
@@ -18,9 +13,9 @@ on:
       - '*.adoc'
       - '*.txt'
       - '.all-contributorsrc'
+      - '.github/project.yml'
   pull_request:
     paths-ignore:
-      - '.github'
       - '.gitignore'
       - 'CODEOWNERS'
       - 'LICENSE'
@@ -28,32 +23,56 @@ on:
       - '*.adoc'
       - '*.txt'
       - '.all-contributorsrc'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
   build:
-    name: Build on ${{ matrix.os }}
+    name: Build on ${{ matrix.os }} - ${{ matrix.java }}
     strategy:
       fail-fast: false
       matrix:
-#        os: [windows-latest, macos-latest, ubuntu-latest]
-        os: [ubuntu-latest]
+        os: [ ubuntu-latest ]
+        java: [ 17, 21, 25 ]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Prepare git
-        run: git config --global core.autocrlf false
-        if: startsWith(matrix.os, 'windows')
+      - uses: actions/checkout@v7.0.1
 
-      - uses: actions/checkout@v4
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v6.0.1
         with:
           distribution: temurin
-          java-version: 17
-          cache: 'maven'
+          java-version: ${{ matrix.java }}
+          cache: maven
 
       - name: Build with Maven
-        run: mvn -B clean verify -Dno-format
+        run: ./mvnw -B formatter:validate impsort:check clean verify
+
+  native-build:
+    name: Build native on ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v6.0.1
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
 
       - name: Build with Maven (Native)
-        run: mvn -B verify -Dnative -Dquarkus.native.container-build -Dnative.surefire.skip
-
+        run: ./mvnw -B clean verify -Dnative -Dquarkus.native.container-build -Dnative.surefire.skip
