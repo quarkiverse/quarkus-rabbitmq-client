@@ -12,16 +12,17 @@ import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Singleton;
 
 import org.jboss.jandex.*;
-import org.jboss.logging.Logger;
 
 import io.opentelemetry.api.OpenTelemetry;
 import io.quarkiverse.rabbitmqclient.*;
 import io.quarkiverse.rabbitmqclient.runtime.MetricsType;
 import io.quarkiverse.rabbitmqclient.runtime.RabbitMQHealthCheck;
 import io.quarkiverse.rabbitmqclient.runtime.RabbitMQRecorder;
-import io.quarkus.arc.BeanDestroyer;
 import io.quarkus.arc.SyntheticCreationalContext;
-import io.quarkus.arc.deployment.*;
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
+import io.quarkus.arc.deployment.BeanArchiveIndexBuildItem;
+import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
+import io.quarkus.arc.deployment.ValidationPhaseBuildItem;
 import io.quarkus.arc.processor.DotNames;
 import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.Capability;
@@ -29,10 +30,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
-import io.quarkus.deployment.builditem.BytecodeTransformerBuildItem;
-import io.quarkus.deployment.builditem.ExecutorBuildItem;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.LaunchModeBuildItem;
+import io.quarkus.deployment.builditem.*;
 import io.quarkus.deployment.metrics.MetricsCapabilityBuildItem;
 import io.quarkus.runtime.metrics.MetricsFactory;
 import io.quarkus.smallrye.health.deployment.spi.HealthBuildItem;
@@ -43,8 +41,6 @@ import io.quarkus.smallrye.health.deployment.spi.HealthBuildItem;
  * @author b.passon
  */
 class QuarkusRabbitMQClientProcessor {
-
-    private static final Logger LOG = Logger.getLogger(QuarkusRabbitMQClientProcessor.class);
 
     private static final String FEATURE = "rabbitmq-client";
     private static final DotName NAMED_RABBITMQ_CLIENT_ANNOTATION = DotName
@@ -83,7 +79,7 @@ class QuarkusRabbitMQClientProcessor {
                     .types(RabbitMQClient.class)
                     .scope(ApplicationScoped.class)
                     .setRuntimeInit()
-                    .destroyer(BeanDestroyer.CloseableDestroyer.class)
+                    .autoClose(true)
                     .unremovable()
                     .createWith(resolveCreator(recorder, clientBuildItem,
                             launchModeBuildItem, executorBuildItem));
