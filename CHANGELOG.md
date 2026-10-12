@@ -1,6 +1,6 @@
 # Changelog
 
-## 4.0.0
+## 4.0.0.Beta1
 
 ### Breaking Changes
 * Requires Quarkus 4. Applications on Quarkus 3 should stay on 3.4.x (Quarkus 3.40 LTS) or 3.3.x (Quarkus 3.33 LTS), see the compatibility table in the README or documentation.
