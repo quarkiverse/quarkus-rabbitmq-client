@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
 import java.util.function.Function;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -35,6 +36,7 @@ import io.quarkus.deployment.builditem.LaunchModeBuildItem;
 import io.quarkus.deployment.metrics.MetricsCapabilityBuildItem;
 import io.quarkus.runtime.metrics.MetricsFactory;
 import io.quarkus.smallrye.health.deployment.spi.HealthBuildItem;
+import io.quarkus.virtual.threads.VirtualThreads;
 
 /**
  * RabbitMQ client processor.
@@ -85,7 +87,9 @@ class QuarkusRabbitMQClientProcessor {
                     .destroyer(BeanDestroyer.CloseableDestroyer.class)
                     .unremovable()
                     .createWith(resolveCreator(recorder, clientBuildItem,
-                            launchModeBuildItem, executorBuildItem));
+                            launchModeBuildItem, executorBuildItem))
+                    .addInjectionPoint(ClassType.create(ExecutorService.class),
+                            AnnotationInstance.builder(VirtualThreads.class).build());
             if (clientBuildItem.getMetricsType() == MetricsType.OPEN_TELEMETRY) {
                 configurator.addInjectionPoint(ClassType.builder(OpenTelemetry.class).build());
             }
