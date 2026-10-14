@@ -40,6 +40,10 @@
             <artifactId>quarkus-smallrye-context-propagation</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-virtual-threads</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.rabbitmq</groupId>
             <artifactId>amqp-client</artifactId>
             <version>${amqp-client.version}</version>

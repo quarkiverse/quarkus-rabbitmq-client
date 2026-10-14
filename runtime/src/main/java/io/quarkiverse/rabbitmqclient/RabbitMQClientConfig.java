@@ -7,6 +7,7 @@ import com.rabbitmq.client.ConnectionFactory;
 
 import io.quarkus.runtime.annotations.*;
 import io.smallrye.config.WithDefault;
+import io.smallrye.config.WithName;
 
 /**
  * RabbitMQ client configuration.
@@ -169,6 +170,15 @@ public interface RabbitMQClientConfig {
      */
     @WithDefault("plain")
     SaslType sasl();
+
+    /**
+     * Dispatch consumer deliveries on virtual threads, using the Quarkus managed virtual threads executor.
+     * Only affects consumer callbacks, not publishing, heartbeats or NIO. Falls back to the worker pool when
+     * virtual threads are disabled ({@code quarkus.virtual-threads.enabled=false}) or not supported by the JVM.
+     */
+    @WithName("virtual-threads.enabled")
+    @WithDefault("false")
+    boolean virtualThreadsEnabled();
 
     /**
      * Tls configuration

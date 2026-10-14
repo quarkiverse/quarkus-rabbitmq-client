@@ -683,6 +683,32 @@ endif::add-copy-button-to-env-var[]
 a|`plain`, `external`
 |`+++plain+++`
 
+a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-virtual-threads-enabled]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-virtual-threads-enabled[`+++quarkus.rabbitmqclient.virtual-threads.enabled+++`]##
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient.virtual-threads.enabled+++[]
+endif::add-copy-button-to-config-props[]
+
+
+`+++quarkus.rabbitmqclient."client-name".virtual-threads.enabled+++`
+ifdef::add-copy-button-to-config-props[]
+config_property_copy_button:+++quarkus.rabbitmqclient."client-name".virtual-threads.enabled+++[]
+endif::add-copy-button-to-config-props[]
+
+[.description]
+--
+Dispatch consumer deliveries on virtual threads, using the Quarkus managed virtual threads executor. Only affects consumer callbacks, not publishing, heartbeats or NIO. Falls back to the worker pool when virtual threads are disabled (`quarkus.virtual-threads.enabled=false`) or not supported by the JVM.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_RABBITMQCLIENT_VIRTUAL_THREADS_ENABLED+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_RABBITMQCLIENT_VIRTUAL_THREADS_ENABLED+++`
+endif::add-copy-button-to-env-var[]
+--
+|boolean
+|`+++false+++`
+
 a| [[quarkus-rabbitmq-client_quarkus-rabbitmqclient-properties-property-name]] [.property-path]##link:#quarkus-rabbitmq-client_quarkus-rabbitmqclient-properties-property-name[`+++quarkus.rabbitmqclient.properties."property-name"+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.rabbitmqclient.properties."property-name"+++[]
