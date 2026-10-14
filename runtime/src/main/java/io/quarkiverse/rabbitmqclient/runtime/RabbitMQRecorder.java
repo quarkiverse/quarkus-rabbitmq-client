@@ -12,12 +12,14 @@ import com.rabbitmq.client.NoOpMetricsCollector;
 
 import io.opentelemetry.api.OpenTelemetry;
 import io.quarkiverse.rabbitmqclient.RabbitMQClient;
+import io.quarkiverse.rabbitmqclient.RabbitMQClientConfig;
 import io.quarkiverse.rabbitmqclient.RabbitMQClients;
 import io.quarkiverse.rabbitmqclient.RabbitMQClientsConfig;
 import io.quarkus.arc.SyntheticCreationalContext;
 import io.quarkus.runtime.LaunchMode;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import io.quarkus.virtual.threads.VirtualThreads;
 
 @Recorder
 public class RabbitMQRecorder {
@@ -46,9 +48,9 @@ public class RabbitMQRecorder {
         return ctx -> {
             RabbitMQClientParams params = new RabbitMQClientParams();
             params.setId(id);
-            params.setExecutorService(executorService);
             params.setLaunchMode(launchMode);
             params.setConfig(this.config.getValue().clients().get(configId));
+            params.setExecutorService(resolveExecutorService(ctx, params.getConfig(), executorService));
             params.setDefault(isDefault);
 
             return new RabbitMQClientImpl(params, new NoOpMetricsCollector());
@@ -62,9 +64,9 @@ public class RabbitMQRecorder {
         return ctx -> {
             RabbitMQClientParams params = new RabbitMQClientParams();
             params.setId(id);
-            params.setExecutorService(executorService);
             params.setLaunchMode(launchMode);
             params.setConfig(this.config.getValue().clients().get(configId));
+            params.setExecutorService(resolveExecutorService(ctx, params.getConfig(), executorService));
             params.setDefault(isDefault);
 
             return new RabbitMQClientImpl(params, new QuarkusMicrometerMetricsCollector(Map.of("name", id)));
@@ -78,12 +80,20 @@ public class RabbitMQRecorder {
         return ctx -> {
             RabbitMQClientParams params = new RabbitMQClientParams();
             params.setId(id);
-            params.setExecutorService(executorService);
             params.setLaunchMode(launchMode);
             params.setConfig(this.config.getValue().clients().get(configId));
+            params.setExecutorService(resolveExecutorService(ctx, params.getConfig(), executorService));
             params.setDefault(isDefault);
             return new RabbitMQClientImpl(params, new QuarkusOpenTelemetryMetricsCollector(
                     ctx.getInjectedReference(OpenTelemetry.class), Map.of("name", id)));
         };
+    }
+
+    private static ExecutorService resolveExecutorService(SyntheticCreationalContext<RabbitMQClient> ctx,
+            RabbitMQClientConfig clientConfig, ExecutorService executorService) {
+        if (clientConfig.virtualThreadsEnabled()) {
+            return ctx.getInjectedReference(ExecutorService.class, VirtualThreads.Literal.INSTANCE);
+        }
+        return executorService;
     }
 }

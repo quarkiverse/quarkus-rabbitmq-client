@@ -292,6 +292,11 @@ public class QuarkusRabbitmqReadyCheckTest {
             }
 
             @Override
+            public boolean virtualThreadsEnabled() {
+                return false;
+            }
+
+            @Override
             public TlsConfig tls() {
                 return null;
             }
