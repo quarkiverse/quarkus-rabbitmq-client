@@ -113,6 +113,24 @@ If credential is renewable and has "expires-at" will be create `com.rabbitmq.cli
 === Disabling Clients
 It is possible to disable clients using the `quarkus.rabbitmqclient.<client-name>.client-enabled=false` configuration property. To disable the default client, use `quarkus.rabbitmqclient.client-enabled=false`.
 
+=== Virtual Threads
+Consumer deliveries can be dispatched on virtual threads, using the Quarkus managed virtual threads executor. This is configured per client and disabled by default.
+
+```properties
+# default client
+quarkus.rabbitmqclient.virtual-threads.enabled=true
+# named client
+quarkus.rabbitmqclient.<name>.virtual-threads.enabled=true
+```
+
+Only consumer callbacks (e.g. `Consumer#handleDelivery`) run on virtual threads. Publishing, heartbeats and NIO are not affected. Deliveries on a single channel are still dispatched in order, one at a time.
+
+When virtual threads are disabled globally (`quarkus.virtual-threads.enabled=false`) or not supported by the JVM, consumer deliveries fall back to the worker pool.
+
+CAUTION: On JDK 21 to 23, blocking inside a `synchronized` block pins the virtual thread to its carrier thread. This applies to calling `Channel#waitForConfirms` from a consumer callback, as well as to your own code. JDK 24 and later (JEP 491) do not pin in this case.
+
+See the https://quarkus.io/guides/virtual-threads[Quarkus virtual threads guide] for configuring the virtual threads executor, such as thread name prefix and shutdown timeout.
+
 == Metrics
 Both Micrometer and OpenTelemetry Metrics are supported. Metrics are enabled by default. You can opt-out of metrics opt-out
 by specifying `quarkus.rabbitmqclient.metrics.enabled=false`. This will disable all metrics gathering.
