@@ -9,7 +9,7 @@ access to the connection but have to manage the channels. If you are looking for
 
 ## Documentation
 
-The documentation for this extension can be found [here](https://quarkiverse.github.io/quarkiverse-docs/quarkus-rabbitmq-client/dev/index.html) while the documentation for the RabbitMQ client itself is in the official [documentation](https://www.rabbitmq.com/java-client.html). When updating see the [changelog](CHANGELOG.md) for any migration notes.
+The documentation for this extension can be found [here](https://quarkiverse.github.io/quarkiverse-docs/quarkus-rabbitmq-client/dev/index.html) while the documentation for the RabbitMQ client itself is in the official [documentation](https://www.rabbitmq.com/java-client.html). When updating see the [changelog](https://github.com/quarkiverse/quarkus-rabbitmq-client/blob/main/CHANGELOG.md) for any migration notes.
 
 ## License
 This extension is licensed under the Apache License 2.0.
