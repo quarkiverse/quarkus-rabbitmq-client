@@ -1,0 +1,70 @@
+name: Changelog
+
+# Release PRs (changing .github/project.yml) must have a "## <current-version>" entry in CHANGELOG.md on main.
+# Runs on every PR so it can be a required check; PRs not touching .github/project.yml pass immediately.
+# See RELEASING.md on main.
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  changelog:
+    name: Changelog entry
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Check changelog entry
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          BASE_REF: ${{ github.base_ref }}
+          RELEASING_URL: https://github.com/${{ github.repository }}/blob/main/RELEASING.md
+        run: |
+          # HEAD is the PR merge commit, HEAD^1 the base branch
+          if ! git diff --name-only HEAD^1 HEAD | grep -x '.github/project.yml' > /dev/null; then
+            echo "Not a release PR, nothing to check."
+            exit 0
+          fi
+
+          version=$(yq '.release["current-version"]' .github/project.yml)
+
+          # Main releases carry the entry in the release PR itself, LTS releases need it on main first
+          if [ "$BASE_REF" = "main" ]; then
+            changelog=$(cat CHANGELOG.md)
+          else
+            changelog=$(git show origin/main:CHANGELOG.md)
+          fi
+
+          previous_tag=$(git describe --tags --abbrev=0 HEAD^1)
+          since=$(TZ=UTC git log -1 --date=format-local:%Y-%m-%dT%H:%M:%SZ --format=%cd "$previous_tag")
+          {
+            echo "## Changelog entry for ${version}"
+            echo
+            echo "PRs merged into \`${BASE_REF}\` since \`${previous_tag}\` labeled enhancement, bug or breaking-change:"
+            echo
+            gh pr list --base "$BASE_REF" --state merged --search "merged:>${since}" --limit 200 \
+              --json number,title,labels \
+              --jq '.[] | select(any(.labels[].name; . == "enhancement" or . == "bug" or . == "breaking-change"))
+                       | "* #\(.number) \(.title) (\([.labels[].name] | join(", ")))"'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if ! grep -qxF "## ${version}" <<< "$changelog"; then
+            echo "::error file=CHANGELOG.md::No '## ${version}' entry in CHANGELOG.md on main. See ${RELEASING_URL}"
+            exit 1
+          fi
+          echo "Found '## ${version}' in CHANGELOG.md."
