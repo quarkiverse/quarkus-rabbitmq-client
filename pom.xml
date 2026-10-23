@@ -14,7 +14,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <quarkus.version>3.33.4</quarkus.version>
+        <quarkus.version>3.33.4.1</quarkus.version>
         <exec-plugin.version>3.6.4</exec-plugin.version>
         <amqp-client.version>5.29.0</amqp-client.version>
         <assertj.version>3.27.7</assertj.version>
