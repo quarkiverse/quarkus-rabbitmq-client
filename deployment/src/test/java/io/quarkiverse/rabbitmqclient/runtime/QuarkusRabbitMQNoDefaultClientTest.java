@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import jakarta.inject.Inject;
+
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Assertions;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.quarkiverse.rabbitmqclient.NamedRabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClient;
+import io.quarkiverse.rabbitmqclient.RabbitMQClients;
 import io.quarkiverse.rabbitmqclient.util.OtherClientService;
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.InjectableBean;
@@ -28,6 +31,15 @@ public class QuarkusRabbitMQNoDefaultClientTest extends RabbitMQConfigTest {
                     .addClasses(OtherClientService.class)
                     .addAsResource(QuarkusRabbitMQNoDefaultClientTest.class.getResource("/no-default.properties"),
                             "application.properties"));
+
+    @Inject
+    RabbitMQClients rabbitMQClients;
+
+    @Test
+    public void clientsContainsNamedClient() {
+        Assertions.assertEquals(List.of("other"), rabbitMQClients.getClientIds());
+        Assertions.assertNotNull(rabbitMQClients.getClient("other"));
+    }
 
     @Test
     public void haveOnlyOneClient() {

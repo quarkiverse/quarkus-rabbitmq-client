@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.function.Function;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Any;
 import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Singleton;
@@ -108,7 +109,8 @@ class QuarkusRabbitMQClientProcessor {
                 .addQualifier(Default.class)
                 .addInjectionPoint(ParameterizedType.builder(Instance.class)
                         .addArgument(RabbitMQClient.class)
-                        .build())
+                        .build(),
+                        AnnotationInstance.builder(Any.class).build())
                 .setRuntimeInit()
                 .createWith(recorder.initClients(defaultClientId))
                 .done());

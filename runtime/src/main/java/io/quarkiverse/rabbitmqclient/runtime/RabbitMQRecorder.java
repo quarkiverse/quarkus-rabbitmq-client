@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Function;
 
+import jakarta.enterprise.inject.Any;
 import jakarta.enterprise.inject.Instance;
 import jakarta.enterprise.util.TypeLiteral;
 
@@ -33,7 +34,7 @@ public class RabbitMQRecorder {
     public Function<SyntheticCreationalContext<RabbitMQClients>, RabbitMQClients> initClients(String defaultId) {
         return ctx -> {
             Instance<RabbitMQClient> clients = ctx.getInjectedReference(new TypeLiteral<Instance<RabbitMQClient>>() {
-            });
+            }, Any.Literal.INSTANCE);
             Map<String, RabbitMQClient> resolvedClients = new HashMap<>();
             for (RabbitMQClient client : clients) {
                 resolvedClients.put(client.getId(), client);
