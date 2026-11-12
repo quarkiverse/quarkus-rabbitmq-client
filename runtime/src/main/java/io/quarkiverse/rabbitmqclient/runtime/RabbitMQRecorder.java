@@ -1,5 +1,6 @@
 package io.quarkiverse.rabbitmqclient.runtime;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -9,6 +10,9 @@ import jakarta.enterprise.inject.Any;
 import jakarta.enterprise.inject.Instance;
 import jakarta.enterprise.util.TypeLiteral;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.rabbitmq.client.NoOpMetricsCollector;
 
 import io.opentelemetry.api.OpenTelemetry;
@@ -16,6 +20,8 @@ import io.quarkiverse.rabbitmqclient.RabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClientConfig;
 import io.quarkiverse.rabbitmqclient.RabbitMQClients;
 import io.quarkiverse.rabbitmqclient.RabbitMQClientsConfig;
+import io.quarkus.arc.Arc;
+import io.quarkus.arc.ArcContainer;
 import io.quarkus.arc.SyntheticCreationalContext;
 import io.quarkus.runtime.LaunchMode;
 import io.quarkus.runtime.RuntimeValue;
@@ -24,6 +30,8 @@ import io.quarkus.virtual.threads.VirtualThreads;
 
 @Recorder
 public class RabbitMQRecorder {
+
+    private static final Logger log = LoggerFactory.getLogger(RabbitMQRecorder.class);
 
     private final RuntimeValue<RabbitMQClientsConfig> config;
 
@@ -88,6 +96,23 @@ public class RabbitMQRecorder {
             return new RabbitMQClientImpl(params, new QuarkusOpenTelemetryMetricsCollector(
                     ctx.getInjectedReference(OpenTelemetry.class), Map.of("name", id)));
         };
+    }
+
+    /**
+     * Closes all RabbitMQ clients. Invoked from a service stop handler, before the main executor is shut down.
+     */
+    public static void closeClients() {
+        ArcContainer container = Arc.container();
+        if (container == null) {
+            return;
+        }
+        for (RabbitMQClient client : container.select(RabbitMQClient.class, Any.Literal.INSTANCE)) {
+            try {
+                client.close();
+            } catch (IOException | RuntimeException e) {
+                log.warn("Failed to close RabbitMQ client {}.", client.getId(), e);
+            }
+        }
     }
 
     private static ExecutorService resolveExecutorService(SyntheticCreationalContext<RabbitMQClient> ctx,

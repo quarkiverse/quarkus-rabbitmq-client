@@ -60,6 +60,9 @@ class RabbitMQClientImpl implements RabbitMQClient {
      * {@inheritDoc}
      */
     public void close() {
+        // snapshot and clear so a repeated close (shutdown observer, then bean destruction) is a no-op
+        Map<String, Connection> connections = new HashMap<>(this.connections);
+        this.connections.clear();
         CountDownLatch cdl = new CountDownLatch(connections.size());
         ShutdownListener l = cause -> {
             cdl.countDown();

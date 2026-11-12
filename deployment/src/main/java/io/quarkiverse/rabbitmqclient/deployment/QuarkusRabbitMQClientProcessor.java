@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Function;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -26,6 +27,8 @@ import io.quarkus.arc.deployment.BeanArchiveIndexBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.arc.deployment.ValidationPhaseBuildItem;
 import io.quarkus.arc.processor.DotNames;
+import io.quarkus.core.Phase;
+import io.quarkus.core.deployment.service.ServiceRegistrar;
 import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.Capability;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -68,9 +71,23 @@ class QuarkusRabbitMQClientProcessor {
                 .produce(AdditionalBeanBuildItem.builder().addBeanClass(NamedRabbitMQClient.class).build());
     }
 
+    /**
+     * Closes all clients while the main executor is still running. Closing a connection dispatches shutdown signals
+     * to consumers on that executor; bean destruction ({@code autoClose}) happens after it has been shut down.
+     * The service stops after the {@code ShutdownEvent} has been fired and before the executor is shut down.
+     */
+    @BuildStep
+    void closeClientsOnShutdown(ServiceRegistrar reg, ExecutorBuildItem executorBuildItem) {
+        reg.forService("io.quarkiverse.rabbitmqclient.close-clients")
+                .atPhase(Phase.INFRASTRUCTURE)
+                .after(ScheduledExecutorService.class)
+                .before("io.quarkus.arc.startup-event")
+                .onStart(ctx -> ctx.onStop(RabbitMQRecorder::closeClients));
+    }
+
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
-    void produceOidcClientBeans(RabbitMQRecorder recorder, List<QuarkusRabbitMQClientBuildItem> resolvedClients,
+    void produceClientBeans(RabbitMQRecorder recorder, List<QuarkusRabbitMQClientBuildItem> resolvedClients,
             BuildProducer<SyntheticBeanBuildItem> syntheticBean,
             LaunchModeBuildItem launchModeBuildItem,
             ExecutorBuildItem executorBuildItem) {
