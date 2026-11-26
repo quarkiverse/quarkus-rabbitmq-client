@@ -17,13 +17,14 @@ import com.rabbitmq.client.ShutdownListener;
 
 import io.quarkiverse.rabbitmqclient.RabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClientConfig;
+import io.quarkiverse.rabbitmqclient.core.runtime.CloseableClient;
 
 /**
  * RabbitMQ client implementation for {@link RabbitMQClient}
  *
  * @author b.passon
  */
-class RabbitMQClientImpl implements RabbitMQClient {
+class RabbitMQClientImpl implements RabbitMQClient, CloseableClient {
 
     private static final Logger log = LoggerFactory.getLogger(RabbitMQClientImpl.class);
 

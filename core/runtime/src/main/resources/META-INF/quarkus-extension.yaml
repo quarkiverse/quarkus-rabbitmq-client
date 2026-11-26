@@ -1,0 +1,5 @@
+---
+name: "RabbitMQ Client Core"
+description: "Protocol-neutral internals shared by the Quarkus RabbitMQ client extensions"
+metadata:
+  unlisted: true

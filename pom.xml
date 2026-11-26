@@ -28,6 +28,7 @@
         <tag>HEAD</tag>
     </scm>
     <modules>
+        <module>core</module>
         <module>deployment</module>
         <module>runtime</module>
     </modules>

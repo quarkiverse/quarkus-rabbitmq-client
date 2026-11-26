@@ -1,10 +1,6 @@
 package io.quarkiverse.rabbitmqclient.runtime;
 
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -12,14 +8,13 @@ import jakarta.inject.Inject;
 
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
-import org.eclipse.microprofile.health.HealthCheckResponseBuilder;
 import org.eclipse.microprofile.health.Readiness;
-
-import com.rabbitmq.client.Address;
 
 import io.quarkiverse.rabbitmqclient.RabbitMQClient;
 import io.quarkiverse.rabbitmqclient.RabbitMQClientConfig;
 import io.quarkiverse.rabbitmqclient.RabbitMQClients;
+import io.quarkiverse.rabbitmqclient.core.runtime.BrokerAddress;
+import io.quarkiverse.rabbitmqclient.core.runtime.ClientsHealthCheck;
 import io.quarkus.arc.ClientProxy;
 
 /**
@@ -38,34 +33,8 @@ public class RabbitMQHealthCheck implements HealthCheck {
 
     @Override
     public HealthCheckResponse call() {
-        return checkAllBrokers();
-    }
-
-    private HealthCheckResponse checkAllBrokers() {
-        // We can report UP if all brokers are UP.
-        // A broker is considered UP if one or more of its associated
-        //   addresses is reachable.
-
-        Map<String, List<ClientStatus>> data = new HashMap<>();
-        resolveEnabledClients()
-                .forEach((n, c) -> appendClientState(data, n, c));
-
-        HealthCheckResponseBuilder builder = HealthCheckResponse.builder();
-        builder.name(HEALTH_CHECK_NAME);
-        builder.status(data.values().stream()
-                .allMatch(clientStatuses -> clientStatuses.stream().anyMatch(ClientStatus::isUp)));
-        data.forEach((name, clientStatuses) -> {
-            String prefix = !name.isEmpty() ? name + "|" : name;
-            clientStatuses.forEach(cs -> {
-                builder.withData(prefix + cs.getAddress(), cs.getStatus());
-            });
-        });
-        return builder.build();
-    }
-
-    private Map<String, RabbitMQClientConfig> resolveEnabledClients() {
-        return clients.getClientIds().stream()
-                .collect(Collectors.toMap(e -> e, this::resolveConfig));
+        return ClientsHealthCheck.check(HEALTH_CHECK_NAME, clients.getClientIds().stream()
+                .collect(Collectors.toMap(id -> id, id -> resolveBrokerAddresses(resolveConfig(id)))));
     }
 
     private RabbitMQClientConfig resolveConfig(String id) {
@@ -76,45 +45,9 @@ public class RabbitMQHealthCheck implements HealthCheck {
         return ((RabbitMQClientImpl) ClientProxy.unwrap(client)).getConfig();
     }
 
-    private void appendClientState(Map<String, List<ClientStatus>> data, String name, RabbitMQClientConfig config) {
-        data.putIfAbsent(name, new ArrayList<>());
-        RabbitMQHelper.resolveBrokerAddresses(config)
-                .forEach((a) -> {
-                    if (isBrokerAvailable(a)) {
-                        data.get(name).add(new ClientStatus(a, true));
-                    } else {
-                        data.get(name).add(new ClientStatus(a, false));
-                    }
-                });
-    }
-
-    private boolean isBrokerAvailable(Address address) {
-        try (Socket s = new Socket(address.getHost(), address.getPort())) {
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    private static final class ClientStatus {
-        private final Address address;
-        private final boolean isUp;
-
-        public ClientStatus(Address address, boolean isUp) {
-            this.address = address;
-            this.isUp = isUp;
-        }
-
-        public boolean isUp() {
-            return isUp;
-        }
-
-        public Address getAddress() {
-            return address;
-        }
-
-        public String getStatus() {
-            return isUp ? HealthCheckResponse.Status.UP.name() : HealthCheckResponse.Status.DOWN.name();
-        }
+    private static List<BrokerAddress> resolveBrokerAddresses(RabbitMQClientConfig config) {
+        return RabbitMQHelper.resolveBrokerAddresses(config).stream()
+                .map(a -> new BrokerAddress(a.getHost(), a.getPort()))
+                .toList();
     }
 }
