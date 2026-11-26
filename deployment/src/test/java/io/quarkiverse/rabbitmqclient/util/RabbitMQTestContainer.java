@@ -17,7 +17,7 @@ public class RabbitMQTestContainer implements QuarkusTestResourceLifecycleManage
     private static final String USERNAME = "test.username";
     private static final String PASSWORD = "test.password";
 
-    private final MountableFile keyFile = MountableFile.forClasspathResource("/rabbitmq/server/key.pem");
+    private final MountableFile keyFile = MountableFile.forClasspathResource("/rabbitmq/server/key.pem", 0644);
     private final MountableFile certFile = MountableFile.forClasspathResource("/rabbitmq/server/cert.pem");
     private final MountableFile caFile = MountableFile.forClasspathResource("/rabbitmq/ca/cacert.pem");
     private final MountableFile tlsConfFile = MountableFile.forClasspathResource("/rabbitmq/tls.conf");
