@@ -110,8 +110,6 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <argLine>@{argLine}</argLine>
-                            <!--                            <argLine>@{argLine} -javaagent:"${org.mockito:mockito-core:jar}"</argLine>-->
                             <systemPropertyVariables>
                                 <native.image.path>${project.build.directory}/${project.build.finalName}-runner
                                 </native.image.path>

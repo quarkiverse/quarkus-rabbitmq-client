@@ -18,6 +18,8 @@
         <exec-plugin.version>3.6.4</exec-plugin.version>
         <amqp-client.version>5.37.1</amqp-client.version>
         <assertj.version>3.27.7</assertj.version>
+        <!-- empty default so @{argLine} resolves; the Quarkus Maven extension appends to it where active -->
+        <argLine></argLine>
     </properties>
     <scm>
         <connection>scm:git:git@github.com:quarkiverse/quarkus-rabbitmq-client.git</connection>
@@ -52,6 +54,20 @@
                     <groupId>io.quarkus</groupId>
                     <artifactId>quarkus-config-doc-maven-plugin</artifactId>
                     <version>${quarkus.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <argLine>@{argLine} --add-opens=java.base/java.lang.invoke=ALL-UNNAMED</argLine>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <configuration>
+                        <argLine>@{argLine} --add-opens=java.base/java.lang.invoke=ALL-UNNAMED</argLine>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
