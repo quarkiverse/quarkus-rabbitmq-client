@@ -24,7 +24,7 @@ public final class ConsumerThreadProbe {
     public static Thread consumeOnThread(RabbitMQClient client, String queue) throws Exception {
         try (Connection connection = client.connect("vt-test-connection")) {
             Channel channel = connection.createChannel();
-            channel.queueDeclare(queue, false, false, true, null);
+            channel.queueDeclare(queue, false, true, true, null);
             CompletableFuture<Thread> consumerThread = new CompletableFuture<>();
             channel.basicConsume(queue, true, new DefaultConsumer(channel) {
                 @Override
