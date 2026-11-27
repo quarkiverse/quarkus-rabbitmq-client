@@ -1,62 +1,40 @@
 package io.quarkiverse.rabbitmqclient.runtime;
 
-import static io.quarkus.credentials.CredentialsProvider.EXPIRATION_TIMESTAMP_PROPERTY_NAME;
-import static io.quarkus.credentials.CredentialsProvider.PASSWORD_PROPERTY_NAME;
-import static io.quarkus.credentials.CredentialsProvider.USER_PROPERTY_NAME;
-
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Map;
 
+import io.quarkiverse.rabbitmqclient.core.runtime.RefreshingCredentials;
 import io.quarkus.credentials.CredentialsProvider;
 
+/**
+ * Adapts a Quarkus {@link CredentialsProvider} to the AMQP 0-9-1 client's credentials provider.
+ */
 public class CredentialsProviderLink implements com.rabbitmq.client.impl.CredentialsProvider {
 
-    private final CredentialsProvider credentialsProvider;
-    private final String credentialsProviderName;
-    private String username;
-    private String password;
-    private Instant expiresAt;
+    private final RefreshingCredentials credentials;
 
     public CredentialsProviderLink(CredentialsProvider credentialsProvider, String credentialsProviderName) {
-        this.credentialsProvider = credentialsProvider;
-        this.credentialsProviderName = credentialsProviderName;
-        refresh();
-    }
-
-    private void refreshIfExpired() {
-        if (expiresAt != null && expiresAt.isAfter(Instant.now())) {
-            return;
-        }
-        refresh();
+        this.credentials = new RefreshingCredentials(credentialsProvider, credentialsProviderName);
     }
 
     @Override
     public String getUsername() {
-        refreshIfExpired();
-        return username;
+        return credentials.getUsername();
     }
 
     @Override
     public String getPassword() {
-        refreshIfExpired();
-        return password;
+        return credentials.getPassword();
     }
 
     @Override
     public Duration getTimeBeforeExpiration() {
-        return expiresAt != null ? Duration.between(Instant.now(), expiresAt) : null;
+        return credentials.getTimeBeforeExpiration();
     }
 
     @Override
     public void refresh() {
-        Map<String, String> credentials = credentialsProvider.getCredentials(credentialsProviderName);
-        username = credentials.get(USER_PROPERTY_NAME);
-        password = credentials.get(PASSWORD_PROPERTY_NAME);
-        String expirationTimestamp;
-        if ((expirationTimestamp = credentials.get(EXPIRATION_TIMESTAMP_PROPERTY_NAME)) != null) {
-            expiresAt = Instant.parse(expirationTimestamp);
-        }
+        credentials.refresh();
     }
 
     public String getDefaultExpiresAt() {
